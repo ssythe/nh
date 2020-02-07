@@ -1,0 +1,174 @@
+import { deflateSync } from "zlib"
+
+import { SmartBuffer } from "smart-buffer"
+
+import * as uintv from "./uintv"
+
+import Game from "../../class/game"
+
+import Player from "../../class/player"
+
+import { Socket } from "dgram"
+
+export interface PacketBuilderOptions {
+    compression?: boolean,
+    socket?: Player["socket"],
+    broadcast?: boolean,
+    broadcastExcept?: Array<Player>,
+    returnPacketBuilder?: boolean,
+}
+
+export enum PacketEnums {
+    Authentication = 1,
+
+    SendBrick = 2,
+
+    SendPlayers = 3,
+
+    Figure = 4,
+
+    RemovePlayer = 5,
+
+    Chat = 6,
+
+    PlayerModification = 7,
+
+    Kill = 8,
+
+    Brick = 9,
+
+    Team = 10,
+
+    Tool = 11,
+
+    Bot = 12,
+
+    ClearMap = 14,
+
+    DestroyBot = 15,
+}
+
+export default class PacketBuilder {
+    packetId: number
+
+    compression: boolean
+
+    buffer: SmartBuffer
+
+    options: PacketBuilderOptions
+
+    private _packetData: Buffer
+
+    constructor(packetType: keyof typeof PacketEnums | PacketEnums) {
+        if (typeof packetType === "string")
+            this.packetId = PacketEnums[packetType]
+        else
+            this.packetId = packetType
+
+        this.buffer = new SmartBuffer()
+
+        this.write("uint8", this.packetId)
+
+        this.options = {}
+    }
+
+    write(type: string, data: any) {
+        switch (type) {
+            case "string": {
+                this.buffer.writeStringNT(data)
+                break
+            }
+            case "bool": {
+                data = data ? 1 : 0
+                this.buffer.writeUInt8(data)
+                break
+            }
+            case "float": {
+                this.buffer.writeFloatLE(data)
+                break   
+            }
+            case "uint8": {
+                this.buffer.writeUInt8(data)
+                break
+            }
+            case "uint32": {
+                this.buffer.writeUInt32LE(data)
+                break
+            }
+        }
+        return this
+    }
+
+    parseOptions(options: PacketBuilderOptions) {
+        if (options.socket)
+            return this.send(options.socket)
+
+        if (options.broadcast)
+            return this.broadcast()
+
+        if (options.broadcastExcept)
+            return this.broadcastExcept(options.broadcastExcept)
+
+        if (options.returnPacketBuilder)
+            return this
+    }
+
+    // Convert SmartBuffer to a buffer, compress it, and add uintv size to header.
+    private transformPacket() {
+        let packet = this.buffer.toBuffer()
+        packet = deflateSync(packet)
+        return uintv.writeUIntv(packet) // Prefix buffer with the length of the message.
+    }
+
+    /** 
+     * Send a packet to every connected client except for players specified.
+    */
+    async broadcastExcept(players: Array<Player>) {
+        const packet = this.transformPacket()
+
+        let promises = []
+
+        for (let player of Game.players) {
+            if (!players.includes(player)) {
+                promises.push(new Promise((resolve) => {
+                    if (!player.socket.destroyed)
+                        player.socket.write(packet, null, resolve)
+                }))
+            }
+        }
+
+        return Promise.all(promises)
+    }
+
+    /**
+     * Send a packet to every connected client.
+     */
+    async broadcast() {
+        const packet = this.transformPacket()
+
+        let promises = []
+
+        for (const player of Game.players) {
+            if (!player.socket.destroyed) {
+                promises.push(new Promise((resolve) => {
+                    player.socket.write(packet, null, resolve)
+                }))
+            }
+        }
+
+        return Promise.all(promises)
+    }
+
+    /**
+     * Send a packet to a single client.
+    */
+   async send(socket: Player["socket"]): Promise<void> {
+        const packet = this.transformPacket()
+
+        if (socket.destroyed) return
+
+        socket.write(packet, null, () => {
+            return Promise.resolve()
+        })
+    }
+}
