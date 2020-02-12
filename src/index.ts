@@ -197,6 +197,8 @@ function loadScripts() {
 
     if (Game.coreScriptsDisabled[0] !== "*")
         vmLoadCoreScripts(vm)
+    else
+        console.log("[*] All Core Scripts disabled.")
 
     if (Game.userScripts)
         vmLoadScriptsInDir(vm, Game.userScripts)

@@ -10,7 +10,7 @@ import Brick from "./brick"
 
 import * as scripts from "../scripts"
 
-import PacketBuilder, { PacketEnums, PacketBuilderOptions } from "../util/net/packetBuilder"
+import PacketBuilder, { PacketEnums } from "../util/net/packetBuilder"
 
 import createPlayerIds from "../net/createPlayerIds"
 
@@ -463,9 +463,9 @@ export default class Player extends EventEmitter {
         return scripts.message.messageClient(this.socket, message)
     }
     
-    setOutfit(outfit: Outfit, packetOptions: PacketBuilderOptions = { broadcast: true }) {
-        let packet = createPlayerIds(this, outfit.idString)
-        return packet.parseOptions(packetOptions)
+    async setOutfit(outfit: Outfit) {
+        return createPlayerIds(this, outfit.idString)
+            .broadcast()
     }
 
     /** Sets the players health. If the health provided is larger than maxHealth, maxHealth will automatically be \
@@ -483,20 +483,17 @@ export default class Player extends EventEmitter {
         }
     }
 
-    setScore(score: number, packetOptions: PacketBuilderOptions = { broadcast: true }) {
-        this.score = score
+    async setScore(score: number) {
+        this.score = score 
 
-        let packetBuilder = createPlayerIds(this, "X")
-
-        return packetBuilder.parseOptions(packetOptions)
+        return createPlayerIds(this, "X")
+            .broadcast()
     }
 
-    setTeam(team: Team, packetOptions: PacketBuilderOptions = { broadcast: true }) {
+    async setTeam(team: Team) {
         this.team = team
-    
-        let packet = createPlayerIds(this, "Y")
-
-        return packet.parseOptions(packetOptions)
+        return createPlayerIds(this, "Y")
+            .broadcast()
     }
 
     private _greet() {
@@ -619,12 +616,11 @@ export default class Player extends EventEmitter {
             .broadcast()
     }
     
-    setSpeech(speech = "", packetOptions: PacketBuilderOptions = { broadcastExcept: this.getBlockedPlayers() }) {
+    async setSpeech(speech = "") {
         this.speech = speech
-        
-        let packet = createPlayerIds(this, "f")
 
-        return packet.parseOptions(packetOptions)
+        return createPlayerIds(this, "f")
+            .broadcastExcept(this.getBlockedPlayers())
     }
 
     async setSpeed(speedValue: number) {
@@ -722,12 +718,12 @@ export default class Player extends EventEmitter {
         return packet.send(this.socket)
     }
 
-    setScale(scale: Vector3, packetOptions: PacketBuilderOptions = { broadcast: true }) {
+    async setScale(scale: Vector3) {
         this.scale = new Vector3().fromVector(scale)
 
-        let packet = createPlayerIds(this, "GHI")
+        let packetBuilder = createPlayerIds(this, "GHI")
 
-        return packet.parseOptions(packetOptions)
+        return packetBuilder.broadcast()
     }
 
     /**

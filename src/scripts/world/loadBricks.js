@@ -5,7 +5,7 @@ const PacketBuilder = require("../../util/net/packetBuilder").default
 function loadBricks(bricks = []) {
     if (!bricks.length) return
 
-    const packet = new PacketBuilder("SendBrick")
+    const packet = new PacketBuilder("SendBrick", { compression: true })
 
     for (let brick of bricks)
         addBrickProperties(packet, brick)

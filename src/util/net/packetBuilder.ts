@@ -8,14 +8,8 @@ import Game from "../../class/game"
 
 import Player from "../../class/player"
 
-import { Socket } from "dgram"
-
 export interface PacketBuilderOptions {
-    compression?: boolean,
-    socket?: Player["socket"],
-    broadcast?: boolean,
-    broadcastExcept?: Array<Player>,
-    returnPacketBuilder?: boolean,
+    compression?: boolean
 }
 
 export enum PacketEnums {
@@ -50,16 +44,11 @@ export enum PacketEnums {
 
 export default class PacketBuilder {
     packetId: number
-
     compression: boolean
-
     buffer: SmartBuffer
-
     options: PacketBuilderOptions
 
-    private _packetData: Buffer
-
-    constructor(packetType: keyof typeof PacketEnums | PacketEnums) {
+    constructor(packetType: keyof typeof PacketEnums | PacketEnums, options?: PacketBuilderOptions) {
         if (typeof packetType === "string")
             this.packetId = PacketEnums[packetType]
         else
@@ -67,9 +56,11 @@ export default class PacketBuilder {
 
         this.buffer = new SmartBuffer()
 
-        this.write("uint8", this.packetId)
+        this.options = options || {
+            compression: false
+        }
 
-        this.options = {}
+        this.write("uint8", this.packetId)
     }
 
     write(type: string, data: any) {
@@ -99,24 +90,13 @@ export default class PacketBuilder {
         return this
     }
 
-    parseOptions(options: PacketBuilderOptions) {
-        if (options.socket)
-            return this.send(options.socket)
-
-        if (options.broadcast)
-            return this.broadcast()
-
-        if (options.broadcastExcept)
-            return this.broadcastExcept(options.broadcastExcept)
-
-        if (options.returnPacketBuilder)
-            return this
-    }
-
     // Convert SmartBuffer to a buffer, compress it, and add uintv size to header.
     private transformPacket() {
         let packet = this.buffer.toBuffer()
-        packet = deflateSync(packet)
+
+        if (this.options.compression)
+            packet = deflateSync(packet)
+            
         return uintv.writeUIntv(packet) // Prefix buffer with the length of the message.
     }
 
