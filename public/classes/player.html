@@ -119,6 +119,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="player.html#jumppower" class="tsd-kind-icon">jump<wbr>Power</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="player.html#loadavatar" class="tsd-kind-icon">load<wbr>Avatar</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="player.html#loadtool" class="tsd-kind-icon">load<wbr>Tool</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="player.html#localbricks" class="tsd-kind-icon">local<wbr>Bricks</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="player.html#maxhealth" class="tsd-kind-icon">max<wbr>Health</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="player.html#membershiptype" class="tsd-kind-icon">membership<wbr>Type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="player.html#muted" class="tsd-kind-icon">muted</a></li>
@@ -558,6 +559,18 @@
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>If set to false, the player will not spawn with their tool equipped. <br>loadAvatar MUST be enabled for this to work.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="localbricks" class="tsd-anchor"></a>
+					<h3>local<wbr>Bricks</h3>
+					<div class="tsd-signature tsd-kind-icon">local<wbr>Bricks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An array containing bricks assigned to the player.</p>
 						</div>
 					</div>
 				</section>
@@ -1635,7 +1648,7 @@
 					<a name="ownsasset" class="tsd-anchor"></a>
 					<h3>owns<wbr>Asset</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">owns<wbr>Asset<span class="tsd-signature-symbol">(</span>assetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">owns<wbr>Asset<span class="tsd-signature-symbol">(</span>assetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1657,7 +1670,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>assetId: <span class="tsd-signature-type">boolean</span></h5>
+									<h5>assetId: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -2498,6 +2511,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="player.html#loadtool" class="tsd-kind-icon">load<wbr>Tool</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="player.html#localbricks" class="tsd-kind-icon">local<wbr>Bricks</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="player.html#maxhealth" class="tsd-kind-icon">max<wbr>Health</a>

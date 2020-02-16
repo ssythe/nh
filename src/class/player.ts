@@ -254,6 +254,11 @@ export default class Player extends EventEmitter {
      */
     spawnPosition?: Vector3
 
+    /**
+     * An array containing bricks assigned to the player.
+     */
+    localBricks: Array<Brick>
+
     static playerId: number = 0
 
     constructor(socket) {
@@ -266,6 +271,8 @@ export default class Player extends EventEmitter {
         this.netId = Player.playerId
 
         this._steps = []
+
+        this.localBricks = []
 
         this.inventory = []
 
@@ -702,6 +709,8 @@ export default class Player extends EventEmitter {
     async newBrick(brick: Brick) {
         // This is a local brick, attach the player's socket.
         brick.socket = this.socket
+
+        this.localBricks.push(brick)
         
         const packet = new PacketBuilder(PacketEnums.SendBrick)
         
@@ -764,7 +773,7 @@ export default class Player extends EventEmitter {
      * })
     ``` 
      */
-    async ownsAsset(assetId: boolean): Promise<boolean> {
+    async ownsAsset(assetId: number): Promise<boolean> {
         return scripts.playerOwnsAsset(this.userId, assetId)
     }
 

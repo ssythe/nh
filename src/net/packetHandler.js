@@ -117,11 +117,20 @@ async function packetHandler(socket, packet) {
 
                 let brick = Game.world.bricks.find(brick => brick.netId === brickId)
 
-                if (brick && brick.clickable) {
-                    // Just incase.
-                    if (brick.socket && (player.socket !== brick.socket)) return
+                if (brick && brick.clickable)
+                    return brick.emit("clicked", player)
 
-                    brick.emit("clicked", player)
+                // The brick might be local.
+                for (let player of Game.players) {
+                    let localBricks = player.localBricks
+                    if (!localBricks.length) continue
+
+                    let localBrick = localBricks.find(brick => brick.netId === brickId)
+                    if (localBrick && localBrick.clickable) {
+                        // In case someone calls multiple player.newBrick with the same brick.
+                        if (localBrick.socket === player.socket)
+                            return localBrick.emit("clicked", player)
+                    }
                 }
             } catch (err) {
                 return false

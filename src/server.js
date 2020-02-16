@@ -69,6 +69,11 @@ async function socketConnection(client) {
         if (!client.destroyed)
             client.destroy()
     })
+
+    // If the player fails to authenticate after 20 seconds.
+    setTimeout(() => {
+        if (!client.player) client.destroy()
+    }, 20000)
 }
 
 let SERVER_LISTEN_ADDRESS = "0.0.0.0"

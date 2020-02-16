@@ -221,6 +221,13 @@ export default class Brick extends EventEmitter {
             // The brick is in Game.world.bricks, remove it.
             if (index !== -1)
                 bricks.splice(index, 1)
+        } else { // This is a local brick
+            const locals = this.socket.player.localBricks
+
+            const index = locals.indexOf(this)
+
+            if (index !== -1)
+                locals.splice(index, 1)
         }
 
         this.destroyed = true
@@ -297,6 +304,9 @@ export default class Brick extends EventEmitter {
     * ```
     */
     clicked(callback: (player: Player, secure ?: boolean) => void): Disconnectable {
+        if (!this.clickable)    
+            this.setClickable(true, this.clickDistance)
+
         let clickEvent = (p) => {
             let secure = false
 

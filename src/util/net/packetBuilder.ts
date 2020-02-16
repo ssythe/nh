@@ -96,8 +96,8 @@ export default class PacketBuilder {
 
         if (this.options.compression)
             packet = deflateSync(packet)
-            
-        return uintv.writeUIntv(packet) // Prefix buffer with the length of the message.
+
+        return uintv.writeUIntv(packet)
     }
 
     /** 

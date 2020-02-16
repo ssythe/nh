@@ -13,7 +13,7 @@ function addBrickProperties(packet, brick) {
 
     packet.write("string", properties + "\r\n")
 
-    packet.write("string", `\t+NAME ${brick.netId}\r\n`)
+    packet.write("string", `\t+NAME ${brick.brickId}\r\n`)
 
     if (brick.shape)
         packet.write("string", `\t+SHAPE ${brick.shape}\r\n`)

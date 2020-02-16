@@ -418,6 +418,7 @@ export class Game extends EventEmitter {
     async clearMap() {
         this.world.bricks = []
         return new PacketBuilder(PacketEnums.ClearMap)
+            .write("bool", true) // There's a bug with packets that contain no data.
             .broadcast()
     }
 

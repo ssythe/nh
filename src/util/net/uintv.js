@@ -33,6 +33,7 @@ function readUIntv(buffer) {
 */
 function writeUIntv(buffer, offset){
 	const length = buffer.length
+	
 	// 1 Byte
 	if (length < 0x80) {
 		const size = Buffer.alloc(1)
