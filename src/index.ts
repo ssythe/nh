@@ -33,8 +33,6 @@ const NPM_LATEST_VERSION = "https://registry.npmjs.org/node-hill/latest"
 
 const CORE_DIRECTORY = resolve(__dirname, "./core_scripts")
 
-let builtinModules = []
-
 export interface Utilies {
     /** Returns a random hex string. */
     randomHexColor: () => string
@@ -188,9 +186,10 @@ function loadScripts() {
     let VM_SETTINGS: NodeVMOptions = {
         require: { 
             external: true,
-            builtin: builtinModules,
+            context: "sandbox",
+            builtin: ["*"],
         },
-        sandbox: sandbox
+        sandbox: { ...sandbox, ...Game.sandbox }
     }
 
     const vm = new NodeVM(VM_SETTINGS)
@@ -251,13 +250,16 @@ export interface GameSettings {
     */
     coreScriptsDisabled?: Array<string>,
 
-    /**An array containing a list of core nodejs modules you want to use in the vm. for ex: ["fs", "querystring"]. (Use: ["*"] for all).
-     *@example
-     ```js
-     builtin = ["fs"]
-     ```
+    /**An object containing npm modules you want to compile and use inside the VM context.
+     * 
+     * Example (in `start.js`):
+     * ```js
+     * sandbox: {
+     *  discord: require("discord.js")
+     * }
+     * ```
      */
-    builtin?: Array<string>,
+    sandbox?: Object,
     
     /**A link to your scripts directory. ex: (`/myfolder/user_scripts`) */
     scripts?: string,
@@ -291,9 +293,9 @@ export function startServer(settings: GameSettings) {
 
     Game.userScripts = settings.scripts
 
-    Game.local = settings.local || false
+    Game.sandbox = settings.sandbox || {}
 
-    builtinModules = settings.builtin || []
+    Game.local = settings.local || false
 
     if (!settings.map) {
         console.warn("No map loaded. Using default baseplate.")

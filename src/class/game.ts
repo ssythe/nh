@@ -206,6 +206,9 @@ export class Game extends EventEmitter {
     /** @readonly Returns the amount of (authenticated) players currently in the server. */
     playerCount: number
 
+    /** @readonly Returns the modules the VM is allowed to use. */
+    sandbox: Object
+
     constructor() {
         super()
     
@@ -214,6 +217,8 @@ export class Game extends EventEmitter {
         this.version = VERSION
 
         this.coreScriptsDisabled = []
+
+        this.sandbox = {}
 
         this.assignRandomTeam = true
 
