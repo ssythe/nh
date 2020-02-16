@@ -15,6 +15,7 @@ module.exports = {
     "setAvatar": require("./player/setAvatar"),
     "getUserInfo": require("./player/getUserInfo"),
     "getRankInGroup": require("./player/getRankInGroup"),
+    "playerOwnsAsset": require("./player/ownsAsset"),
     // Team
     "teamPacket": require("./team/createTeam"),
     // World

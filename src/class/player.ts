@@ -754,6 +754,21 @@ export default class Player extends EventEmitter {
     }
 
     /**
+     * Returns true or false if the player owns a specified assetId.
+     * 
+     * @example
+     * ```js
+     * Game.on("initialSpawn", async(p) => {
+     *      let ownsAsset = await p.ownsAsset(106530)
+     *      console.log("Player owns asset: ", ownsAsset)
+     * })
+    ``` 
+     */
+    async ownsAsset(assetId: boolean): Promise<boolean> {
+        return scripts.playerOwnsAsset(this.userId, assetId)
+    }
+
+    /**
      * Returns JSON data of the users rank in a group, or false if they aren't in the group. \
      * https://api.brick-hill.com/v1/clan/member?id=1&user=1
      * @example
