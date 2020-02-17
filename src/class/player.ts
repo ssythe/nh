@@ -410,6 +410,7 @@ export default class Player extends EventEmitter {
      */
     async clearMap() {
         return new PacketBuilder(PacketEnums.ClearMap)
+            .write("bool", true) // There's a bug with packets that contain no data.
             .send(this.socket)
     }
 
