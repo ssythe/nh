@@ -691,6 +691,8 @@ export default class Player extends EventEmitter {
     async newBrick(brick: Brick) {
         // This is a local brick, attach the player's socket.
         brick.socket = this.socket
+        
+        this.localBricks.push(brick)
 
         const packet = new PacketBuilder(PacketEnums.SendBrick)
         
