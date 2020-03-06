@@ -97,6 +97,6 @@ Game.commands(["whisper", "w"], (player, args) => {
     }
 })
 
-Game.on("playerJoin", (p) => {
+Game.on("initialSpawn", (p) => {
     p.message("Type /cmds for a list of commands.")
 })

@@ -56,20 +56,30 @@ async function packetHandler(socket, packet) {
                 console.log(`<Client: ${IP}> Failed verification.`)
                 return scripts.kick(socket, ERR || "Server error.")
             }
+    
+            // Check if the users socket is still active after authentication.
+            if (socket.destroyed) return
 
-            const newPlayer = new Player(socket)
+            // Check if player is already in game + kick them if so.
+            for (let player of Game.players) {
+                if (player.userId === USER.userId)
+                    return scripts.kick(socket, "You can only join this game once per account.")
+            }
+
+            const authUser = new Player(socket)
 
             // Make properties readonly.
-            Object.defineProperties(newPlayer, {
+            Object.defineProperties(authUser, {
                 userId: { value: USER.userId },
                 username: { value: USER.username },
                 admin: { value: USER.admin },
                 membershipType: { value: USER.membershipType },
             })
 
-            console.log(`Successfully verified! (Username: ${newPlayer.username} | ID: ${newPlayer.userId} | Admin: ${newPlayer.admin})`)
-            
-            Game._newPlayer(newPlayer)
+            console.log(`Successfully verified! (Username: ${authUser.username} | ID: ${authUser.userId} | Admin: ${authUser.admin})`)
+
+            // Finalize the player joining process.
+            Game._newPlayer(authUser)
             
             break
         }

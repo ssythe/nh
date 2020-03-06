@@ -2,7 +2,7 @@ const Game = require("../../class/game").default
 
 const PacketBuilder = require("../../util/net/packetBuilder").default
 
-async function sendAuthInfo(player) {
+function sendAuthInfo(player) {
     let brickCount = 0
 
     if (Game.sendBricks) brickCount = Game.world.bricks.length

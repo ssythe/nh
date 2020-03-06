@@ -254,10 +254,8 @@ export default class Player extends EventEmitter {
      */
     spawnPosition?: Vector3
 
-    /**
-     * An array containing bricks assigned to the player.
-     */
-    localBricks: Array<Brick>
+    /** An array containing all local bricks on the player's client. */
+    localBricks?: Array<Brick>
 
     static playerId: number = 0
 
@@ -270,9 +268,9 @@ export default class Player extends EventEmitter {
 
         this.netId = Player.playerId
 
-        this._steps = []
-
         this.localBricks = []
+
+        this._steps = []
 
         this.inventory = []
 
@@ -427,23 +425,6 @@ export default class Player extends EventEmitter {
         return new PacketBuilder(PacketEnums.RemovePlayer)
             .write("uint32", this.netId)
             .broadcastExcept([this])
-    }
-
-    /**@hidden */
-    async _left() {
-        console.log(`${this.username} has left the game.`)
-
-        await this._removePlayer()
-
-        this._log(`\\c6[SERVER]: \\c0${this.username} has left the server!`, true)
-
-        this.removeAllListeners()
-
-        this._steps.forEach((loop) => {
-            clearInterval(loop)
-        })
-
-        this.destroyed = true
     }
 
     async topPrint(message: string, seconds: number) {
@@ -711,8 +692,6 @@ export default class Player extends EventEmitter {
         // This is a local brick, attach the player's socket.
         brick.socket = this.socket
 
-        this.localBricks.push(brick)
-        
         const packet = new PacketBuilder(PacketEnums.SendBrick)
         
         scripts.addBrickProperties(packet, brick)
@@ -896,13 +875,28 @@ export default class Player extends EventEmitter {
     }
 
     /**@hidden */
+    async _left() {
+        console.log(`${this.username} has left the game.`)
+
+        await this._removePlayer()
+
+        this._log(`\\c6[SERVER]: \\c0${this.username} has left the server!`, true)
+
+        this.removeAllListeners()
+
+        this._steps.forEach((loop) => {
+            clearInterval(loop)
+        })
+
+        this.destroyed = true
+    }
+
+    /**@hidden */
    async _joined() {
         // Send player their information + brick count.
         await scripts.sendAuthInfo(this)
 
         await this._getClients()
-
-        if (this.socket.destroyed) return // Precaution
 
         console.log(`${this.username} has joined | netId: ${this.netId}`)
 

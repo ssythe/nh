@@ -142,13 +142,13 @@ export default class PacketBuilder {
     /**
      * Send a packet to a single client.
     */
-   async send(socket: Player["socket"]): Promise<void> {
+   async send(socket: Player["socket"]): Promise<boolean> {
         const packet = this.transformPacket()
 
         if (socket.destroyed) return
 
-        socket.write(packet, null, () => {
-            return Promise.resolve()
+        return socket.write(packet, null, () => {
+            return Promise.resolve(true)
         })
     }
 }

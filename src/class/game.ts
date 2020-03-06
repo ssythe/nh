@@ -452,11 +452,6 @@ export class Game extends EventEmitter {
 
     /**@hidden */
     async _newPlayer(p) {
-        // DOUBLE Check if player is already in game + kick them if so.
-        for (let player of this.players) {
-            if (player.userId === p.userId)
-                return p.kick("You can only join once per account.")
-        }
         p.socket.player = p
         p.authenticated = true
         this.playerCount++

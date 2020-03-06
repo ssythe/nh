@@ -1,6 +1,6 @@
 {
   "name": "node-hill",
-  "version": "7.9.3",
+  "version": "7.9.4",
   "description": "A Brick Hill legacy server written in node.js.",
   "main": "./dist/index.js",
   "dependencies": {

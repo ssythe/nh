@@ -141,9 +141,6 @@ export default class Brick extends EventEmitter {
     }
 
     async setRotation(rot: number) {
-        if (rot % 90 !== 0) {
-            throw new Error("Rotation must be divisible by 90.")
-        }
         this.rotation = rot
         return createBrickPacket(this, "rot")
     }
