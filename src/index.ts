@@ -103,7 +103,7 @@ export interface VM_GLOBALS {
      * @example
      * ```js
      * Game.on("playerJoin", (player) => {
-     *    player.on("click", debounce(() => {
+     *    player.on("mouseclick", debounce(() => {
      *        console.log("You clicked! But now you can't for 5 seconds.")
      *    }, 5000))
      * })
