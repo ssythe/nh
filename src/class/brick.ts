@@ -1,13 +1,13 @@
 
 import { EventEmitter } from "events"
 
-import Game, { Disconnectable } from "./game"
+import Game, { Disconnectable } from "./Game"
 
 import createBrickPacket from "../net/BrickHillPackets/brickIds"
 
-import Player from "./player"
+import Player from "./Player"
 
-import Vector3 from "./vector3"
+import Vector3 from "./Vector3"
 
 const TOUCH_EVENTS = ["touching", "touchingEnded"]
 

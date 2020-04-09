@@ -1,14 +1,14 @@
 import { EventEmitter } from "events"
 
-import Game, { Disconnectable } from "./game"
+import Game, { Disconnectable } from "./Game"
 
-import Vector3 from "./vector3"
+import Vector3 from "./Vector3"
 
-import Player, { BodyColors, Assets } from "./player"
+import Player, { BodyColors, Assets } from "./Player"
 
-import Outfit from "./outfit"
+import Outfit from "./Outfit"
 
-import PacketBuilder, { PacketEnums } from "../net/packetBuilder"
+import PacketBuilder, { PacketEnums } from "../net/PacketBuilder"
 
 const createBotIds = require("../net/createBotIds")
 

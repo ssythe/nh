@@ -1,8 +1,8 @@
 import { EventEmitter } from "events"
 
-import Game, { Disconnectable } from "./game"
+import Game, { Disconnectable } from "./Game"
 
-import Player from "./player"
+import Player from "./Player"
 
 const toolPacket = require("../scripts/tools/tool")
 
