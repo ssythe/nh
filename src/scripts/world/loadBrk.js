@@ -1,14 +1,14 @@
 const fs = require("fs")
 
-const Game = require("../../class/game").default
+const Game = require("../../class/Game").default
 
-const Team = require("../../class/team").default
+const Team = require("../../class/Team").default
 
-const Tool = require("../../class/tool").default
+const Tool = require("../../class/Tool").default
 
-const Brick = require("../../class/brick").default
+const Brick = require("../../class/Brick").default
 
-const Vector3 = require("../../class/vector3").default
+const Vector3 = require("../../class/Vector3").default
 
 // Utility + tools
 const { rgbToHex, convertRGB } = require("../../util/color/colorModule")

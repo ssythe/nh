@@ -5,9 +5,9 @@
 
 */
 
-const Game = require("../../class/game").default
+const Game = require("../../class/Game").default
 
-const Vector3 = require("../../class/vector3").default
+const Vector3 = require("../../class/Vector3").default
 
 function generateRandomInteger(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min))

@@ -1,6 +1,6 @@
-const PacketBuilder = require("../../util/net/packetBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
-const Game = require("../../class/game").default
+const Game = require("../../class/Game").default
 
 const formatHex = require("../../util/color/formatHex")
 

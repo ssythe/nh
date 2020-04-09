@@ -6,27 +6,27 @@ import { promisify } from "util"
 
 import { NodeVM, NodeVMOptions, VMScript } from "vm2"
 
-import Game from "./class/game"
+import Game from "./class/Game"
 
-import Team from "./class/team"
+import Team from "./class/Team"
 
-import Brick from "./class/brick"
+import Brick from "./class/Brick"
 
-import Bot from "./class/bot"
+import Bot from "./class/Bot"
 
 import * as colorModule from "./util/color/colorModule"
 
 import * as filterModule from "./util/filter/filterModule"
 
-import PacketBuilder from "./net/packetBuilder"
+import PacketBuilder from "./net/PacketBuilder"
 
-import Vector3 from "./class/vector3"
+import Vector3 from "./class/Vector3"
 
 import { loadBrk } from "./scripts"
 
-import Tool from "./class/tool"
+import Tool from "./class/Tool"
 
-import Outfit from "./class/outfit"
+import Outfit from "./class/Outfit"
 
 const phin = require("phin")
     .defaults({"parse": "json", "timeout": 12000})

@@ -1,4 +1,4 @@
-const PacketBuilder = require("../../util/net/packetBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
 function create(tool) {
     const packet = new PacketBuilder("Tool")

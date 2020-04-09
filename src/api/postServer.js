@@ -10,7 +10,7 @@
     ~ Jake.
 */
 
-const Game = require("../class/game").default
+const Game = require("../class/Game").default
 
 const phin = require("phin")
     .defaults({

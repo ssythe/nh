@@ -1,7 +1,7 @@
 const phin = require("phin")
     .defaults({"parse": "json", "timeout": 12000})
 
-const Game = require("../class/game").default
+const Game = require("../class/Game").default
 
 const AUTHENTICATION_API = (token, gameId) => `https://api.brick-hill.com/v1/auth/verifyToken?token=${token}&set=${gameId}`
 

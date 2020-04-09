@@ -5,7 +5,7 @@ const phin = require("phin")
     .defaults({ parse: "json", timeout: 12000 })
 
 // Import game data
-const Game = require("./class/game").default
+const Game = require("./class/Game").default
 
 // Post server
 const postServer = require("./api/postServer")

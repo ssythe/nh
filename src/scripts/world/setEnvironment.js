@@ -1,6 +1,6 @@
-const Game = require("../../class/game").default
+const Game = require("../../class/Game").default
 
-const PacketBuilder = require("../../util/net/packetBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
 const { hexToDec } = require("../../util/color/colorModule")
 
