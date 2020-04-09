@@ -1,45 +1,41 @@
+// Node + npm modules
 import { resolve, basename} from "path"
-
 import * as fs from "fs"
-
 import { promisify } from "util"
-
-import { NodeVM, NodeVMOptions, VMScript } from "vm2"
-
-import Game from "./class/Game"
-
-import Team from "./class/Team"
-
-import Brick from "./class/Brick"
-
-import Bot from "./class/Bot"
-
-import * as colorModule from "./util/color/colorModule"
-
-import * as filterModule from "./util/filter/filterModule"
-
-import * as serializerModule from "./util/serializer/serializerModule"
-
-import PacketBuilder from "./net/PacketBuilder"
-
-import Vector3 from "./class/Vector3"
-
-import { loadBrk } from "./scripts"
-
-import Tool from "./class/Tool"
-
-import Outfit from "./class/Outfit"
-
+import { NodeVM, NodeVMOptions } from "vm2"
+// Have to use require here because phin doesn't support .defaults with TS
 const phin = require("phin")
     .defaults({"parse": "json", "timeout": 12000})
+
+// Get game objects
+import Game from "./class/Game"
+import Team from "./class/Team"
+import Brick from "./class/Brick"
+import Bot from "./class/Bot"
+import PacketBuilder from "./net/PacketBuilder"
+import Vector3 from "./class/Vector3"
+import { loadBrk } from "./scripts"
+import Tool from "./class/Tool"
+import Outfit from "./class/Outfit"
+
+// Get interfaces
+import { colorModule }  from "./util/color/colorModule"
+import { filterModule } from "./util/filter/filterModule"
+import { serializerModule } from "./util/serializer/serializerModule"
+
+// Get main module methods
+import color from "./util/color/colorModule"
+import filter from "./util/filter/filterModule"
+import serializer from "./util/serializer/serializerModule"
 
 const NPM_LATEST_VERSION = "https://registry.npmjs.org/node-hill/latest"
 
 const CORE_DIRECTORY = resolve(__dirname, "./core_scripts")
 
-export interface Utilies {
-    /** Returns a random hex string. */
-    randomHexColor: () => string
+export interface Utilities  {
+    filter: filterModule
+    serializer: serializerModule
+    color: colorModule
 }
 
 /**
@@ -86,7 +82,7 @@ export interface VM_GLOBALS {
     /** @global
      * Will eventually contain handy functions. But for now only contains randomHexColor().
      */
-    util: Utilies
+    util: Utilities
 
     /**
      * A promisified version of setTimeout, useful for writing timeouts syncronously.
@@ -166,7 +162,7 @@ function loadScripts() {
 
         Outfit: Outfit,
 
-        util: { colorModule, filterModule, serializerModule },
+        util: { color, filter, serializer },
 
         Tool: Tool,
 

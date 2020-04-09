@@ -143,6 +143,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="game.html#messageall" class="tsd-kind-icon">message<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="game.html#newbot" class="tsd-kind-icon">new<wbr>Bot</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="game.html#newbrick" class="tsd-kind-icon">new<wbr>Brick</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="game.html#newteam" class="tsd-kind-icon">new<wbr>Team</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="game.html#off" class="tsd-kind-icon">off</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="game.html#on" class="tsd-kind-icon">on</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="game.html#once" class="tsd-kind-icon">once</a></li>
@@ -1242,7 +1243,7 @@
 					<a name="newbot" class="tsd-anchor"></a>
 					<h3>new<wbr>Bot</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new<wbr>Bot<span class="tsd-signature-symbol">(</span>bot<span class="tsd-signature-symbol">: </span><a href="bot.html" class="tsd-signature-type">Bot</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">new<wbr>Bot<span class="tsd-signature-symbol">(</span>bot<span class="tsd-signature-symbol">: </span><a href="bot.html" class="tsd-signature-type">Bot</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1250,7 +1251,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>&quot;Parents&quot; a bot class to the game. You should do this after setting all the bot properties.</p>
+									<p>&quot;Parents&quot; a bot class to the game.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1259,7 +1260,7 @@
 									<h5>bot: <a href="bot.html" class="tsd-signature-type">Bot</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1267,7 +1268,7 @@
 					<a name="newbrick" class="tsd-anchor"></a>
 					<h3>new<wbr>Brick</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new<wbr>Brick<span class="tsd-signature-symbol">(</span>brick<span class="tsd-signature-symbol">: </span><a href="brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">new<wbr>Brick<span class="tsd-signature-symbol">(</span>brick<span class="tsd-signature-symbol">: </span><a href="brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1282,6 +1283,26 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>brick: <a href="brick.html" class="tsd-signature-type">Brick</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="newteam" class="tsd-anchor"></a>
+					<h3>new<wbr>Team</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new<wbr>Team<span class="tsd-signature-symbol">(</span>team<span class="tsd-signature-symbol">: </span><a href="team.html" class="tsd-signature-type">Team</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>team: <a href="team.html" class="tsd-signature-type">Team</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1948,6 +1969,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="game.html#newbrick" class="tsd-kind-icon">new<wbr>Brick</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="game.html#newteam" class="tsd-kind-icon">new<wbr>Team</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="game.html#off" class="tsd-kind-icon">off</a>
 							</li>
@@ -2037,13 +2061,25 @@
 						<a href="../interfaces/packetbuilderoptions.html" class="tsd-kind-icon">Packet<wbr>Builder<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/utilies.html" class="tsd-kind-icon">Utilies</a>
+						<a href="../interfaces/utilities.html" class="tsd-kind-icon">Utilities</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/vm_globals.html" class="tsd-kind-icon">VM_<wbr>GLOBALS</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/world.html" class="tsd-kind-icon">World</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/colormodule.html" class="tsd-kind-icon">color<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/filtermodule.html" class="tsd-kind-icon">filter<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/serializermodule.html" class="tsd-kind-icon">serializer<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#formathex" class="tsd-kind-icon">format<wbr>Hex</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#startserver" class="tsd-kind-icon">start<wbr>Server</a>

@@ -1,6 +1,6 @@
 const PacketBuilder = require("../../net/PacketBuilder").default
 
-const formatHex = require("../../util/color/formatHex")
+const formatHex = require("../../util/color/formatHex").default
 
 function bottomPrint(socket, message = "", seconds = 1) {
     message = formatHex(message)

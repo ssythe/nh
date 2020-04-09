@@ -245,6 +245,9 @@ export default class Brick extends EventEmitter {
                 locals.splice(index, 1)
         }
 
+        // To account for a client bug where you cannot destroy bricks with no collision.
+        if (!this.collision) await this.setCollision(true)
+
         await createBrickPacket(this, "destroy")
 
         this.socket = undefined

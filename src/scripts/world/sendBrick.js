@@ -1,4 +1,4 @@
-const { hexToRGB } = require("../../util/color/colorModule")
+const { hexToRGB } = require("../../util/color/colorModule").default
 
 function addBrickProperties(packet, brick) {
     // Create brick header

@@ -1,6 +1,6 @@
 const PacketBuilder = require("../../net/PacketBuilder").default
 
-const { hexToDec } = require("../../util/color/colorModule")
+const { hexToDec } = require("../../util/color/colorModule").default
 
 function botPacket(bot) {
     const botBuffer = new PacketBuilder("Bot")

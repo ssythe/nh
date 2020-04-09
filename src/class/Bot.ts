@@ -10,9 +10,9 @@ import Outfit from "./Outfit"
 
 import PacketBuilder, { PacketEnums } from "../net/PacketBuilder"
 
-const createBotIds = require("../net/BrickHillPackets/botIds")
+import createBotIds from "../net/BrickHillPackets/botIds"
 
-const setAvatar = require("../scripts/player/setAvatar")
+import setAvatar from "../scripts/player/setAvatar"
 
 /**
  * Bots are fake players that player's can interact with. \
@@ -32,7 +32,9 @@ const setAvatar = require("../scripts/player/setAvatar")
 *
 * Game.newBot(zombie)
 *
-* setInterval(() => {
+* // We use bot.setinterval so that when the zombie is destroyed, the loop clears. 
+* // It's good practice to do this to avoid memory leaks.
+* zombie.setInterval(() => {
 *   let target = zombie.findClosestPlayer(20)
 *
 *   if (!target) return zombie.setSpeech("")

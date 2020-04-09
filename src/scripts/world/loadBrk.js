@@ -10,8 +10,7 @@ const Brick = require("../../class/Brick").default
 
 const Vector3 = require("../../class/Vector3").default
 
-// Utility + tools
-const { rgbToHex, convertRGB } = require("../../util/color/colorModule")
+const { rgbToHex, convertRGB } = require("../../util/color/colorModule").default
 
 function loadBrk(map) {
     const FILE = fs.readFileSync(map, "UTF-8")

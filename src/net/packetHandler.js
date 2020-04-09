@@ -136,13 +136,11 @@ async function packetHandler(socket, packet) {
                     return brick.emit("clicked", player)
 
                 // The brick might be local.
-                for (const player of Game.players) {
-                    const localBricks = player.localBricks
-                    const localBrick = localBricks.find(brick => brick.netId === brickId)
+                const localBricks = player.localBricks
+                const localBrick = localBricks.find(brick => brick.netId === brickId)
 
-                    if (localBrick && localBrick.clickable)
-                        return localBrick.emit("clicked", player)
-                }
+                if (localBrick && localBrick.clickable)
+                    return localBrick.emit("clicked", player)
             } catch (err) {
                 return false
             }

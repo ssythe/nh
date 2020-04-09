@@ -58,7 +58,7 @@ enum GameEvents {
     Chat = "chat",
 }
 
-export default new class Game extends EventEmitter {
+export class Game extends EventEmitter {
     /** 
    * Identical to player.on("initialSpawn").
    * @event
@@ -497,6 +497,8 @@ export default new class Game extends EventEmitter {
         }
     }
 }
+
+export default new Game()
 
 import Player from "./Player"
 

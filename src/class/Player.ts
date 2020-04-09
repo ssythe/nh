@@ -250,9 +250,15 @@ export default class Player extends EventEmitter {
 
     /**
      * If set, player.respawn() will spawn the player in the value provided instead of a random location.
+     * This property overrides spawnHandler.
      * @see {@link respawn}
      */
     spawnPosition?: Vector3
+
+    /**
+     * A function that will be called whenever player.respawn() is called.
+     */
+    spawnHandler?: () => Vector3
 
     /** An array containing all local bricks on the player's client. */
     localBricks?: Array<Brick>
@@ -803,7 +809,17 @@ export default class Player extends EventEmitter {
 
     /** Respawns the player. */
     async respawn() {
-        await this.setPosition(this.spawnPosition || scripts.pickSpawn())
+        let newSpawnPosition;
+
+        if (this.spawnPosition) {
+            newSpawnPosition = this.spawnPosition
+        } else if (this.spawnHandler) {
+            newSpawnPosition = await this.spawnHandler()
+        } else {
+            newSpawnPosition = scripts.pickSpawn()
+        }
+
+        await this.setPosition(newSpawnPosition)
 
         await new PacketBuilder(PacketEnums.Kill)
             .write("float", this.netId)
