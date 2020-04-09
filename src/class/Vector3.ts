@@ -16,6 +16,13 @@ export default class Vector3 {
         return this
     }
 
+    equalsVector(vector: Vector3) {
+        if (this.x === vector.x &&
+            this.y === vector.y &&
+            this.z === vector.z)
+        return true
+    }
+
     addVector(vector: Vector3) {
         this.x += vector.x
         this.y += vector.y

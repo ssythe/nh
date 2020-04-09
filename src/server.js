@@ -93,20 +93,3 @@ SERVER.listen(Game.port, SERVER_LISTEN_ADDRESS, () => {
     else
         console.log("Running server locally.")
 })
-
-// Graceful shutdown on CTRL + C
-process.on("SIGINT", async() => {
-    if (Game.playerCount > 0) {
-        console.log("Shutting down server, please wait...")
-        let promises = []
-        for (let player of Game.players) {
-            if (!player.socket.destroyed) {
-                promises.push(new Promise((resolve) => {
-                    player.socket.end(null, null, resolve)
-                }))
-            }
-        }
-        await Promise.all(promises)
-    }
-    return process.exit(0)
-})

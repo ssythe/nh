@@ -543,7 +543,7 @@ export default class Player extends EventEmitter {
     /** Adds the tool to the user's inventory. */
     async addTool(tool: Tool) {
         if (this.inventory.includes(tool))
-            throw new Error("Player already has tool equipped.")
+            return Promise.reject("Player already has tool equipped.")
             
         this.inventory.push(tool)
 
@@ -689,7 +689,11 @@ export default class Player extends EventEmitter {
     }
 
     async newBrick(brick: Brick) {
-        // This is a local brick, attach the player's socket.
+        // If users are dumb and try to localize the same brick twice.
+        if (brick.socket) {
+            console.warn("Brick already assigned to a player. Call .clone() next time.")
+            brick = brick.clone()
+        }
 
         brick.socket = this.socket
         
@@ -699,9 +703,9 @@ export default class Player extends EventEmitter {
         
         scripts.addBrickProperties(packet, brick)
 
-        return packet.send(this.socket)
-        
-        //return brickClone 
+        await packet.send(this.socket)
+
+        brick._initialized = true
     }
    
     async setPosition(position: Vector3) {
@@ -715,7 +719,7 @@ export default class Player extends EventEmitter {
     async setScale(scale: Vector3) {
         this.scale = new Vector3().fromVector(scale)
 
-        let packetBuilder = createPlayerIds(this, "GHI")
+        const packetBuilder = createPlayerIds(this, "GHI")
 
         return packetBuilder.broadcast()
     }
@@ -800,7 +804,7 @@ export default class Player extends EventEmitter {
     /** Respawns the player. */
     async respawn() {
         await this.setPosition(this.spawnPosition || scripts.pickSpawn())
-        
+
         await new PacketBuilder(PacketEnums.Kill)
             .write("float", this.netId)
             .write("bool", false)
@@ -852,7 +856,7 @@ export default class Player extends EventEmitter {
         return scripts.setEnvironment(environment, this.socket)
     }
 
-    private _getFigures() {
+    private _createFigures() {
         // Update player's figure for others
         createPlayerIds(this, "ABCDEFGHIKLMNOPQUVWXYfg")
             .broadcastExcept([this])
@@ -865,14 +869,14 @@ export default class Player extends EventEmitter {
         }
     }
 
-    private _getTeams() {
+    private _createTeams() {
         for (let team of Game.world.teams) {
-            scripts.teamPacket(team)
+            scripts.teamPacket.create(team)
                 .send(this.socket)
         }
     }
 
-    private _getBots() {
+    private _createBots() {
         for (let bot of Game.world.bots) {
             scripts.botPacket(bot)
                 .send(this.socket)
@@ -914,9 +918,9 @@ export default class Player extends EventEmitter {
             if (map) await map.send(this.socket)
         }
 
-        this._getTeams()
+        this._createTeams()
 
-        this._getBots()
+        this._createBots()
 
         if (Game.assignRandomTeam && Game.world.teams.length)
             this.setTeam(Game.world.teams[Math.floor(Math.random() * Game.world.teams.length)])
@@ -924,7 +928,7 @@ export default class Player extends EventEmitter {
         if (Game.playerSpawning)
             await this.respawn()
 
-        this._getFigures()
+        this._createFigures()
 
         if (this.loadAvatar) {
             await this.setAvatar(this.userId)

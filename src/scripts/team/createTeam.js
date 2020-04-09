@@ -2,7 +2,7 @@ const PacketBuilder = require("../../net/PacketBuilder").default
 
 const { hexToDec } = require("../../util/color/colorModule")
 
-function createTeamPacket(team) {
+function create(team) {
     const packet = new PacketBuilder("Team")
         .write("uint32", team.netId)
         .write("string", team.name)
@@ -10,4 +10,4 @@ function createTeamPacket(team) {
     return packet
 }
 
-module.exports = createTeamPacket
+module.exports = { create }

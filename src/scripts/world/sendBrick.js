@@ -39,5 +39,5 @@ function addBrickProperties(packet, brick) {
     if (!brick.collision)
         packet.write("string", '\t+NOCOLLISION\r\n')
 }
- 
+
 module.exports = addBrickProperties

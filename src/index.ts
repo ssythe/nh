@@ -18,6 +18,8 @@ import * as colorModule from "./util/color/colorModule"
 
 import * as filterModule from "./util/filter/filterModule"
 
+import * as serializerModule from "./util/serializer/serializerModule"
+
 import PacketBuilder from "./net/PacketBuilder"
 
 import Vector3 from "./class/Vector3"
@@ -121,7 +123,9 @@ function vmLoadCoreScripts(vm: NodeVM) {
             const coreScript = resolve(CORE_DIRECTORY, file)
             try {
                 const script = fs.readFileSync(coreScript, "UTF-8")
-                vm.run(new VMScript(script), coreScript)
+
+                vm.run(script, coreScript)
+
                 console.log(`[*] Loaded Core Script: ${file}`)
             } catch (err) {
                 console.error(err)
@@ -138,7 +142,9 @@ function vmLoadScriptsInDir(vm: NodeVM, dir: string) {
         const userScriptData = resolve(dir, file)
         try {
             const script = fs.readFileSync(userScriptData, "UTF-8")
-            vm.run(new VMScript(script), userScriptData)
+
+            vm.run(script, userScriptData)
+
             console.log(`[*] Loaded User Script: ${file}`)
         } catch (err) {
             console.error(err)
@@ -160,7 +166,7 @@ function loadScripts() {
 
         Outfit: Outfit,
 
-        util: { colorModule, filterModule },
+        util: { colorModule, filterModule, serializerModule },
 
         Tool: Tool,
 
@@ -185,7 +191,7 @@ function loadScripts() {
         }
     }
 
-    let VM_SETTINGS: NodeVMOptions = {
+    const VM_SETTINGS: NodeVMOptions = {
         require: { 
             external: true,
             context: "sandbox",
@@ -330,8 +336,6 @@ async function _getLatestnpmVersion() {
     const data = (await phin({url: NPM_LATEST_VERSION})).body
     return data.version
 }
-
-process.on("unhandledRejection", console.error)
 
 module.exports = { startServer }
 

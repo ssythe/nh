@@ -1,10 +1,12 @@
-let PacketBuilder = require("../../net/PacketBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
 const { hexToDec } = require("../../util/color/colorModule")
 
 const formatHex = require("../../util/color/formatHex")
 
 function createBotIdBuffer(bot, idString = "") {
+    if (!bot._initialized) return
+    
     const length = idString.length
 
     const botPacket = new PacketBuilder("Bot")
