@@ -2,23 +2,23 @@ import { Socket } from "net"
 
 import { EventEmitter } from "events"
 
-import Game, { Environment, Disconnectable } from "./game"
+import Game, { Environment, Disconnectable } from "./Game"
 
-import Team from "./team"
+import Team from "./Team"
 
-import Brick from "./brick"
+import Brick from "./Brick"
 
 import * as scripts from "../scripts"
 
-import PacketBuilder, { PacketEnums } from "../util/net/packetBuilder"
+import PacketBuilder, { PacketEnums } from "../net/PacketBuilder"
 
-import createPlayerIds from "../net/createPlayerIds"
+import createPlayerIds from "../net/BrickHillPackets/playerIds"
 
-import Vector3 from "./vector3"
+import Vector3 from "./Vector3"
 
-import Outfit from "./outfit"
+import Outfit from "./Outfit"
 
-import Tool from "./tool"
+import Tool from "./Tool"
 
 import { KeyTypes } from "../util/keys/whitelisted"
 
@@ -547,7 +547,7 @@ export default class Player extends EventEmitter {
             
         this.inventory.push(tool)
 
-        return scripts.toolPacket(tool, true)
+        return scripts.toolPacket.create(tool)
             .send(this.socket)
     }
 
@@ -565,7 +565,7 @@ export default class Player extends EventEmitter {
 
         this.inventory.splice(index, 1)
 
-        return scripts.toolPacket(tool, false)
+        return scripts.toolPacket.destroy(tool)
             .send(this.socket)
     }
 
@@ -690,6 +690,7 @@ export default class Player extends EventEmitter {
 
     async newBrick(brick: Brick) {
         // This is a local brick, attach the player's socket.
+
         brick.socket = this.socket
         
         this.localBricks.push(brick)
@@ -699,6 +700,8 @@ export default class Player extends EventEmitter {
         scripts.addBrickProperties(packet, brick)
 
         return packet.send(this.socket)
+        
+        //return brickClone 
     }
    
     async setPosition(position: Vector3) {
@@ -797,7 +800,7 @@ export default class Player extends EventEmitter {
     /** Respawns the player. */
     async respawn() {
         await this.setPosition(this.spawnPosition || scripts.pickSpawn())
-
+        
         await new PacketBuilder(PacketEnums.Kill)
             .write("float", this.netId)
             .write("bool", false)

@@ -2,7 +2,7 @@ const Game = require("../../class/game").default
 
 const PacketBuilder = require("../../util/net/packetBuilder").default
 
-const { hexToDec } = require("../../util/color/color")
+const { hexToDec } = require("../../util/color/colorModule")
 
 // Used for converting camelCase to Brick Hill's weird way of doing it.
 const BRICK_HILL_ENVIRONMENTS = {

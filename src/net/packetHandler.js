@@ -1,15 +1,15 @@
 // Dependencies
-let SmartBuffer = require('smart-buffer').SmartBuffer
+let SmartBuffer = require("smart-buffer").SmartBuffer
 
 let zlib = require("zlib")
 
 // Import utilities
-let uintv = require("../util/net/uintv")
+let uintv = require("./uintv")
 
 // Game objects
-let Game = require("../class/game").default
+let Game = require("../class/Game").default
 
-let Player = require("../class/player").default
+let Player = require("../class/Player").default
 
 let scripts = require("../scripts")
 
@@ -48,7 +48,8 @@ async function packetHandler(socket, packet) {
     if (TYPE !== 1 && !player) return // You don't have a player.
 
     switch (TYPE) {
-        case 1: { // Authentication
+        /* <Authentication handler> */
+        case 1: {
             const [ USER, ERR ] = await checkAuth(socket, READER)
 
             // User could not authenticate properly.
@@ -83,7 +84,8 @@ async function packetHandler(socket, packet) {
             
             break
         }
-        case 2: { // Update player position
+        /* <Player position handler> */
+        case 2: {
             let xpos,
                 ypos,
                 zpos,
@@ -101,7 +103,8 @@ async function packetHandler(socket, packet) {
             ])
             break
         }
-        case 3: { // Commands
+        /* <Command handler> */
+        case 3: {
             let command, args;
 
             try {
@@ -118,36 +121,35 @@ async function packetHandler(socket, packet) {
              
             break
         }
-        case 4: { // Projectiles
+        /* <Projectile handler> */
+        case 4: {
             break
         }
-        case 5: { // Clickables
+        /* <Brick click detection handler> */
+        case 5: {
             try {
-                let brickId = READER.readUInt32LE()
+                const brickId = READER.readUInt32LE()
 
-                let brick = Game.world.bricks.find(brick => brick.netId === brickId)
-
-                if (brick && brick.clickable)
+                // Check for global bricks with that Id.
+                const brick = Game.world.bricks.find(brick => brick.netId === brickId)
+                if (brick && brick.clickable) 
                     return brick.emit("clicked", player)
 
                 // The brick might be local.
-                for (let player of Game.players) {
-                    let localBricks = player.localBricks
-                    if (!localBricks.length) continue
+                for (const player of Game.players) {
+                    const localBricks = player.localBricks
+                    const localBrick = localBricks.find(brick => brick.netId === brickId)
 
-                    let localBrick = localBricks.find(brick => brick.netId === brickId)
-                    if (localBrick && localBrick.clickable) {
-                        // In case someone calls multiple player.newBrick with the same brick.
-                        if (localBrick.socket === player.socket)
-                            return localBrick.emit("clicked", player)
-                    }
+                    if (localBrick && localBrick.clickable)
+                        return localBrick.emit("clicked", player)
                 }
             } catch (err) {
                 return false
             }
             break
         }
-        case 6: { // Player input 
+        /* <Player key + mouse input handler> */
+        case 6: {
             try {
                 let click = Boolean(READER.readUInt8())
                 let key = READER.readStringNT()

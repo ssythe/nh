@@ -2,9 +2,9 @@ import { EventEmitter } from "events"
 
 import Game, { Disconnectable } from "./game"
 
-import scripts from "../scripts"
-
 import Player from "./player"
+
+const toolPacket = require("../scripts/tools/tool")
 
 enum ToolEvents {
     Activated = "activated",
@@ -71,7 +71,6 @@ export default class Tool extends EventEmitter {
         this.model = 0
         this.enabled = true
         this._slotId = Tool.toolId
-        Game.world.tools.push(this)
     }
 
     /** Calls the specified callback with the player who un-equipped the tool.
@@ -132,7 +131,7 @@ export default class Tool extends EventEmitter {
 
         this.removeAllListeners()
 
-        return scripts.toolPacket(this, false)
+        return toolPacket.destroy(this)
             .broadcast()
     }
 }

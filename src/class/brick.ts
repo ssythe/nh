@@ -3,7 +3,7 @@ import { EventEmitter } from "events"
 
 import Game, { Disconnectable } from "./game"
 
-import createBrickPacket from "../net/createBrickIds"
+import createBrickPacket from "../net/BrickHillPackets/brickIds"
 
 import Player from "./player"
 
@@ -88,14 +88,14 @@ export default class Brick extends EventEmitter {
 
     static brickId: number = 0
 
-    constructor(position: Vector3, scale: Vector3, color = "#C0C0C0") {
+    constructor(position = new Vector3(0, 0, 0), scale = new Vector3(1, 1, 1), color = "#C0C0C0") {
         super()
 
         Brick.brickId += 1
 
         this.destroyed = false
 
-        this._steps = []        
+        this._steps = []     
 
         this.position = position
 
@@ -195,6 +195,15 @@ export default class Brick extends EventEmitter {
         let loop = setInterval(callback, delay)
         this._steps.push(loop)
         return loop
+    }
+
+    clone() {
+        let newBrick = new Brick(this.position, this.scale, this.color)
+            newBrick.lightColor = this.lightColor
+            newBrick.visibility = this.visibility
+            newBrick.collision = this.collision
+            newBrick.lightEnabled = this.lightEnabled
+        return newBrick
     }
     
     async destroy() {

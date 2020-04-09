@@ -14,9 +14,11 @@ import Brick from "./class/brick"
 
 import Bot from "./class/bot"
 
-import { randomHexColor } from "./util/color/color"
+import * as colorModule from "./util/color/colorModule"
 
-import PacketBuilder from "./util/net/packetBuilder"
+import * as filterModule from "./util/filter/filterModule"
+
+import PacketBuilder from "./net/packetBuilder"
 
 import Vector3 from "./class/vector3"
 
@@ -158,7 +160,7 @@ function loadScripts() {
 
         Outfit: Outfit,
 
-        util: { randomHexColor },
+        util: { colorModule, filterModule },
 
         Tool: Tool,
 

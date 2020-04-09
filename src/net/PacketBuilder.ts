@@ -4,9 +4,9 @@ import { SmartBuffer } from "smart-buffer"
 
 import * as uintv from "./uintv"
 
-import Game from "../../class/game"
+import Game from "../class/Game"
 
-import Player from "../../class/player"
+import Player from "../class/Player"
 
 export interface PacketBuilderOptions {
     compression?: boolean
@@ -127,7 +127,7 @@ export default class PacketBuilder {
         const packet = this.transformPacket()
 
         let promises = []
-
+        
         for (const player of Game.players) {
             if (!player.socket.destroyed) {
                 promises.push(new Promise((resolve) => {

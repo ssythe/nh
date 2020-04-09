@@ -25,7 +25,6 @@ export default class Team {
 
         Game.world.teams.push(this)
 
-        teamPacket(this)
-            .broadcast()
+        teamPacket(this).broadcast()
     }
 }

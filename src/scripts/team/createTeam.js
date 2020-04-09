@@ -1,6 +1,6 @@
 const PacketBuilder = require("../../util/net/packetBuilder").default
 
-const { hexToDec } = require("../../util/color/color")
+const { hexToDec } = require("../../util/color/colorModule")
 
 function createTeamPacket(team) {
     const packet = new PacketBuilder("Team")

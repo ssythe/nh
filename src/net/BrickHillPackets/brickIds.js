@@ -1,6 +1,6 @@
-let PacketBuilder = require("../util/net/packetBuilder").default
+let PacketBuilder = require("../../net/PacketBuilder").default
 
-let { hexToDec } = require("../util/color/color")
+let { hexToDec } = require("../../util/color/colorModule")
 
 function createBrickIdBuffer(brick, modification) {
     let brickPacket = new PacketBuilder("Brick")
@@ -61,6 +61,7 @@ function createBrickIdBuffer(brick, modification) {
         }
     }
 
+    // This is a local brick, send it to the player's attached socket.
     if (brick.socket)
         return brickPacket.send(brick.socket)
 

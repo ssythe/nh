@@ -8,7 +8,7 @@ import Player, { BodyColors, Assets } from "./player"
 
 import Outfit from "./outfit"
 
-import PacketBuilder, { PacketEnums } from "../util/net/packetBuilder"
+import PacketBuilder, { PacketEnums } from "../net/packetBuilder"
 
 const createBotIds = require("../net/createBotIds")
 

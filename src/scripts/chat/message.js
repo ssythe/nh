@@ -4,7 +4,7 @@ const Game = require("../../class/game").default
 
 const formatHex = require("../../util/color/formatHex")
 
-const isSwear = require("./isSwear")
+const { isSwear } = require("../../util/filter/filterModule")
 
 const rateLimit = new Set()
 

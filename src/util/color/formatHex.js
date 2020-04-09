@@ -6,7 +6,7 @@ Returns the *modified* input, or just input.
 
 */
 
-let { rgbToBgr } = require("./color")
+let { rgbToBgr } = require("./colorModule")
 
 const COLOR_REGEX = /(\[#[0-9a-fA-F]{6}\])/g
 
