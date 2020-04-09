@@ -1,41 +1,41 @@
+// Node + npm modules
 import { resolve, basename} from "path"
-
 import * as fs from "fs"
-
 import { promisify } from "util"
-
-import { NodeVM, NodeVMOptions, VMScript } from "vm2"
-
-import Game from "./class/game"
-
-import Team from "./class/team"
-
-import Brick from "./class/brick"
-
-import Bot from "./class/bot"
-
-import { randomHexColor } from "./util/color/color"
-
-import PacketBuilder from "./util/net/packetBuilder"
-
-import Vector3 from "./class/vector3"
-
-import { loadBrk } from "./scripts"
-
-import Tool from "./class/tool"
-
-import Outfit from "./class/outfit"
-
+import { NodeVM, NodeVMOptions } from "vm2"
+// Have to use require here because phin doesn't support .defaults with TS
 const phin = require("phin")
     .defaults({"parse": "json", "timeout": 12000})
+
+// Get game objects
+import Game from "./class/Game"
+import Team from "./class/Team"
+import Brick from "./class/Brick"
+import Bot from "./class/Bot"
+import PacketBuilder from "./net/PacketBuilder"
+import Vector3 from "./class/Vector3"
+import { loadBrk } from "./scripts"
+import Tool from "./class/Tool"
+import Outfit from "./class/Outfit"
+
+// Get interfaces
+import { colorModule }  from "./util/color/colorModule"
+import { filterModule } from "./util/filter/filterModule"
+import { serializerModule } from "./util/serializer/serializerModule"
+
+// Get main module methods
+import color from "./util/color/colorModule"
+import filter from "./util/filter/filterModule"
+import serializer from "./util/serializer/serializerModule"
 
 const NPM_LATEST_VERSION = "https://registry.npmjs.org/node-hill/latest"
 
 const CORE_DIRECTORY = resolve(__dirname, "./core_scripts")
 
-export interface Utilies {
-    /** Returns a random hex string. */
-    randomHexColor: () => string
+export interface Utilities  {
+    filter: filterModule
+    serializer: serializerModule
+    color: colorModule
 }
 
 /**
@@ -82,7 +82,7 @@ export interface VM_GLOBALS {
     /** @global
      * Will eventually contain handy functions. But for now only contains randomHexColor().
      */
-    util: Utilies
+    util: Utilities
 
     /**
      * A promisified version of setTimeout, useful for writing timeouts syncronously.
@@ -103,7 +103,7 @@ export interface VM_GLOBALS {
      * @example
      * ```js
      * Game.on("playerJoin", (player) => {
-     *    player.on("click", debounce(() => {
+     *    player.on("mouseclick", debounce(() => {
      *        console.log("You clicked! But now you can't for 5 seconds.")
      *    }, 5000))
      * })
@@ -119,7 +119,9 @@ function vmLoadCoreScripts(vm: NodeVM) {
             const coreScript = resolve(CORE_DIRECTORY, file)
             try {
                 const script = fs.readFileSync(coreScript, "UTF-8")
-                vm.run(new VMScript(script), coreScript)
+
+                vm.run(script, coreScript)
+
                 console.log(`[*] Loaded Core Script: ${file}`)
             } catch (err) {
                 console.error(err)
@@ -136,7 +138,9 @@ function vmLoadScriptsInDir(vm: NodeVM, dir: string) {
         const userScriptData = resolve(dir, file)
         try {
             const script = fs.readFileSync(userScriptData, "UTF-8")
-            vm.run(new VMScript(script), userScriptData)
+
+            vm.run(script, userScriptData)
+
             console.log(`[*] Loaded User Script: ${file}`)
         } catch (err) {
             console.error(err)
@@ -158,7 +162,7 @@ function loadScripts() {
 
         Outfit: Outfit,
 
-        util: { randomHexColor },
+        util: { color, filter, serializer },
 
         Tool: Tool,
 
@@ -183,7 +187,7 @@ function loadScripts() {
         }
     }
 
-    let VM_SETTINGS: NodeVMOptions = {
+    const VM_SETTINGS: NodeVMOptions = {
         require: { 
             external: true,
             context: "sandbox",
@@ -328,8 +332,6 @@ async function _getLatestnpmVersion() {
     const data = (await phin({url: NPM_LATEST_VERSION})).body
     return data.version
 }
-
-process.on("unhandledRejection", console.error)
 
 module.exports = { startServer }
 

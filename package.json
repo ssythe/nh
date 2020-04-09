@@ -1,15 +1,15 @@
 {
   "name": "node-hill",
-  "version": "7.9.5",
+  "version": "8.0.0",
   "description": "A Brick Hill legacy server written in node.js.",
   "main": "./dist/index.js",
   "dependencies": {
     "phin": "^3.4.1",
     "smart-buffer": "^4.1.0",
-    "vm2": "~3.8.4"
+    "vm2": "^3.9.1"
   },
   "devDependencies": {
-    "@types/node": "^12.12.31",
+    "@types/node": "^12.12.35",
     "typedoc": "^0.15.8"
   },
   "scripts": {

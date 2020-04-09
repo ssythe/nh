@@ -1,10 +1,10 @@
-const PacketBuilder = require("../../util/net/packetBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
-const Game = require("../../class/game").default
+const filterModule = require("../../util/filter/filterModule").default
 
-const formatHex = require("../../util/color/formatHex")
+const Game = require("../../class/Game").default
 
-const isSwear = require("./isSwear")
+const formatHex = require("../../util/color/formatHex").default
 
 const rateLimit = new Set()
 
@@ -40,7 +40,7 @@ function clientMessageAll(p, message) {
 
     const title = generateTitle(p, message)
 
-    if (isSwear(message))
+    if (filterModule.isSwear(message))
         return p.message("Don't swear! Your message has not been sent.")
 
     console.log(`${p.username}: ${message}`)

@@ -81,7 +81,9 @@
 
 Game.newBot(zombie)
 
-setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-comment">// We use bot.setinterval so that when the zombie is destroyed, the loop clears.</span>
+<span class="hljs-comment">// It's good practice to do this to avoid memory leaks.</span>
+zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   <span class="hljs-keyword">let</span> target = zombie.findClosestPlayer(<span class="hljs-number">20</span>)
 
   <span class="hljs-keyword">if</span> (!target) <span class="hljs-keyword">return</span> zombie.setSpeech(<span class="hljs-string">""</span>)
@@ -123,6 +125,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bot.html#_initialized" class="tsd-kind-icon">_initialized</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bot.html#assets" class="tsd-kind-icon">assets</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bot.html#colors" class="tsd-kind-icon">colors</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bot.html#destroyed" class="tsd-kind-icon">destroyed</a></li>
@@ -199,6 +202,13 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="_initialized" class="tsd-anchor"></a>
+					<h3>_initialized</h3>
+					<div class="tsd-signature tsd-kind-icon">_initialized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="assets" class="tsd-anchor"></a>
 					<h3>assets</h3>
@@ -362,7 +372,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 					<a name="destroy" class="tsd-anchor"></a>
 					<h3>destroy</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -373,7 +383,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 									<p>Remove the bot from Game.world, <br>clear all event listeners, <br>stop hit detection, <br>and tell clients to delete the bot.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -557,7 +567,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 					<a name="movetowardsplayer" class="tsd-anchor"></a>
 					<h3>move<wbr>Towards<wbr>Player</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">move<wbr>Towards<wbr>Player<span class="tsd-signature-symbol">(</span>player<span class="tsd-signature-symbol">: </span><a href="player.html" class="tsd-signature-type">Player</a>, speed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">move<wbr>Towards<wbr>Player<span class="tsd-signature-symbol">(</span>player<span class="tsd-signature-symbol">: </span><a href="player.html" class="tsd-signature-type">Player</a>, speed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -577,7 +587,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 									<h5>speed: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -585,7 +595,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 					<a name="movetowardspoint" class="tsd-anchor"></a>
 					<h3>move<wbr>Towards<wbr>Point</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">move<wbr>Towards<wbr>Point<span class="tsd-signature-symbol">(</span>pos<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a>, speed<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">move<wbr>Towards<wbr>Point<span class="tsd-signature-symbol">(</span>pos<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a>, speed<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -605,7 +615,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> speed: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;5</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -915,7 +925,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 					<a name="setavatar" class="tsd-anchor"></a>
 					<h3>set<wbr>Avatar</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Avatar<span class="tsd-signature-symbol">(</span>userId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Avatar<span class="tsd-signature-symbol">(</span>userId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -932,7 +942,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 									<h5>userId: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -997,7 +1007,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 					<a name="setoutfit" class="tsd-anchor"></a>
 					<h3>set<wbr>Outfit</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Outfit<span class="tsd-signature-symbol">(</span>outfit<span class="tsd-signature-symbol">: </span><a href="outfit.html" class="tsd-signature-type">Outfit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Outfit<span class="tsd-signature-symbol">(</span>outfit<span class="tsd-signature-symbol">: </span><a href="outfit.html" class="tsd-signature-type">Outfit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1014,7 +1024,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 									<h5>outfit: <a href="outfit.html" class="tsd-signature-type">Outfit</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1022,7 +1032,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 					<a name="setposition" class="tsd-anchor"></a>
 					<h3>set<wbr>Position</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Position<span class="tsd-signature-symbol">(</span>position<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Position<span class="tsd-signature-symbol">(</span>position<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1039,7 +1049,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 									<h5>position: <a href="vector3.html" class="tsd-signature-type">Vector3</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1047,7 +1057,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 					<a name="setrotation" class="tsd-anchor"></a>
 					<h3>set<wbr>Rotation</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Rotation<span class="tsd-signature-symbol">(</span>rotation<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Rotation<span class="tsd-signature-symbol">(</span>rotation<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1064,7 +1074,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 									<h5>rotation: <a href="vector3.html" class="tsd-signature-type">Vector3</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1072,7 +1082,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 					<a name="setscale" class="tsd-anchor"></a>
 					<h3>set<wbr>Scale</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Scale<span class="tsd-signature-symbol">(</span>scale<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Scale<span class="tsd-signature-symbol">(</span>scale<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1089,7 +1099,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 									<h5>scale: <a href="vector3.html" class="tsd-signature-type">Vector3</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1097,7 +1107,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 					<a name="setspeech" class="tsd-anchor"></a>
 					<h3>set<wbr>Speech</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Speech<span class="tsd-signature-symbol">(</span>speech<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Speech<span class="tsd-signature-symbol">(</span>speech<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1114,7 +1124,7 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 									<h5>speech: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1223,6 +1233,9 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="bot.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="bot.html#_initialized" class="tsd-kind-icon">_initialized</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="bot.html#assets" class="tsd-kind-icon">assets</a>
@@ -1397,13 +1410,25 @@ setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt
 						<a href="../interfaces/packetbuilderoptions.html" class="tsd-kind-icon">Packet<wbr>Builder<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/utilies.html" class="tsd-kind-icon">Utilies</a>
+						<a href="../interfaces/utilities.html" class="tsd-kind-icon">Utilities</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/vm_globals.html" class="tsd-kind-icon">VM_<wbr>GLOBALS</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/world.html" class="tsd-kind-icon">World</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/colormodule.html" class="tsd-kind-icon">color<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/filtermodule.html" class="tsd-kind-icon">filter<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/serializermodule.html" class="tsd-kind-icon">serializer<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#formathex" class="tsd-kind-icon">format<wbr>Hex</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#startserver" class="tsd-kind-icon">start<wbr>Server</a>

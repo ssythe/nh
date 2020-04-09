@@ -1,4 +1,4 @@
-const { hexToRGB } = require("../../util/color/color")
+const { hexToRGB } = require("../../util/color/colorModule").default
 
 function addBrickProperties(packet, brick) {
     // Create brick header
@@ -39,5 +39,5 @@ function addBrickProperties(packet, brick) {
     if (!brick.collision)
         packet.write("string", '\t+NOCOLLISION\r\n')
 }
- 
+
 module.exports = addBrickProperties

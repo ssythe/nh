@@ -1,18 +1,18 @@
 import { EventEmitter } from "events"
 
-import Game, { Disconnectable } from "./game"
+import Game, { Disconnectable } from "./Game"
 
-import Vector3 from "./vector3"
+import Vector3 from "./Vector3"
 
-import Player, { BodyColors, Assets } from "./player"
+import Player, { BodyColors, Assets } from "./Player"
 
-import Outfit from "./outfit"
+import Outfit from "./Outfit"
 
-import PacketBuilder, { PacketEnums } from "../util/net/packetBuilder"
+import PacketBuilder, { PacketEnums } from "../net/PacketBuilder"
 
-const createBotIds = require("../net/createBotIds")
+import createBotIds from "../net/BrickHillPackets/botIds"
 
-const setAvatar = require("../scripts/player/setAvatar")
+import setAvatar from "../scripts/player/setAvatar"
 
 /**
  * Bots are fake players that player's can interact with. \
@@ -32,7 +32,9 @@ const setAvatar = require("../scripts/player/setAvatar")
 *
 * Game.newBot(zombie)
 *
-* setInterval(() => {
+* // We use bot.setinterval so that when the zombie is destroyed, the loop clears. 
+* // It's good practice to do this to avoid memory leaks.
+* zombie.setInterval(() => {
 *   let target = zombie.findClosestPlayer(20)
 *
 *   if (!target) return zombie.setSpeech("")
@@ -49,9 +51,11 @@ const setAvatar = require("../scripts/player/setAvatar")
 * ```
 **/
 export default class Bot extends EventEmitter {
-    readonly name: string
+    name: string
 
-    readonly netId: number
+    netId: number
+
+    _initialized: boolean
 
     /** The speech bubble of the bot. ("" = empty). */
     speech: string = ""
@@ -85,6 +89,8 @@ export default class Bot extends EventEmitter {
         Bot.botId += 1
 
         this._steps = []
+
+        this._initialized = false
 
         this.destroyed = false
 
@@ -136,15 +142,9 @@ export default class Bot extends EventEmitter {
      * stop hit detection, \
      * and tell clients to delete the bot. */
     async destroy() {
-        if (this.destroyed) throw new Error("Bot has already been destroyed.")
+        if (this.destroyed) return Promise.reject("Bot has already been destroyed.")
 
         const bots = Game.world.bots
-
-        const index = bots.indexOf(this)
-
-        if (index === -1) throw new Error("Could not find bot index.") // Could not find bot.
-
-        bots.splice(index, 1)
 
         // Stop monitoring for hit detection
         clearInterval(this._hitMonitor)
@@ -155,11 +155,20 @@ export default class Bot extends EventEmitter {
 
         this.removeAllListeners()
 
-        this.destroyed = true
+        const index = bots.indexOf(this)
 
-        return new PacketBuilder(PacketEnums.DestroyBot)
+        if (index !== -1)
+            bots.splice(index, 1)
+
+        await new PacketBuilder(PacketEnums.DestroyBot)
             .write("uint32", this.netId)
             .broadcast()
+
+        this.netId = undefined
+
+        this._initialized = false
+
+        this.destroyed = true
     }
 
         /**

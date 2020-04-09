@@ -1,8 +1,8 @@
-const PacketBuilder = require("../util/net/packetBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
-const { hexToDec } = require("../util/color/color")
+const { hexToDec } = require("../../util/color/colorModule").default
 
-const formatHex = require("../util/color/formatHex")
+const formatHex = require("../../util/color/formatHex").default
 
 function createPlayerIdBuffer(player, idString = "") {
     // No player team, remove "Y" if it exists.
