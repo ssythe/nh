@@ -1,3 +1,13 @@
+export interface colorModule {
+    rgbToHex(r: number, g: number, b:number): string
+    rgbToBgr(rgb: string): string
+    rgbToDec(r: number, g: number, b: number): string
+    randomHexColor(): string
+    hexToDec(hex: string, bgr: boolean): string
+    hexToRGB(hex: string): Array<number>
+    convertRGB(r: number, g: number, b: number): Array<number>
+}
+
 // Convert RGB to hex
 function rgbToHex(r, g, b) {
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
@@ -47,4 +57,4 @@ function convertRGB(r, g, b) {
     return [ Math.ceil(r), Math.ceil(g), Math.ceil(b) ]
 }
 
-module.exports = { randomHexColor, rgbToHex, rgbToDec, hexToRGB, hexToDec, convertRGB, rgbToBgr }
+export default { randomHexColor, rgbToHex, rgbToDec, hexToRGB, hexToDec, convertRGB, rgbToBgr }

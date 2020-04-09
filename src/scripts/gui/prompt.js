@@ -1,4 +1,4 @@
-const PacketBuilder = require("../../util/net/packetBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
 function prompt(socket, message) {
     return new PacketBuilder("PlayerModification")

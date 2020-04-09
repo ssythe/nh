@@ -1,5 +1,3 @@
-const isSwear = require("../scripts/chat/isSwear")
-
 const regexMatch = /(?:\"([^\"]+)\"+)([^"]+)?/
 
 const rateLimit = new Set()
@@ -72,7 +70,7 @@ Game.commands(["whisper", "w"], (player, args) => {
         rateLimit.add(player.username)
         setTimeout(() => rateLimit.delete(player.username), 2000)
 
-        if (isSwear(message))
+        if (util.filterModule.isSwear(message))
             return p.message("Don't swear! Your message has not been sent.")
 
         const target = findPlayerByName(playerArg)

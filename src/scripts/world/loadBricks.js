@@ -1,6 +1,6 @@
 const addBrickProperties = require("./sendBrick")
 
-const PacketBuilder = require("../../util/net/packetBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
 function loadBricks(bricks = []) {
     if (!bricks.length) return

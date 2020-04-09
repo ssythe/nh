@@ -333,19 +333,33 @@ export class Game extends EventEmitter {
         }
     }
 
-    /** "Parents" a bot class to the game. You should do this after setting all the bot properties. */
+    /** "Parents" a bot class to the game. **/
     async newBot(bot: Bot) {
         this.world.bots.push(bot)
-        return scripts.botPacket(bot)
-            .broadcast()
+
+        await scripts.botPacket(bot).broadcast()
+
+        bot._initialized = true
     }
 
     /** "Parents" a brick class to the game. You should do this after setting all the brick properties. */
     async newBrick(brick: Brick) {
         this.world.bricks.push(brick)
-        let packet = new PacketBuilder(PacketEnums.SendBrick)
+
+        const packet = new PacketBuilder(PacketEnums.SendBrick)
+
         scripts.addBrickProperties(packet, brick)
-        return packet.broadcast()
+
+        await packet.broadcast()
+
+        brick._initialized = true
+    }
+
+    async newTeam(team: Team) {
+        this.world.teams.push(team)
+
+        return scripts.teamPacket.create(team)
+            .broadcast()
     }
 
     /** Takes an array of bricks and loads them to all clients. */
@@ -393,15 +407,20 @@ export class Game extends EventEmitter {
      */
     async loadBrk(location: string): Promise<MapData> {
         let path = resolve(process.cwd(), location)
-        if (!path.endsWith(".brk")) throw new Error("Map selected is not a .brk file. Aborting.")
+        if (!path.endsWith(".brk")) return Promise.reject("Map selected is not a .brk file. Aborting.")
+
         this.map = path
         this.mapName = basename(path)
+
         await this.clearMap()
+
         let brkData = scripts.loadBrk(path)
         this.world.bricks = brkData.bricks
         this.world.spawns = brkData.spawns
+
         let map = scripts.loadBricks(this.world.bricks)
         if (map) await map.broadcast()
+
         return brkData
     }
 
@@ -413,6 +432,7 @@ export class Game extends EventEmitter {
     parseBrk(location: string): MapData {
         let path = resolve(process.cwd(), location)
         if (!path.endsWith(".brk")) throw new Error("Map selected is not a .brk file. Aborting.")
+
         return scripts.loadBrk(path)
     } 
 
@@ -454,10 +474,13 @@ export class Game extends EventEmitter {
     async _newPlayer(p) {
         p.socket.player = p
         p.authenticated = true
+
         this.playerCount++
         this.players.push(p)
         this.emit("playerJoin", p)
+
         await p._joined().catch(console.error)
+
         this.emit("initialSpawn", p)
     }
 
@@ -466,8 +489,10 @@ export class Game extends EventEmitter {
         if (p.authenticated) {
             this.playerCount--
             this.emit("playerLeave", p)
+
             let index = this.players.indexOf(p)
             this.players.splice(index, 1)
+
             await p._left()
         }
     }
@@ -475,19 +500,20 @@ export class Game extends EventEmitter {
 
 export default new Game()
 
-import Player from "./player"
+import Player from "./Player"
 
-import Team from "./team"
+import Team from "./Team"
 
 import * as scripts from "../scripts"
 
-import Brick from "./brick"
+import Brick from "./Brick"
 
-import Bot from "./bot"
+import Bot from "./Bot"
 
-import PacketBuilder, { PacketEnums } from "../util/net/packetBuilder"
+import PacketBuilder, { PacketEnums } from "../net/PacketBuilder"
 
-import Vector3 from "./vector3"
+import Vector3 from "./Vector3"
 
-import Tool from "./tool"
+import Tool from "./Tool"
+
 import { GameSettings } from ".."

@@ -1,4 +1,4 @@
-const PacketBuilder = require("../../util/net/packetBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
 async function kick(socket, message = "No reason given.") {
    await new PacketBuilder("PlayerModification")

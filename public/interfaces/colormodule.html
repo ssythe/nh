@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>World | node-hill</title>
+	<title>colorModule | node-hill</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="world.html">World</a>
+					<a href="colormodule.html">colorModule</a>
 				</li>
 			</ul>
-			<h1>Interface World</h1>
+			<h1>Interface colorModule</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">World</span>
+						<span class="target">colorModule</span>
 					</li>
 				</ul>
 			</section>
@@ -77,92 +77,176 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="world.html#bots" class="tsd-kind-icon">bots</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="world.html#bricks" class="tsd-kind-icon">bricks</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="world.html#environment" class="tsd-kind-icon">environment</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="world.html#spawns" class="tsd-kind-icon">spawns</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="world.html#teams" class="tsd-kind-icon">teams</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="world.html#tools" class="tsd-kind-icon">tools</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="colormodule.html#convertrgb" class="tsd-kind-icon">convertRGB</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="colormodule.html#hextodec" class="tsd-kind-icon">hex<wbr>ToDec</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="colormodule.html#hextorgb" class="tsd-kind-icon">hex<wbr>ToRGB</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="colormodule.html#randomhexcolor" class="tsd-kind-icon">random<wbr>Hex<wbr>Color</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="colormodule.html#rgbtobgr" class="tsd-kind-icon">rgb<wbr>ToBgr</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="colormodule.html#rgbtodec" class="tsd-kind-icon">rgb<wbr>ToDec</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="colormodule.html#rgbtohex" class="tsd-kind-icon">rgb<wbr>ToHex</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="bots" class="tsd-anchor"></a>
-					<h3>bots</h3>
-					<div class="tsd-signature tsd-kind-icon">bots<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/bot.html" class="tsd-signature-type">Bot</a><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An array containing all the bots in the game.</p>
-						</div>
-					</div>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="convertrgb" class="tsd-anchor"></a>
+					<h3>convertRGB</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">convertRGB<span class="tsd-signature-symbol">(</span>r<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, g<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>r: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>g: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>b: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="bricks" class="tsd-anchor"></a>
-					<h3>bricks</h3>
-					<div class="tsd-signature tsd-kind-icon">bricks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An array containg all the bricks in the game.</p>
-						</div>
-					</div>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="hextodec" class="tsd-anchor"></a>
+					<h3>hex<wbr>ToDec</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">hex<wbr>ToDec<span class="tsd-signature-symbol">(</span>hex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, bgr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>hex: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>bgr: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="environment" class="tsd-anchor"></a>
-					<h3>environment</h3>
-					<div class="tsd-signature tsd-kind-icon">environment<span class="tsd-signature-symbol">:</span> <a href="environment.html" class="tsd-signature-type">Environment</a></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An object containing various environment properties.</p>
-						</div>
-					</div>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="hextorgb" class="tsd-anchor"></a>
+					<h3>hex<wbr>ToRGB</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">hex<wbr>ToRGB<span class="tsd-signature-symbol">(</span>hex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>hex: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="spawns" class="tsd-anchor"></a>
-					<h3>spawns</h3>
-					<div class="tsd-signature tsd-kind-icon">spawns<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An array containing bricks, when a player respawns it will choose a random position from a brick in this array.</p>
-						</div>
-					</div>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="randomhexcolor" class="tsd-anchor"></a>
+					<h3>random<wbr>Hex<wbr>Color</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">random<wbr>Hex<wbr>Color<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="teams" class="tsd-anchor"></a>
-					<h3>teams</h3>
-					<div class="tsd-signature tsd-kind-icon">teams<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/team.html" class="tsd-signature-type">Team</a><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An array containing all the teams in the game.</p>
-						</div>
-					</div>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="rgbtobgr" class="tsd-anchor"></a>
+					<h3>rgb<wbr>ToBgr</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">rgb<wbr>ToBgr<span class="tsd-signature-symbol">(</span>rgb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rgb: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="tools" class="tsd-anchor"></a>
-					<h3>tools</h3>
-					<div class="tsd-signature tsd-kind-icon">tools<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/tool.html" class="tsd-signature-type">Tool</a><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An array of all the tools in the game.</p>
-						</div>
-					</div>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="rgbtodec" class="tsd-anchor"></a>
+					<h3>rgb<wbr>ToDec</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">rgb<wbr>ToDec<span class="tsd-signature-symbol">(</span>r<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, g<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>r: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>g: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>b: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="rgbtohex" class="tsd-anchor"></a>
+					<h3>rgb<wbr>ToHex</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">rgb<wbr>ToHex<span class="tsd-signature-symbol">(</span>r<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, g<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>r: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>g: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>b: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -242,36 +326,39 @@
 					<li class=" tsd-kind-interface">
 						<a href="vm_globals.html" class="tsd-kind-icon">VM_<wbr>GLOBALS</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="world.html" class="tsd-kind-icon">World</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="world.html" class="tsd-kind-icon">World</a>
+						<a href="colormodule.html" class="tsd-kind-icon">color<wbr>Module</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="world.html#bots" class="tsd-kind-icon">bots</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="colormodule.html#convertrgb" class="tsd-kind-icon">convertRGB</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="world.html#bricks" class="tsd-kind-icon">bricks</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="colormodule.html#hextodec" class="tsd-kind-icon">hex<wbr>ToDec</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="world.html#environment" class="tsd-kind-icon">environment</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="colormodule.html#hextorgb" class="tsd-kind-icon">hex<wbr>ToRGB</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="world.html#spawns" class="tsd-kind-icon">spawns</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="colormodule.html#randomhexcolor" class="tsd-kind-icon">random<wbr>Hex<wbr>Color</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="world.html#teams" class="tsd-kind-icon">teams</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="colormodule.html#rgbtobgr" class="tsd-kind-icon">rgb<wbr>ToBgr</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="world.html#tools" class="tsd-kind-icon">tools</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="colormodule.html#rgbtodec" class="tsd-kind-icon">rgb<wbr>ToDec</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="colormodule.html#rgbtohex" class="tsd-kind-icon">rgb<wbr>ToHex</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="colormodule.html" class="tsd-kind-icon">color<wbr>Module</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="filtermodule.html" class="tsd-kind-icon">filter<wbr>Module</a>
 					</li>

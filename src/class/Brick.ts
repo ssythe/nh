@@ -1,13 +1,13 @@
 
 import { EventEmitter } from "events"
 
-import Game, { Disconnectable } from "./game"
+import Game, { Disconnectable } from "./Game"
 
-import createBrickPacket from "../net/createBrickIds"
+import createBrickPacket from "../net/BrickHillPackets/brickIds"
 
-import Player from "./player"
+import Player from "./Player"
 
-import Vector3 from "./vector3"
+import Vector3 from "./Vector3"
 
 const TOUCH_EVENTS = ["touching", "touchingEnded"]
 
@@ -29,6 +29,9 @@ const TOUCH_EVENTS = ["touching", "touchingEnded"]
 export default class Brick extends EventEmitter {
     /** The name of the brick. */
     name: string
+
+    /** Whether Game.newBrick or player.newBrick was called. */
+    _initialized: boolean
 
     /** The current position of the brick. */
     position: Vector3
@@ -88,14 +91,16 @@ export default class Brick extends EventEmitter {
 
     static brickId: number = 0
 
-    constructor(position: Vector3, scale: Vector3, color = "#C0C0C0") {
+    constructor(position = new Vector3(0, 0, 0), scale = new Vector3(1, 1, 1), color = "#C0C0C0") {
         super()
 
         Brick.brickId += 1
 
         this.destroyed = false
 
-        this._steps = []        
+        this._initialized = false
+
+        this._steps = []     
 
         this.position = position
 
@@ -157,14 +162,14 @@ export default class Brick extends EventEmitter {
 
     async setLightColor(color: string) {
         if (!this.lightEnabled) 
-            throw new Error("brick.lightEnabled must be enabled first!")
+            return Promise.reject("brick.lightEnabled must be enabled first!")
         this.lightColor = color
         return createBrickPacket(this, "lightcol")
     }
 
     async setLightRange(range: number) {
         if (!this.lightEnabled) 
-            throw new Error("brick.lightEnabled must be enabled first!")
+            return Promise.reject("brick.lightEnabled must be enabled first!")
         this.lightRange = range
         return createBrickPacket(this, "lightrange")
     }
@@ -196,9 +201,21 @@ export default class Brick extends EventEmitter {
         this._steps.push(loop)
         return loop
     }
+
+    clone() {
+        let newBrick = new Brick(this.position, this.scale, this.color)
+            newBrick.name = this.name
+            newBrick.lightColor = this.lightColor
+            newBrick.clickable = this.clickable
+            newBrick.clickDistance = this.clickDistance
+            newBrick.visibility = this.visibility
+            newBrick.collision = this.collision
+            newBrick.lightEnabled = this.lightEnabled
+        return newBrick
+    }
     
     async destroy() {
-        if (this.destroyed) throw new Error("Brick has already been destroyed.")
+        if (this.destroyed) return Promise.reject("Brick has already been destroyed.")
 
         // Stop monitoring for hit detection
         clearInterval(this._hitMonitor)
@@ -215,10 +232,11 @@ export default class Brick extends EventEmitter {
 
             const index = bricks.indexOf(this)
 
-            // The brick is in Game.world.bricks, remove it.
             if (index !== -1)
                 bricks.splice(index, 1)
-        } else { // This is a local brick
+
+        // This is a local brick
+        } else {
             const locals = this.socket.player.localBricks
 
             const index = locals.indexOf(this)
@@ -227,9 +245,20 @@ export default class Brick extends EventEmitter {
                 locals.splice(index, 1)
         }
 
-        this.destroyed = true
+        // To account for a client bug where you cannot destroy bricks with no collision.
+        if (!this.collision) await this.setCollision(true)
 
-        return createBrickPacket(this, "destroy")
+        await createBrickPacket(this, "destroy")
+
+        this.socket = undefined
+
+        this.netId = undefined
+
+        this._playersTouching = new Set()
+
+        this._initialized = false
+
+        this.destroyed = true
     }
 
     private _hitDetection() {
@@ -245,14 +274,9 @@ export default class Brick extends EventEmitter {
         origin[1]   = this.position.y + scale[1]
         origin[2]   = this.position.z + scale[2]
 
-        let players = []
+        const players = [ this.socket && this.socket.player ] || Game.players
 
-        if (this.socket) // Iterate over the player attached
-            players.push(this.socket.player)
-        else // Iterate over all the players
-            players = Game.players
-
-        for (let p of players) {
+        for (const p of players) {
             let size = []
 
             size[0] = p.scale.x

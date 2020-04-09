@@ -1,8 +1,8 @@
-const Game = require("../../class/game").default
+const Game = require("../../class/Game").default
 
-const PacketBuilder = require("../../util/net/packetBuilder").default
+const PacketBuilder = require("../../net/PacketBuilder").default
 
-const { hexToDec } = require("../../util/color/color")
+const { hexToDec } = require("../../util/color/colorModule").default
 
 // Used for converting camelCase to Brick Hill's weird way of doing it.
 const BRICK_HILL_ENVIRONMENTS = {
@@ -25,7 +25,7 @@ async function setEnvironment(environment = {}, socket) {
 
     for (let key of env_keys) {
         if (typeof Game.world.environment[key] === "undefined") {
-            throw new Error("Invalid environment property: " + key)
+            return Promise.reject("Invalid environment property: " + key)
         }
     }
 
@@ -40,7 +40,9 @@ async function setEnvironment(environment = {}, socket) {
 
         if (prop === "weather") {
             const weather = BRICK_HILL_WEATHER[change]
-            if (!weather) throw new Error("Invalid weather type (options: sun, rain, snow)")
+            
+            if (!weather) return Promise.reject("Invalid weather type (options: sun, rain, snow)")
+
             packet.write("string", weather)
         } else {
             switch(prop) {

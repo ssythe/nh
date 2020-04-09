@@ -1,6 +1,6 @@
-import Player from "./player"
+import Player from "./Player"
 
-import Bot from "./bot"
+import Bot from "./Bot"
 
 /**
  * This is used for setting player & bot body colors + assets.
