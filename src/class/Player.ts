@@ -709,9 +709,7 @@ export default class Player extends EventEmitter {
         
         scripts.addBrickProperties(packet, brick)
 
-        await packet.send(this.socket)
-
-        brick._initialized = true
+        return packet.send(this.socket)
     }
    
     async setPosition(position: Vector3) {

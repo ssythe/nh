@@ -30,9 +30,6 @@ export default class Brick extends EventEmitter {
     /** The name of the brick. */
     name: string
 
-    /** Whether Game.newBrick or player.newBrick was called. */
-    _initialized: boolean
-
     /** The current position of the brick. */
     position: Vector3
 
@@ -97,9 +94,7 @@ export default class Brick extends EventEmitter {
         Brick.brickId += 1
 
         this.destroyed = false
-
-        this._initialized = false
-
+        
         this._steps = []     
 
         this.position = position
@@ -256,8 +251,6 @@ export default class Brick extends EventEmitter {
 
         this._playersTouching = new Set()
 
-        this._initialized = false
-
         this.destroyed = true
     }
 
@@ -274,7 +267,7 @@ export default class Brick extends EventEmitter {
         origin[1]   = this.position.y + scale[1]
         origin[2]   = this.position.z + scale[2]
 
-        const players = [ this.socket && this.socket.player ] || Game.players
+        const players = (this.socket && [ this.socket.player ]) || Game.players
 
         for (const p of players) {
             let size = []

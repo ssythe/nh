@@ -55,8 +55,6 @@ export default class Bot extends EventEmitter {
 
     netId: number
 
-    _initialized: boolean
-
     /** The speech bubble of the bot. ("" = empty). */
     speech: string = ""
 
@@ -89,8 +87,6 @@ export default class Bot extends EventEmitter {
         Bot.botId += 1
 
         this._steps = []
-
-        this._initialized = false
 
         this.destroyed = false
 
@@ -165,8 +161,6 @@ export default class Bot extends EventEmitter {
             .broadcast()
 
         this.netId = undefined
-
-        this._initialized = false
 
         this.destroyed = true
     }

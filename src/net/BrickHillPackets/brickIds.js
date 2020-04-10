@@ -3,8 +3,6 @@ const PacketBuilder = require("../../net/PacketBuilder").default
 let { hexToDec } = require("../../util/color/colorModule").default
 
 function createBrickIdBuffer(brick, modification) {
-    if (!brick._initialized) return
-
     let brickPacket = new PacketBuilder("Brick")
         .write("uint32", brick.netId)
         .write("string", modification)

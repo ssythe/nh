@@ -337,9 +337,8 @@ export class Game extends EventEmitter {
     async newBot(bot: Bot) {
         this.world.bots.push(bot)
 
-        await scripts.botPacket(bot).broadcast()
-
-        bot._initialized = true
+        return scripts.botPacket(bot)
+            .broadcast()
     }
 
     /** "Parents" a brick class to the game. You should do this after setting all the brick properties. */
@@ -350,9 +349,7 @@ export class Game extends EventEmitter {
 
         scripts.addBrickProperties(packet, brick)
 
-        await packet.broadcast()
-
-        brick._initialized = true
+        return packet.broadcast()
     }
 
     async newTeam(team: Team) {

@@ -5,8 +5,6 @@ const { hexToDec } = require("../../util/color/colorModule").default
 const formatHex = require("../../util/color/formatHex").default
 
 function createBotIdBuffer(bot, idString = "") {
-    if (!bot._initialized) return
-    
     const length = idString.length
 
     const botPacket = new PacketBuilder("Bot")
