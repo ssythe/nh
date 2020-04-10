@@ -18,15 +18,10 @@ import { loadBrk } from "./scripts"
 import Tool from "./class/Tool"
 import Outfit from "./class/Outfit"
 
-// Get interfaces
-import { colorModule }  from "./util/color/colorModule"
-import { filterModule } from "./util/filter/filterModule"
-import { serializerModule } from "./util/serializer/serializerModule"
-
-// Get main module methods
-import color from "./util/color/colorModule"
-import filter from "./util/filter/filterModule"
-import serializer from "./util/serializer/serializerModule"
+// Get utility methods
+import color, { colorModule }  from "./util/color/colorModule"
+import filter, { filterModule } from "./util/filter/filterModule"
+import serializer, { serializerModule } from "./util/serializer/serializerModule"
 
 const NPM_LATEST_VERSION = "https://registry.npmjs.org/node-hill/latest"
 
