@@ -1,3 +1,5 @@
+let pickSpawn;
+
 function chooseTeamSpawn(p) {
     // This is going to run everytime the player respawns, we need to be sure they have a team.
     if (p.team) {
@@ -7,6 +9,9 @@ function chooseTeamSpawn(p) {
         const spawn = spawns[Math.floor(Math.random() * spawns.length)]
 
         return spawn.center
+
+    } else {
+        return pickSpawn()
     }
 }
 
@@ -20,5 +25,7 @@ world.spawns.forEach((spawn) => {
 })
 
 Game.on("playerJoin", (p) => {
+    // Cache the pickSpawn function
+    pickSpawn = p.spawnHandler
     p.spawnHandler = chooseTeamSpawn
 })

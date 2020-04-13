@@ -258,7 +258,7 @@ export default class Player extends EventEmitter {
     /**
      * A function that will be called whenever player.respawn() is called.
      */
-    spawnHandler?: (player: Player) => Vector3
+    spawnHandler: (player: Player) => Vector3
 
     /** An array containing all local bricks on the player's client. */
     localBricks?: Array<Brick>
@@ -283,6 +283,8 @@ export default class Player extends EventEmitter {
         this.blockedUsers = []
 
         this.destroyed = false
+
+        this.spawnHandler = scripts.pickSpawn
 
         this.position = new Vector3(0, 0, 0)
 
@@ -813,8 +815,6 @@ export default class Player extends EventEmitter {
             newSpawnPosition = this.spawnPosition
         } else if (this.spawnHandler) {
             newSpawnPosition = await this.spawnHandler(this)
-        } else {
-            newSpawnPosition = scripts.pickSpawn()
         }
 
         await this.setPosition(newSpawnPosition)
