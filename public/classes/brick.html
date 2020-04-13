@@ -110,7 +110,6 @@ brick.touching(debounce(<span class="hljs-function">(<span class="hljs-params">p
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="brick.html#_initialized" class="tsd-kind-icon">_initialized</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="brick.html#clickdistance" class="tsd-kind-icon">click<wbr>Distance</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="brick.html#clickable" class="tsd-kind-icon">clickable</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="brick.html#collision" class="tsd-kind-icon">collision</a></li>
@@ -130,6 +129,12 @@ brick.touching(debounce(<span class="hljs-function">(<span class="hljs-params">p
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="brick.html#visibility" class="tsd-kind-icon">visibility</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="brick.html#brickid" class="tsd-kind-icon">brick<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="brick.html#defaultmaxlisteners" class="tsd-kind-icon">default<wbr>Max<wbr>Listeners</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="brick.html#center" class="tsd-kind-icon">center</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -203,18 +208,6 @@ brick.touching(debounce(<span class="hljs-function">(<span class="hljs-params">p
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="_initialized" class="tsd-anchor"></a>
-					<h3>_initialized</h3>
-					<div class="tsd-signature tsd-kind-icon">_initialized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether Game.newBrick or player.newBrick was called.</p>
-						</div>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="clickdistance" class="tsd-anchor"></a>
 					<h3>click<wbr>Distance</h3>
@@ -433,6 +426,23 @@ brick.touching(debounce(<span class="hljs-function">(<span class="hljs-params">p
 					<aside class="tsd-sources">
 						<p>Inherited from EventEmitter.defaultMaxListeners</p>
 					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="center" class="tsd-anchor"></a>
+					<h3>center</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> center<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -1405,9 +1415,6 @@ purpleBrick.touchingEnded(<span class="hljs-function">(<span class="hljs-params"
 								<a href="brick.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="brick.html#_initialized" class="tsd-kind-icon">_initialized</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="brick.html#clickdistance" class="tsd-kind-icon">click<wbr>Distance</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -1463,6 +1470,9 @@ purpleBrick.touchingEnded(<span class="hljs-function">(<span class="hljs-params"
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="brick.html#defaultmaxlisteners" class="tsd-kind-icon">default<wbr>Max<wbr>Listeners</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="brick.html#center" class="tsd-kind-icon">center</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="brick.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>

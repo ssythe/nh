@@ -1,5 +1,5 @@
 // Node + npm modules
-import { resolve, basename} from "path"
+import { resolve, basename } from "path"
 import * as fs from "fs"
 import { promisify } from "util"
 import { NodeVM, NodeVMOptions } from "vm2"
@@ -107,38 +107,18 @@ export interface VM_GLOBALS {
     debounce: (callback: Function, delay: number) => void
 }
 
-function vmLoadCoreScripts(vm: NodeVM) {
-    fs.readdirSync(CORE_DIRECTORY).forEach((file) => {
-        if (!file.endsWith(".js")) return
-        if (!Game.coreScriptsDisabled.includes(file)) {
-            const coreScript = resolve(CORE_DIRECTORY, file)
-            try {
-                const script = fs.readFileSync(coreScript, "UTF-8")
-
-                vm.run(script, coreScript)
-
-                console.log(`[*] Loaded Core Script: ${file}`)
-            } catch (err) {
-                console.error(err)
-            }
-        } else {
-            console.log(`[*] Disabled Core Script: ${file}`)
-        }
-    })
-}
-
-function vmLoadScriptsInDir(vm: NodeVM, dir: string) {
-    fs.readdirSync(dir).forEach((file) => {
-        if (!file.endsWith(".js")) return
-        const userScriptData = resolve(dir, file)
+function vmLoadScriptInDirectory(vm: NodeVM, scriptDirectory: string, scriptType: string) {
+    fs.readdirSync(scriptDirectory).forEach((file) => {
+        if (Game.coreScriptsDisabled.includes(file))
+            return console.log(`[*] Disabled Core Script: ${file}`)
         try {
-            const script = fs.readFileSync(userScriptData, "UTF-8")
-
-            vm.run(script, userScriptData)
-
-            console.log(`[*] Loaded User Script: ${file}`)
+            const scriptPath = resolve(scriptDirectory, file)
+            const scriptContents = fs.readFileSync(scriptPath, "UTF-8")
+            vm.run(scriptContents, scriptPath)
+            console.log(`[*] Loaded ${scriptType} Script: ${file}`)
         } catch (err) {
-            console.error(err)
+            console.log(`[*] Error loading ${scriptType} Script: ${file}`)
+            console.error(err.stack)
         }
     })
 }
@@ -184,9 +164,8 @@ function loadScripts() {
 
     const VM_SETTINGS: NodeVMOptions = {
         require: { 
-            external: true,
-            context: "sandbox",
-            builtin: ["*"],
+            external: false,
+            context: "sandbox"
         },
         sandbox: { ...sandbox, ...Game.sandbox }
     }
@@ -194,12 +173,14 @@ function loadScripts() {
     const vm = new NodeVM(VM_SETTINGS)
 
     if (Game.coreScriptsDisabled[0] !== "*")
-        vmLoadCoreScripts(vm)
+        vmLoadScriptInDirectory(vm, CORE_DIRECTORY, "Core")
     else
-        console.log("[*] All Core Scripts disabled.")
+        console.log("[*] All Core Scripts disabled")
 
-    if (Game.userScripts)
-        vmLoadScriptsInDir(vm, Game.userScripts)
+    if (!Game.userScripts) return;
+
+    vmLoadScriptInDirectory(vm, Game.userScripts, "User")
+
 }
 
 function initiateMap(map) {
@@ -215,17 +196,12 @@ function initiateMap(map) {
     Game.mapName = mapName
 
     try {
-        let { environment, bricks, tools, teams, spawns } = loadBrk(map) // Load map (environment, bricks, spawns) into mapBuffer.
-        
-        Game.world.environment = environment
-
-        Game.world.bricks = bricks
-
-        Game.world.spawns = spawns
-
-        Game.world.tools = tools
-
-        Game.world.teams = teams
+        const { environment, bricks, tools, teams, spawns } = loadBrk(map) // Load map (environment, bricks, spawns) into mapBuffer.
+            Game.world.environment = environment
+            Game.world.bricks = bricks
+            Game.world.spawns = spawns
+            Game.world.tools = tools
+            Game.world.teams = teams
     } catch (err) {
         console.error("Failure parsing brk: ", err && err.stack)
         return process.exit(1)
@@ -249,7 +225,7 @@ export interface GameSettings {
     */
     coreScriptsDisabled?: Array<string>,
 
-    /**An object containing npm modules you want to compile and use inside the VM context.
+    /**An object containing node modules you want to compile from host, and use inside the VM context.
      * 
      * Example (in `start.js`):
      * ```js
@@ -257,6 +233,11 @@ export interface GameSettings {
      *  discord: require("discord.js")
      * }
      * ```
+     * 
+     * Example 2 (in `user_script.js`):
+     * 
+     * // You can now use discord.js by accessing "discord".
+     * discord.login("whatever")
      */
     sandbox?: Object,
     
@@ -305,7 +286,8 @@ export function startServer(settings: GameSettings) {
         initiateMap(Game.map)
     }
     
-    Game.serverSettings = settings
+    // Probably not the best idea to give them the *actual* object pointer?
+    Game.serverSettings = Object.assign({}, settings)
 
     // Do version check
     _getLatestnpmVersion().then((package_version) => {

@@ -171,12 +171,15 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>An object containing npm modules you want to compile and use inside the VM context.</p>
+							<p>An object containing node modules you want to compile from host, and use inside the VM context.</p>
 						</div>
 						<p>Example (in <code>start.js</code>):</p>
 						<pre><code class="language-js">sandbox: {
  <span class="hljs-attr">discord</span>: <span class="hljs-built_in">require</span>(<span class="hljs-string">"discord.js"</span>)
 }</code></pre>
+						<p>Example 2 (in <code>user_script.js</code>):</p>
+						<p>// You can now use discord.js by accessing &quot;discord&quot;.
+						discord.login(&quot;whatever&quot;)</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
