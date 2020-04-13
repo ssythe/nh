@@ -813,8 +813,8 @@ export default class Player extends EventEmitter {
 
         if (this.spawnPosition) {
             newSpawnPosition = this.spawnPosition
-        } else if (this.spawnHandler) {
-            newSpawnPosition = await this.spawnHandler(this)
+        } else {
+            newSpawnPosition = await this.spawnHandler(this) || scripts.pickSpawn()
         }
 
         await this.setPosition(newSpawnPosition)
