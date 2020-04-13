@@ -12,9 +12,4 @@ Game.on("playerJoin", (p) => {
 
         p.equipTool(tool)
     })
-    p.mouseclick(() => {
-        if (p.toolEquipped) {
-            p.toolEquipped.emit("activated", p)
-        }
-    })
 })

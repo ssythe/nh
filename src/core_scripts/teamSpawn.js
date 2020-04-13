@@ -6,11 +6,7 @@ function chooseTeamSpawn(p) {
 
         const spawn = spawns[Math.floor(Math.random() * spawns.length)]
 
-        return new Vector3(
-            spawn.position.x + spawn.scale.x/2, 
-            spawn.position.y + spawn.scale.y/2, 
-            spawn.scale.z
-        )
+        return spawn.center
     }
 }
 

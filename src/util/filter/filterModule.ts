@@ -1,6 +1,6 @@
 const filterList = require("./filter.json")
 
-const regex = new RegExp(filterList.join("|"), "i")
+let regex = new RegExp(filterList.join("|"), "i")
 
 export interface filterModule {
     getFilter(): string[]

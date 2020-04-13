@@ -958,6 +958,10 @@ export default class Player extends EventEmitter {
                 await this.addTool(tool)
             }
         }
+
+        this.mouseclick(() => {
+            this.toolEquipped && this.toolEquipped.emit("activated", this)
+        })
         
         this.emit("initialSpawn")
     }

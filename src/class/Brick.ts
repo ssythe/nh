@@ -130,6 +130,14 @@ export default class Brick extends EventEmitter {
         })
     }
 
+    get center() {
+        return new Vector3(
+            this.position.x + this.scale.x/2, 
+            this.position.y + this.scale.y/2, 
+            this.scale.z
+        )
+    }
+
     async setPosition(position: Vector3) {
         this.position = new Vector3().fromVector(position)
         return createBrickPacket(this, "pos")

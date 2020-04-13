@@ -117,16 +117,18 @@ export default class Tool extends EventEmitter {
     /** Completely destroys the tool, unequips it from all players, deletes it from their inventroy, and removes it from Game.world.tools. */
     async destroy() {
         for (let player of Game.players) {
+            // Fire tool unequipped to player
             if (player.toolEquipped === this) {
                 player.toolEquipped = null
                 this.emit("unequipped", player)
             }
+            // Remove the tool from the player's inventory
+            await player.destroyTool(this)
         }
 
         const index = Game.world.tools.indexOf(this)
-
-        if (index === -1) return // Tool not found.
-
+        if (index === -1) return 
+        
         Game.world.tools.splice(index, 1)
 
         this.removeAllListeners()
