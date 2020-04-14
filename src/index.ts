@@ -164,8 +164,19 @@ function loadScripts() {
 
     const VM_SETTINGS: NodeVMOptions = {
         require: { 
-            external: false,
-            context: "sandbox"
+            external: true,
+            context: "sandbox",
+            builtin: [
+                "assert",
+                "http",
+                "https",
+                "net",
+                "readline",
+                "zlib",
+                "url",
+                "querystring",
+                "path"   
+               ]
         },
         sandbox: { ...sandbox, ...Game.sandbox }
     }
