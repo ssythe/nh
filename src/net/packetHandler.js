@@ -21,8 +21,8 @@ async function packetHandler(socket, packet) {
     const IP = socket.IP
 
     // Remove size prefix from the message.
-    const BYTE_SIZE = uintv.readUIntv(packet)
-    packet = packet.slice(BYTE_SIZE.end)
+    const BYTE_SIZE = uintv.readUIntVByteLength(packet)
+    packet = packet.slice(BYTE_SIZE)
 
     try {
         packet = zlib.inflateSync(packet)

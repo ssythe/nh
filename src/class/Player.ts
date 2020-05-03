@@ -696,22 +696,21 @@ export default class Player extends EventEmitter {
                 .broadcastExcept([this])
     }
 
+    /**Clones a brick locally to the player's client, returns the newly created local brick. */
     async newBrick(brick: Brick) {
-        // If users are dumb and try to localize the same brick twice.
-        if (brick.socket) {
-            console.warn("Brick already assigned to a player. Call .clone() next time.")
-            brick = brick.clone()
-        }
+        let localBrick = brick.clone()
 
-        brick.socket = this.socket
+        localBrick.socket = this.socket
         
-        this.localBricks.push(brick)
+        this.localBricks.push(localBrick)
 
         const packet = new PacketBuilder(PacketEnums.SendBrick)
         
-        scripts.addBrickProperties(packet, brick)
+        scripts.addBrickProperties(packet, localBrick)
 
-        return packet.send(this.socket)
+        await packet.send(this.socket)
+
+        return localBrick
     }
    
     async setPosition(position: Vector3) {

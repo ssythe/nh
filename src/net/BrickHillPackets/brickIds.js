@@ -39,7 +39,7 @@ function createBrickIdBuffer(brick, modification) {
             break
         }
         case "alpha": {
-            brickPacket.write("uint32", brick.visibility)
+            brickPacket.write("float", brick.visibility)
             break
         }
         case "collide": {

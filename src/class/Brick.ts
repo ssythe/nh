@@ -1,4 +1,3 @@
-
 import { EventEmitter } from "events"
 
 import Game, { Disconnectable } from "./Game"
@@ -80,7 +79,9 @@ export default class Brick extends EventEmitter {
     /** The shape of the brick. */
     shape: string
 
-    private _hitMonitor: NodeJS.Timeout
+    private _hitMonitor?: NodeJS.Timeout
+
+    private _hitMonitorActive: boolean
 
     private _playersTouching: Set<Player>
 
@@ -117,16 +118,21 @@ export default class Brick extends EventEmitter {
 
         this._playersTouching = new Set()
 
+        this._hitMonitorActive = false
+
         this.on("newListener", (event) => {
-            if (this._hitMonitor) return
             if (!TOUCH_EVENTS.includes(event)) return
-            this._detectTouching()
+            if (!this._hitMonitorActive) {
+                this._detectTouching()
+                this._hitMonitorActive = true
+            }
         })
 
         this.on("removeListener", (event) => {
             if (event !== "touching") return
             if (this.listenerCount("touching")) return
             clearInterval(this._hitMonitor)
+            this._hitMonitorActive = false
         })
     }
 
@@ -345,8 +351,8 @@ export default class Brick extends EventEmitter {
 
         return {
             disconnect: () => {
-                this.setClickable(false)
                 this.off("clicked", clickEvent)
+                this.setClickable(false)
                 return null
             }
         }
