@@ -352,6 +352,21 @@ export class Game extends EventEmitter {
         return packet.broadcast()
     }
 
+    /** Takes an array of bricks, and deletes them all from the clients. This will modify world.bricks. */
+    async deleteBricks(bricks: Brick[], modifyWorld: boolean = true) {
+        let deletePacket = scripts.deleteBricks(bricks)
+    
+        if (modifyWorld) {
+            bricks.forEach((brick) => {
+                let index = this.world.bricks.indexOf(brick)
+                if (index !== -1)
+                    this.world.bricks.splice(index, 1)
+            })
+        }
+
+        return deletePacket.broadcast()
+    }
+
     async newTeam(team: Team) {
         this.world.teams.push(team)
 
@@ -360,7 +375,12 @@ export class Game extends EventEmitter {
     }
 
     /** Takes an array of bricks and loads them to all clients. */
-    async loadBricks(bricks: Array<Brick>) {
+    async loadBricks(bricks: Array<Brick>, modifyWorld: boolean = true) {
+        if (modifyWorld) {
+            bricks.forEach((brick) => {
+                this.world.bricks.push(brick)
+            })
+        }
         return scripts.loadBricks(bricks)
             .broadcast()
     }

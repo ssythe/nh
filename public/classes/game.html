@@ -131,6 +131,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="game.html#clearmap" class="tsd-kind-icon">clear<wbr>Map</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="game.html#command" class="tsd-kind-icon">command</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="game.html#commands" class="tsd-kind-icon">commands</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="game.html#deletebricks" class="tsd-kind-icon">delete<wbr>Bricks</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="game.html#emit" class="tsd-kind-icon">emit</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="game.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="game.html#findplayerwithname" class="tsd-kind-icon">find<wbr>Player<wbr>With<wbr>Name</a></li>
@@ -993,6 +994,34 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="deletebricks" class="tsd-anchor"></a>
+					<h3>delete<wbr>Bricks</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Bricks<span class="tsd-signature-symbol">(</span>bricks<span class="tsd-signature-symbol">: </span><a href="brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">[]</span>, modifyWorld<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Takes an array of bricks, and deletes them all from the clients. This will modify world.bricks.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>bricks: <a href="brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> modifyWorld: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="emit" class="tsd-anchor"></a>
 					<h3>emit</h3>
@@ -1148,7 +1177,7 @@
 					<a name="loadbricks" class="tsd-anchor"></a>
 					<h3>load<wbr>Bricks</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">load<wbr>Bricks<span class="tsd-signature-symbol">(</span>bricks<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">load<wbr>Bricks<span class="tsd-signature-symbol">(</span>bricks<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">&gt;</span>, modifyWorld<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1163,6 +1192,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>bricks: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="brick.html" class="tsd-signature-type">Brick</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> modifyWorld: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1933,6 +1965,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="game.html#commands" class="tsd-kind-icon">commands</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="game.html#deletebricks" class="tsd-kind-icon">delete<wbr>Bricks</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="game.html#emit" class="tsd-kind-icon">emit</a>
 							</li>
@@ -2077,9 +2112,6 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/serializermodule.html" class="tsd-kind-icon">serializer<wbr>Module</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#formathex" class="tsd-kind-icon">format<wbr>Hex</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#startserver" class="tsd-kind-icon">start<wbr>Server</a>

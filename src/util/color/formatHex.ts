@@ -10,6 +10,7 @@ import colorModule from "./colorModule"
 
 const COLOR_REGEX = /(\[#[0-9a-fA-F]{6}\])/g
 
+/**@hidden */
 export default function formatHex(input: string): string {
     const match = input.match(COLOR_REGEX)
     if (!match) return input

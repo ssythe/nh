@@ -22,6 +22,7 @@ module.exports = {
     "setEnvironment": require("./world/setEnvironment"),
     "loadBrk": require("./world/loadBrk"),
     "loadBricks": require("./world/loadBricks"),
+    "deleteBricks": require("./world/deleteBricks"),
     "addBrickProperties": require("./world/sendBrick"),
     "pickSpawn": require("./world/pickSpawn"),
     // Bot

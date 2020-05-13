@@ -4,7 +4,12 @@ let regex = new RegExp(filterList.join("|"), "i")
 
 export interface filterModule {
     getFilter(): string[]
+    setFilter(filter: string[])
     isSwear(input: string): boolean
+}
+
+function setFilter(filter: string[]) {
+    regex = new RegExp(filter.join("|"), "i")
 }
 
 function getFilter(): string[] {
@@ -15,4 +20,4 @@ function isSwear(input: string): boolean {
     return regex.test(input)
 }
 
-export default { getFilter, isSwear }
+export default { getFilter, setFilter, isSwear }

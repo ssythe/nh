@@ -565,6 +565,12 @@ export default class Player extends EventEmitter {
             .send(this.socket)
     }
 
+    /** Takes an array of bricks, and deletes them all from this client. */
+    async deleteBricks(bricks: Brick[]) {
+        return scripts.deleteBricks(bricks)
+             .send(this.socket)
+    }
+
     /** Forces the player to unequip the tool, and removes it from their inventory. */
     async destroyTool(tool: Tool) {
         const index = this.inventory.indexOf(tool)
