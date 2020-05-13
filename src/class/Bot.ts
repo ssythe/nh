@@ -173,7 +173,9 @@ export default class Bot extends EventEmitter {
      */
     setInterval(callback, delay: number): NodeJS.Timeout {
         let loop = setInterval(callback, delay)
+
         this._steps.push(loop)
+
         return loop
     }
 

@@ -70,7 +70,7 @@ Game.commands(["whisper", "w"], (player, args) => {
         rateLimit.add(player.username)
         setTimeout(() => rateLimit.delete(player.username), 2000)
 
-        if (util.filterModule.isSwear(message))
+        if (util.filter.isSwear(message))
             return p.message("Don't swear! Your message has not been sent.")
 
         const target = findPlayerByName(playerArg)

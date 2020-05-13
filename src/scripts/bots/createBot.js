@@ -2,6 +2,8 @@ const PacketBuilder = require("../../net/PacketBuilder").default
 
 const { hexToDec } = require("../../util/color/colorModule").default
 
+const formatHex = require("../../util/color/formatHex").default
+
 function botPacket(bot) {
     const botBuffer = new PacketBuilder("Bot")
         .write("uint32", bot.netId)
@@ -40,7 +42,7 @@ function botPacket(bot) {
         .write("uint32", bot.assets.hat3)
 
         // Speech
-        .write("string", bot.speech)
+        .write("string", formatHex(bot.speech))
         
     return botBuffer
 }

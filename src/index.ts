@@ -109,6 +109,8 @@ export interface VM_GLOBALS {
 
 function vmLoadScriptInDirectory(vm: NodeVM, scriptDirectory: string, scriptType: string) {
     fs.readdirSync(scriptDirectory).forEach((file) => {
+        if (!file.endsWith(".js")) return;
+
         if (Game.coreScriptsDisabled.includes(file))
             return console.log(`[*] Disabled Core Script: ${file}`)
         try {
@@ -144,6 +146,8 @@ function loadScripts() {
         PacketBuilder: PacketBuilder,
 
         sleep: promisify(setTimeout),
+
+        clearInterval: clearInterval,
 
         Vector3: Vector3,
 
