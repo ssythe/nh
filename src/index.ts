@@ -17,6 +17,7 @@ import Vector3 from "./class/Vector3"
 import { loadBrk } from "./scripts"
 import Tool from "./class/Tool"
 import Outfit from "./class/Outfit"
+import Projectile from "./class/Projectile"
 
 // Get utility methods
 import color, { colorModule }  from "./util/color/colorModule"
@@ -67,6 +68,11 @@ export interface VM_GLOBALS {
      * Used for setting a player / bot's body colors + assets.
      */
     Outfit: typeof Outfit
+
+    /**@global
+     * Used for creating projectiles.
+     */
+    Projectile: typeof Projectile
 
     /** @global 
      * Used internally by the library to create and distribute Brick Hill legacy client-compatible packets. \
@@ -138,6 +144,8 @@ function loadScripts() {
         Bot: Bot,
 
         Outfit: Outfit,
+        
+        Projectile: Projectile,
 
         util: { color, filter, serializer },
 
@@ -179,7 +187,9 @@ function loadScripts() {
                 "zlib",
                 "url",
                 "querystring",
-                "path"   
+                "path",
+                "stream",
+                "buffer"
                ]
         },
         sandbox: { ...sandbox, ...Game.sandbox }

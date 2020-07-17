@@ -797,6 +797,8 @@ export default class Player extends EventEmitter {
     }
 
     async kill() {
+        if (!this.alive) return
+        
         this.alive = false
 
         this.health = 0

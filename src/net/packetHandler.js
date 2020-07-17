@@ -123,6 +123,9 @@ async function packetHandler(socket, packet) {
         }
         /* <Projectile handler> */
         case 4: {
+            let projectileId = READER.readUInt32LE()
+            let playerId = READER.readUInt32LE()
+
             break
         }
         /* <Brick click detection handler> */
