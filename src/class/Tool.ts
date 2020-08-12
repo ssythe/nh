@@ -4,7 +4,7 @@ import Game, { Disconnectable } from "./Game"
 
 import Player from "./Player"
 
-const toolPacket = require("../scripts/tools/tool")
+const toolPacket = require("../scripts/tool/tool")
 
 enum ToolEvents {
     Activated = "activated",

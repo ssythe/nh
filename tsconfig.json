@@ -7,7 +7,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowJs": true,
-    "removeComments": true,
+    "removeComments": false,
     "noImplicitAny": false
   },
   "include": [

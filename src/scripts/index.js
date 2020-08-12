@@ -17,7 +17,7 @@ module.exports = {
     "getRankInGroup": require("./player/getRankInGroup"),
     "playerOwnsAsset": require("./player/ownsAsset"),
     // Team
-    "teamPacket": require("./team/createTeam"),
+    "teamPacket": require("./team/team"),
     // World
     "setEnvironment": require("./world/setEnvironment"),
     "loadBrk": require("./world/loadBrk"),
@@ -26,9 +26,11 @@ module.exports = {
     "addBrickProperties": require("./world/sendBrick"),
     "pickSpawn": require("./world/pickSpawn"),
     // Bot
-    "botPacket": require("./bots/createBot"),
+    "botPacket": require("./bot/bot"),
     // Tool
-    "toolPacket": require("./tools/tool"),
+    "toolPacket": require("./tool/tool"),
     // Projectile
-    "projectilePacket": require("./projectiles/createProjectile")
+    "projectilePacket": require("./projectile/projectile"),
+    // Set
+    "getSetDataFromUser": require("./set/getSetData")
 }

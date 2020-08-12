@@ -1,23 +1,16 @@
 import { Socket } from "net"
-
 import { EventEmitter } from "events"
 
 import Game, { Environment, Disconnectable } from "./Game"
-
 import Team from "./Team"
-
 import Brick from "./Brick"
-
 import * as scripts from "../scripts"
 
 import PacketBuilder, { PacketEnums } from "../net/PacketBuilder"
-
 import createPlayerIds from "../net/BrickHillPackets/playerIds"
 
 import Vector3 from "./Vector3"
-
 import Outfit from "./Outfit"
-
 import Tool from "./Tool"
 
 import { KeyTypes } from "../util/keys/whitelisted"

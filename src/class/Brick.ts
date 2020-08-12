@@ -231,9 +231,7 @@ export default class Brick extends EventEmitter {
 
         this.removeAllListeners()
 
-        this._steps.forEach((loop) => {
-            clearInterval(loop)
-        })
+        this._steps.forEach((loop) => clearInterval(loop))
         
         // This is not a local brick,
         if (!this.socket) {
@@ -259,9 +257,9 @@ export default class Brick extends EventEmitter {
 
         await createBrickPacket(this, "destroy")
 
-        this.socket = undefined
+        this.socket = null
 
-        this.netId = undefined
+        this.netId = null
 
         this._playersTouching = new Set()
 
