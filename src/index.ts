@@ -1,13 +1,15 @@
 // Node + npm modules
 import { resolve, basename } from "path"
-import * as fs from "fs"
 import { promisify } from "util"
 import { NodeVM, NodeVMOptions } from "vm2"
+import * as fs from "fs"
+import glob from "glob"
+
 // Have to use require here because phin doesn't support .defaults with TS
 const phin = require("phin")
     .defaults({"parse": "json", "timeout": 12000})
 
-// Get game objects
+// VM Classes
 import Game from "./class/Game"
 import Team from "./class/Team"
 import Brick from "./class/Brick"
@@ -18,7 +20,7 @@ import { loadBrk } from "./scripts"
 import Tool from "./class/Tool"
 import Outfit from "./class/Outfit"
 
-// Get utility methods
+// Utility methods
 import color, { colorModule }  from "./util/color/colorModule"
 import filter, { filterModule } from "./util/filter/filterModule"
 import serializer, { serializerModule } from "./util/serializer/serializerModule"
@@ -107,22 +109,31 @@ export interface VM_GLOBALS {
     debounce: (callback: Function, delay: number) => void
 }
 
-function vmLoadScriptInDirectory(vm: NodeVM, scriptDirectory: string, scriptType: string) {
-    fs.readdirSync(scriptDirectory).forEach((file) => {
-        if (!file.endsWith(".js")) return;
+const recursePattern = () => {
+    return (Game.serverSettings.recursiveLoading && "/**/*.js") || "/*.js"
+}
 
-        if (Game.coreScriptsDisabled.includes(file))
-            return console.log(`[*] Disabled Core Script: ${file}`)
+function vmLoadScriptInDirectory(vm: NodeVM, scriptDirectory: string, scriptType: string) {
+    const files = glob.sync(scriptDirectory + recursePattern())
+
+    for (let filePath of files) {
+        const fileName = basename(filePath)
+
+        // We do not want to load core scripts if the user disabled them
+        if (Game.disabledCoreScripts.includes(fileName)) {
+            console.log(`[*] Disabled Core Script: ${fileName}`)
+            continue
+        }
+
         try {
-            const scriptPath = resolve(scriptDirectory, file)
-            const scriptContents = fs.readFileSync(scriptPath, "UTF-8")
-            vm.run(scriptContents, scriptPath)
-            console.log(`[*] Loaded ${scriptType} Script: ${file}`)
+            const scriptContents = fs.readFileSync(filePath, "UTF-8")
+            vm.run(scriptContents, filePath)
+            console.log(`[*] Loaded ${scriptType} Script: ${fileName}`)
         } catch (err) {
-            console.log(`[*] Error loading ${scriptType} Script: ${file}`)
+            console.log(`[*] Error loading ${scriptType} Script: ${fileName}`)
             console.error(err.stack)
         }
-    })
+    }
 }
 
 function loadScripts() {
@@ -147,7 +158,10 @@ function loadScripts() {
 
         sleep: promisify(setTimeout),
 
+        // These need to be added to the VM to fix a bug with player.setInterval
+        // If you don't add these, you cannot clear loops created by those functions.
         clearInterval: clearInterval,
+        clearTimeout: clearTimeout,
 
         Vector3: Vector3,
 
@@ -163,31 +177,27 @@ function loadScripts() {
 
                 func.apply(this, arguments)
             }
+        },
+    
+        getModule: (name) => {
+            if (!Game.modules[name]) 
+                throw new Error(`No module with the name ${name} found.`)
+
+            return Game.modules[name]
         }
     }
 
     const VM_SETTINGS: NodeVMOptions = {
         require: { 
             external: true,
-            context: "sandbox",
-            builtin: [
-                "assert",
-                "http",
-                "https",
-                "net",
-                "readline",
-                "zlib",
-                "url",
-                "querystring",
-                "path"   
-               ]
+            context: "sandbox"
         },
-        sandbox: { ...sandbox, ...Game.sandbox }
+        sandbox: sandbox
     }
 
     const vm = new NodeVM(VM_SETTINGS)
 
-    if (Game.coreScriptsDisabled[0] !== "*")
+    if (Game.disabledCoreScripts[0] !== "*")
         vmLoadScriptInDirectory(vm, CORE_DIRECTORY, "Core")
     else
         console.log("[*] All Core Scripts disabled")
@@ -195,7 +205,6 @@ function loadScripts() {
     if (!Game.userScripts) return;
 
     vmLoadScriptInDirectory(vm, Game.userScripts, "User")
-
 }
 
 function initiateMap(map) {
@@ -226,43 +235,51 @@ function initiateMap(map) {
 }
 
 export interface GameSettings {
-    /**The id of the Brick Hill place. */
+    /**The id of the Brick Hill set. */
     gameId: number,
-    /**The port the server will be running on. */
+
+    /**The port the server will be running on. (Default is 42480).*/
     port?: number,
-    /**A link to the .brk file that will be hosted. (ex: `/maps/hello.brk`) */
+
+    /**A file path to the .brk file that will be hosted. (ex: `/maps/hello.brk`) */
     map?: string,
+
     /**An array containing the names of core scripts you do not want to run. \
      * For ex: ["admin.js"] \
      * You can use ["*"] to disable ALL core scripts.
      * @default true
-     * 
     */
-    coreScriptsDisabled?: Array<string>,
+    disabledCoreScripts?: Array<string>,
 
-    /**An object containing node modules you want to compile from host, and use inside the VM context.
+    /**
+     * An array containing the names of npm modules / core node.js modules you want to compile from host, and use inside the VM context.
      * 
-     * Example (in `start.js`):
+     * Example:
      * ```js
-     * sandbox: {
-     *  discord: require("discord.js")
-     * }
+     * sandbox: ["discord.js", "fs"]
      * ```
      * 
-     * Example 2 (in `user_script.js`):
+     * Example 2 (in `user_scripts/myScript.js`):
      * 
-     * // You can now use discord.js by accessing "discord".
-     * discord.login("whatever")
+     * // You can now use discord.js
+     * let discord = getModule("discord.js")
+     * 
+     * // Login to a discord account, etc.
+     * discord.login("myToken")
      */
-    sandbox?: Object,
+    modules?: Array<string>,
     
     /**A link to your scripts directory. ex: (`/myfolder/user_scripts`) */
     scripts?: string,
+
     /**A boolean indicating if the server is locally hosted or not. Uses port 42480 by default. \
      * Port forwarding is not required
      * @default false
     */
     local?: boolean,
+
+    /**If enabled, all files (even inside of folders) in user_scripts will be loaded recursively */
+    recursiveLoading?: boolean
 }
 
 /** Starts a node-hill server with the specified settings. */
@@ -284,11 +301,16 @@ export function startServer(settings: GameSettings) {
 
     Game.gameId = settings.gameId
 
-    Game.coreScriptsDisabled = settings.coreScriptsDisabled || []
+    Game.disabledCoreScripts = settings.disabledCoreScripts || []
 
     Game.userScripts = settings.scripts
 
-    Game.sandbox = settings.sandbox || {}
+    // Load the modules into Game.modules so the user can call them with getModule()
+    settings.modules && settings.modules.forEach((module) => {
+        Game.modules[module] = require(module)
+    })
+
+    Game.recursiveLoading = settings.recursiveLoading || false
 
     Game.local = settings.local || false
 

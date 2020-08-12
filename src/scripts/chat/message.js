@@ -4,26 +4,11 @@ const filterModule = require("../../util/filter/filterModule").default
 
 const Game = require("../../class/Game").default
 
+const generateTitle = require("../../util/chat/generateTitle").default
+
 const formatHex = require("../../util/color/formatHex").default
 
 const rateLimit = new Set()
-
-function generateTitle(p, message) {
-    let title = `[#ffde0a]${p.username}\\c1:\\c0 ` + message
-
-    if (p.team)
-        title = `[${p.team.color}]${p.username}\\c1:\\c0 ` + message
-        
-    if (p.admin)
-        title = `[#ffde0a]${p.username}\\c1:\\c0 ` + '[#ffde0a]' + message
-
-    if (p.chatColor)
-        title = `[${p.chatColor}]${p.username}\\c1:\\c0 ` + message
-
-    title = formatHex(title)
-
-    return title
-}
 
 function clientMessageAll(p, message) {
     if (p.muted)
@@ -38,8 +23,6 @@ function clientMessageAll(p, message) {
     rateLimit.add(p.userId)
     setTimeout(() => rateLimit.delete(p.userId), 2000)
 
-    const title = generateTitle(p, message)
-
     if (filterModule.isSwear(message))
         return p.message("Don't swear! Your message has not been sent.")
 
@@ -49,13 +32,17 @@ function clientMessageAll(p, message) {
 
     p.emit("chatted", message)
 
+    const fullMessage = generateTitle(p, message)
+
     // Stop execution, the host has a Game.on("chat") script
     // They want to modify the chat.
-    if (Game.listeners("chat").length)
-        return Game.emit("chat", p, message)
+    if (Game.listeners("chat").length) {
+        Game.emit("chat", p, message, fullMessage)
+        return
+    }
 
     return new PacketBuilder("Chat")
-        .write("string", title)
+        .write("string", fullMessage)
         .broadcastExcept(p.getBlockedPlayers())
 }
 

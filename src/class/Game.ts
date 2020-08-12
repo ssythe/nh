@@ -165,6 +165,9 @@ export class Game extends EventEmitter {
     /** @readonly If the server is currently running locally. */
     local: boolean
 
+    /** @readonly If the files in user_script will be loaded recursively */
+    recursiveLoading: boolean
+
     /**
      * This property is to compensate for a client bug. If the player team is
      * not set automatically, the user's name won't appear on their client's leaderboard.
@@ -180,7 +183,7 @@ export class Game extends EventEmitter {
     sendBricks: boolean = true
 
     /** An array of the core scripts disabled. (ie: `["respawn.js"]`).*/
-    coreScriptsDisabled: Array<string>
+    disabledCoreScripts: Array<string>
 
     /** A direct pointer to the server start settings (usually start.js) */
     serverSettings: GameSettings
@@ -206,8 +209,8 @@ export class Game extends EventEmitter {
     /** @readonly Returns the amount of (authenticated) players currently in the server. */
     playerCount: number
 
-    /** @readonly Returns the modules the VM is allowed to use. */
-    sandbox: Object
+    /** @readonly An object containing a list of the modules loaded  server settings. */
+    modules: Object
 
     constructor() {
         super()
@@ -216,9 +219,9 @@ export class Game extends EventEmitter {
 
         this.version = VERSION
 
-        this.coreScriptsDisabled = []
+        this.disabledCoreScripts = []
 
-        this.sandbox = {}
+        this.modules = {}
 
         this.assignRandomTeam = true
 
@@ -333,6 +336,17 @@ export class Game extends EventEmitter {
         }
     }
 
+    /** Returns the currently hosted sets data, if the game is being hosted by the provided userId. */
+    async getCurrentSetDataFromHostId(userId: number) {
+        const setData = await scripts.getSetDataFromUser(userId)
+
+        for (let set of setData.data) {
+            if (set.id === this.gameId) {
+                return set
+            }
+        }
+    }
+
     /** "Parents" a bot class to the game. **/
     async newBot(bot: Bot) {
         this.world.bots.push(bot)
@@ -423,7 +437,7 @@ export class Game extends EventEmitter {
      * }, 60000)
      */
     async loadBrk(location: string): Promise<MapData> {
-        let path = resolve(process.cwd(), location)
+        const path = resolve(process.cwd(), location)
         if (!path.endsWith(".brk")) return Promise.reject("Map selected is not a .brk file. Aborting.")
 
         this.map = path
@@ -431,11 +445,11 @@ export class Game extends EventEmitter {
 
         await this.clearMap()
 
-        let brkData = scripts.loadBrk(path)
+        const brkData = scripts.loadBrk(path)
         this.world.bricks = brkData.bricks
         this.world.spawns = brkData.spawns
 
-        let map = scripts.loadBricks(this.world.bricks)
+        const map = scripts.loadBricks(this.world.bricks)
         if (map) await map.broadcast()
 
         return brkData
