@@ -5,14 +5,14 @@
  */
 export enum KeyTypes {
     alphabetical = "a-z",
-    numerical = "1 - 9",
+    numerical = "0 - 9",
     shift = "shift",
     space = "space",
     enter = "enter",
     backspace = "backspace"
 }
 
-const keys = "abcdefghijklmnopqrstuvwxyz123456789".split("");
+const keys = "abcdefghijklmnopqrstuvwxyz0123456789".split("");
 
 keys.push("enter")
 
