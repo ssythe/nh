@@ -28,7 +28,5 @@ module.exports = {
     // Bot
     "botPacket": require("./bots/createBot"),
     // Tool
-    "toolPacket": require("./tools/tool"),
-    // Projectile
-    "projectilePacket": require("./projectiles/createProjectile")
+    "toolPacket": require("./tools/tool")
 }

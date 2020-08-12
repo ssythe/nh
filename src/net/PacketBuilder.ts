@@ -37,8 +37,6 @@ export enum PacketEnums {
 
     Bot = 12,
 
-    Projectile = 13,
-
     ClearMap = 14,
 
     DestroyBot = 15,

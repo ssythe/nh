@@ -17,8 +17,6 @@ export interface World {
     bots: Array<Bot>,
     /** An array of all the tools in the game. */
     tools: Array<Tool>,
-    /** An array of all the projectiles in the game. */
-    projectiles: Array<Projectile>
 }
 
 export interface Disconnectable {
@@ -49,7 +47,7 @@ export interface MapData {
     spawns: Array<Brick>,
     environment: Environment,
     tools: Array<Tool>,
-    teams: Array<Team>
+    teams: Array<Team>,
 }
 
 enum GameEvents {
@@ -252,9 +250,7 @@ export class Game extends EventEmitter {
 
             spawns: [],
 
-            bots: [],
-
-            projectiles: []
+            bots: []
         }
     }
 
@@ -369,13 +365,6 @@ export class Game extends EventEmitter {
         }
 
         return deletePacket.broadcast()
-    }
-
-    async newProjectile(projectile: Projectile) {
-        this.world.projectiles.push(projectile)
-
-        return scripts.projectilePacket.create(projectile)
-            .broadcast()
     }
 
     async newTeam(team: Team) {
@@ -544,8 +533,4 @@ import Vector3 from "./Vector3"
 
 import Tool from "./Tool"
 
-import Projectile from "./Projectile"
-
 import { GameSettings } from ".."
-
-

@@ -138,7 +138,7 @@ export default class Bot extends EventEmitter {
      * stop hit detection, \
      * and tell clients to delete the bot. */
     async destroy() {
-        if (this.destroyed) return
+        if (this.destroyed) return Promise.reject("Bot has already been destroyed.")
 
         const bots = Game.world.bots
 
