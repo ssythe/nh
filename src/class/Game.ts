@@ -270,6 +270,11 @@ export class Game extends EventEmitter {
     async messageAll(message: string) {
         return scripts.message.messageAll(message)
     }
+
+    /** Sends a regular chat message, conforming to rate-limit / mute checks, etc. */
+    async clientMessageAll(player: Player, message: string) {
+        return scripts.message.clientMessageAll(player, message)
+    }
     
     async topPrintAll(message: string, seconds: number) {
         return scripts.topPrintAll(message, seconds)
@@ -336,15 +341,18 @@ export class Game extends EventEmitter {
         }
     }
 
-    /** Returns the currently hosted sets data, if the game is being hosted by the provided userId. */
-    async getCurrentSetDataFromHostId(userId: number) {
+    /** Returns the currently hosted sets data, if the game is being hosted by the provided userId - will throw an error 
+     * if the userId provided is not the host.
+     */
+    async getThisSetDataFromHostId(userId: number) {
         const setData = await scripts.getSetDataFromUser(userId)
 
         for (let set of setData.data) {
-            if (set.id === this.gameId) {
+            if (set.id === this.gameId)
                 return set
-            }
         }
+
+        throw new Error("userId provided is not the current host of this server.")
     }
 
     /** "Parents" a bot class to the game. **/

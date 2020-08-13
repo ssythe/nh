@@ -11,6 +11,8 @@ let Game = require("../class/Game").default
 
 let Player = require("../class/Player").default
 
+let generateTitle = require("../util/chat/generateTitle").default
+
 let scripts = require("../scripts")
 
 let { whiteListedKey } = require("../util/keys/whitelisted")
@@ -116,6 +118,10 @@ async function packetHandler(socket, packet) {
 
             if (command !== "chat")
                 return Game.emit("command", command, player, args)
+
+            // The host wants to manage chat on their own
+            if (Game.listeners("chat").length)
+                return Game.emit("chat", player, args)
 
             scripts.message.clientMessageAll(player, args)   
              

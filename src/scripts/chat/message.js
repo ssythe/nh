@@ -34,13 +34,6 @@ function clientMessageAll(p, message) {
 
     const fullMessage = generateTitle(p, message)
 
-    // Stop execution, the host has a Game.on("chat") script
-    // They want to modify the chat.
-    if (Game.listeners("chat").length) {
-        Game.emit("chat", p, message, fullMessage)
-        return
-    }
-
     return new PacketBuilder("Chat")
         .write("string", fullMessage)
         .broadcastExcept(p.getBlockedPlayers())

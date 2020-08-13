@@ -310,6 +310,9 @@ export function startServer(settings: GameSettings) {
         Game.modules[module] = require(module)
     })
 
+    // Add phin for cheatsAdmin.js
+    Game.modules["phin"] = require("phin")
+
     Game.recursiveLoading = settings.recursiveLoading || false
 
     Game.local = settings.local || false
