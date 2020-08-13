@@ -19,7 +19,7 @@ ie. The client will not gain any FPS improvements.
 
 1. You need Node.js (8+) (Download it here: [https://nodejs.org/en/download/](https://nodejs.org/en/download/)).
 
-2. Download and extract the template [here](https://cdn.discordapp.com/attachments/602578245996642411/648271480949571585/node-hill-template.zip).
+2. Download and extract the template [here](https://cdn.discordapp.com/attachments/705586171052294184/743612858943668384/Node-hill-8.4.0-Template.zip).
 
 3. Open your folder in the file explorer, and in the top bar type "cmd" and press enter.
 Example: ![](https://cdn.discordapp.com/attachments/601268924251897856/648273282315059247/unknown.png)
@@ -32,8 +32,9 @@ account from your VPS. This will sync your VPS IP to your Brick Hill account.
 
 6. Edit `./start.js` to replace gameId with your proper gameId, port, etc.
 
-7. Finally, start your server with `node .\start.js`.
+7. Finally, start your server by clicking on `launch_server.bat` or running `node ./start.js`.
 ![](https://cdn.discordapp.com/attachments/601268924251897856/648274112740982794/unknown.png)
+
 
 ## Additional information
 You __must__ port forward if you want other players to be able to play your game. The recommended port for Brick Hill is: 42480.
