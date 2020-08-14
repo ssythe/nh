@@ -19,7 +19,7 @@ ie. The client will not gain any FPS improvements.
 
 1. You need Node.js (8+) (Download it here: [https://nodejs.org/en/download/](https://nodejs.org/en/download/)).
 
-2. Download and extract the template [here](https://cdn.discordapp.com/attachments/705586171052294184/743612858943668384/Node-hill-8.4.0-Template.zip).
+2. Download and extract the template [here](https://cdn.discordapp.com/attachments/705586171052294184/743879528065269870/Node-hill-8.4.0-Template.zip).
 
 3. Open your folder in the file explorer, and in the top bar type "cmd" and press enter.
 Example: ![](https://cdn.discordapp.com/attachments/601268924251897856/648273282315059247/unknown.png)
