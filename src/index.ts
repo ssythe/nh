@@ -114,7 +114,7 @@ const recursePattern = () => {
 }
 
 function vmLoadScriptInDirectory(vm: NodeVM, scriptDirectory: string, scriptType: string) {
-    const files = glob.sync(scriptDirectory + recursePattern())
+    const files = glob.sync(scriptDirectory + recursePattern(), { dot: true })
 
     for (let filePath of files) {
         const fileName = basename(filePath)
