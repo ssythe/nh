@@ -417,4 +417,13 @@ export default class Brick extends EventEmitter {
             this._hitDetection()
         }, 100)
     }
+    /**
+     * Checks if 2 bricks collide with each other
+     * @param brick The brick used to check collision against
+     */
+    intersects(brick: Brick) : Boolean {
+        return  (this.position.x <= brick.position.x+brick.scale.x && this.position.x + this.scale.x >= brick.position.x) &&
+                (this.position.y <= brick.position.y+brick.scale.y && this.position.y + this.scale.y >= brick.position.y) &&
+                (this.position.z <= brick.position.z+brick.scale.z && this.position.z + this.scale.z >= brick.position.z)
+    }
 }
