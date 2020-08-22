@@ -107,6 +107,24 @@ export interface VM_GLOBALS {
      * ```
      */
     debounce: (callback: Function, delay: number) => void
+
+    /**Modules in start.js are built in host (outside of the vm). It is highly recommended to use this function
+     * to require them in a VM context. If you opt to use require() instead, you may have issues.
+     * @example
+     * Example:
+     * ```js
+     * // Inside of start.js: modules: ["discord.js", "fs"]
+     * 
+     * // Now inside of a sample script:
+     * 
+     * // You can now use discord.js
+     * let discord = getModule("discord.js")
+     * 
+     * // Login to a discord account, etc.
+     * discord.login("myToken")
+     * ```
+     */
+    getModule: (module: string) => NodeModule
 }
 
 const recursePattern = () => {
@@ -178,7 +196,7 @@ function loadScripts() {
                 func.apply(this, arguments)
             }
         },
-    
+
         getModule: (name) => {
             if (!Game.modules[name]) 
                 throw new Error(`No module with the name ${name} found.`)
@@ -245,8 +263,10 @@ export interface GameSettings {
     map?: string,
 
     /**An array containing the names of core scripts you do not want to run. \
-     * For ex: ["admin.js"] \
-     * You can use ["*"] to disable ALL core scripts.
+     * For ex: `["admin.js"]`
+     * 
+     * You can use `["*"]` to disable ALL core scripts.
+     * 
      * @default true
     */
     disabledCoreScripts?: Array<string>,
@@ -254,18 +274,7 @@ export interface GameSettings {
     /**
      * An array containing the names of npm modules / core node.js modules you want to compile from host, and use inside the VM context.
      * 
-     * Example:
-     * ```js
-     * sandbox: ["discord.js", "fs"]
-     * ```
-     * 
-     * Example 2 (in `user_scripts/myScript.js`):
-     * 
-     * // You can now use discord.js
-     * let discord = getModule("discord.js")
-     * 
-     * // Login to a discord account, etc.
-     * discord.login("myToken")
+     * You can require them with {@link getModule}
      */
     modules?: Array<string>,
     

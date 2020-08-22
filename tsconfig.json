@@ -18,7 +18,7 @@
     "name": "node-hill",
     "mode": "file",
     "hideGenerator": true,
-    "theme": "C:\\Users\\Jacob\\Documents\\typedoc-theme\\bin\\default",
+    "theme": "default",
     "out": "public",
     "excludeNotExported": true,
     "excludePrivate": true
