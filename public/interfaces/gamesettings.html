@@ -36,7 +36,7 @@
 									<li data-value="private" class="selected">All</li>
 								</ul>
 							</div>
-							<input type="checkbox" id="tsd-filter-inherited" />
+							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
@@ -79,12 +79,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#corescriptsdisabled" class="tsd-kind-icon">core<wbr>Scripts<wbr>Disabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#disabledcorescripts" class="tsd-kind-icon">disabled<wbr>Core<wbr>Scripts</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#gameid" class="tsd-kind-icon">game<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#local" class="tsd-kind-icon">local</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#map" class="tsd-kind-icon">map</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#modules" class="tsd-kind-icon">modules</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#port" class="tsd-kind-icon">port</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#sandbox" class="tsd-kind-icon">sandbox</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#recursiveloading" class="tsd-kind-icon">recursive<wbr>Loading</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gamesettings.html#scripts" class="tsd-kind-icon">scripts</a></li>
 							</ul>
 						</section>
@@ -94,15 +95,19 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="corescriptsdisabled" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> core<wbr>Scripts<wbr>Disabled</h3>
-					<div class="tsd-signature tsd-kind-icon">core<wbr>Scripts<wbr>Disabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="disabledcorescripts" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> disabled<wbr>Core<wbr>Scripts</h3>
+					<div class="tsd-signature tsd-kind-icon">disabled<wbr>Core<wbr>Scripts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/index.ts:272</li>
+						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>An array containing the names of core scripts you do not want to run. <br>For ex: [&quot;admin.js&quot;] <br>You can use [&quot;*&quot;] to disable ALL core scripts.</p>
+							<p>An array containing the names of core scripts you do not want to run. <br>For ex: <code>[&quot;admin.js&quot;]</code></p>
 						</div>
+						<p>You can use <code>[&quot;*&quot;]</code> to disable ALL core scripts.</p>
 						<dl class="tsd-comment-tags">
 							<dt>default</dt>
 							<dd><p>true</p>
@@ -115,10 +120,13 @@
 					<h3>game<wbr>Id</h3>
 					<div class="tsd-signature tsd-kind-icon">game<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/index.ts:257</li>
+						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The id of the Brick Hill place.</p>
+							<p>The id of the Brick Hill set.</p>
 						</div>
 					</div>
 				</section>
@@ -127,6 +135,9 @@
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> local</h3>
 					<div class="tsd-signature tsd-kind-icon">local<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/index.ts:288</li>
+						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
@@ -144,11 +155,30 @@
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> map</h3>
 					<div class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/index.ts:263</li>
+						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A link to the .brk file that will be hosted. (ex: <code>/maps/hello.brk</code>)</p>
+							<p>A file path to the .brk file that will be hosted. (ex: <code>/maps/hello.brk</code>)</p>
 						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="modules" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> modules</h3>
+					<div class="tsd-signature tsd-kind-icon">modules<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/index.ts:279</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An array containing the names of npm modules / core node.js modules you want to compile from host, and use inside the VM context.</p>
+						</div>
+						<p>You can require them with <a href="vm_globals.html#getmodule">getModule</a></p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -156,30 +186,29 @@
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> port</h3>
 					<div class="tsd-signature tsd-kind-icon">port<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/index.ts:260</li>
+						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The port the server will be running on.</p>
+							<p>The port the server will be running on. (Default is 42480).</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="sandbox" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sandbox</h3>
-					<div class="tsd-signature tsd-kind-icon">sandbox<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Object</span></div>
+					<a name="recursiveloading" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> recursive<wbr>Loading</h3>
+					<div class="tsd-signature tsd-kind-icon">recursive<wbr>Loading<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/index.ts:291</li>
+						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>An object containing node modules you want to compile from host, and use inside the VM context.</p>
+							<p>If enabled, all files (even inside of folders) in user_scripts will be loaded recursively</p>
 						</div>
-						<p>Example (in <code>start.js</code>):</p>
-						<pre><code class="language-js">sandbox: {
- <span class="hljs-attr">discord</span>: <span class="hljs-built_in">require</span>(<span class="hljs-string">"discord.js"</span>)
-}</code></pre>
-						<p>Example 2 (in <code>user_script.js</code>):</p>
-						<p>// You can now use discord.js by accessing &quot;discord&quot;.
-						discord.login(&quot;whatever&quot;)</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -187,6 +216,9 @@
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scripts</h3>
 					<div class="tsd-signature tsd-kind-icon">scripts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/index.ts:282</li>
+						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
@@ -263,7 +295,7 @@
 						<a href="gamesettings.html" class="tsd-kind-icon">Game<wbr>Settings</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="gamesettings.html#corescriptsdisabled" class="tsd-kind-icon">core<wbr>Scripts<wbr>Disabled</a>
+								<a href="gamesettings.html#disabledcorescripts" class="tsd-kind-icon">disabled<wbr>Core<wbr>Scripts</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="gamesettings.html#gameid" class="tsd-kind-icon">game<wbr>Id</a>
@@ -275,10 +307,13 @@
 								<a href="gamesettings.html#map" class="tsd-kind-icon">map</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="gamesettings.html#modules" class="tsd-kind-icon">modules</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="gamesettings.html#port" class="tsd-kind-icon">port</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="gamesettings.html#sandbox" class="tsd-kind-icon">sandbox</a>
+								<a href="gamesettings.html#recursiveloading" class="tsd-kind-icon">recursive<wbr>Loading</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="gamesettings.html#scripts" class="tsd-kind-icon">scripts</a>
@@ -310,6 +345,9 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="serializermodule.html" class="tsd-kind-icon">serializer<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#generatetitle" class="tsd-kind-icon">generate<wbr>Title</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#startserver" class="tsd-kind-icon">start<wbr>Server</a>
