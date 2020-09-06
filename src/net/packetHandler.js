@@ -19,8 +19,6 @@ let { whiteListedKey } = require("../util/keys/whitelisted")
 
 let checkAuth = require("../api/checkAuth")
 
-let Vector3 = require("../class/Vector3").default
-
 async function packetHandler(socket, packet) {
     const IP = socket.IP
 
@@ -105,7 +103,6 @@ async function packetHandler(socket, packet) {
             player._updatePositionForOthers([
                 xpos, ypos, zpos, zrot
             ])
-            Game.emit("moved", player, new Vector3(xpos,ypos,zpos), zrot)
             break
         }
         /* <Command handler> */

@@ -129,14 +129,13 @@ export default class Player extends EventEmitter {
     static readonly chatted = PlayerEvents.Chatted
 
     /**
-     * Fires whenever a player moves. (The z axis of the position is the height)
+     * Fires whenever this player moves.
      * @event
-     * @param player The player which moved
      * @param newPosition The new position of the player
      * @param newRotation The new rotation of the player
      * ```js
-     * Game.on("moved", (pos,player,rot)=>{
-     *    console.log(`${player.username} moved to ${pos.x}, ${pos.y}, ${pos.z}`)
+     * player.on("moved", (newPosition, newRotation)=>{
+     *    console.log(`${player.username} moved to ${newPosition.x}, ${newPosition.y}, ${newPosition.z}`)
      * })
      */
     static readonly moved = PlayerEvents.Moved
@@ -706,9 +705,12 @@ export default class Player extends EventEmitter {
             this.rotation.z = pos[3]
         }
         
-        if (idBuffer.length)
+        if (idBuffer.length) {
+            this.emit("moved", this.position, this.rotation.z)
+
             return createPlayerIds(this, idBuffer)
                 .broadcastExcept([this])
+        }
     }
 
     /**Clones a brick locally to the player's client, returns the newly created local brick. */
