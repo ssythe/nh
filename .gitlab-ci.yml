@@ -2,10 +2,10 @@
 # Full project: https://gitlab.com/pages/plain-html
 pages:
   stage: deploy
+  image: node
   script:
-    - mkdir .public
-    - cp -r * .public
-    - mv .public public
+    - npm i typescript
+    - npx typedoc src --ignoreCompilerErrors --excludeExternals --excludeNotExported
   artifacts:
     paths:
       - public
