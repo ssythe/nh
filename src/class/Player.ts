@@ -49,6 +49,7 @@ enum PlayerEvents {
     Respawn = "respawn",
     AvatarLoaded = "avatarLoaded",
     Chatted = "chatted",
+    Moved = "moved",
 }
 
 export default class Player extends EventEmitter {
@@ -127,6 +128,19 @@ export default class Player extends EventEmitter {
    */
     static readonly chatted = PlayerEvents.Chatted
 
+    /**
+     * Fires whenever a player moves. (The z axis of the position is the height)
+     * @event
+     * @param player The player which moved
+     * @param newPosition The new position of the player
+     * @param newRotation The new rotation of the player
+     * ```js
+     * Game.on("moved", (pos,player,rot)=>{
+     *    console.log(`${player.username} moved to ${pos.x}, ${pos.y}, ${pos.z}`)
+     * })
+     */
+    static readonly moved = PlayerEvents.Moved
+
     addListener(event: PlayerEvents.InitialSpawn, listener: (chunk: Buffer | string) => void): this;
 
     addListener(event: PlayerEvents.Died, listener: (chunk: Buffer | string) => void): this;
@@ -136,6 +150,8 @@ export default class Player extends EventEmitter {
     addListener(event: PlayerEvents.AvatarLoaded, listener: (chunk: Buffer | string) => void): this;
 
     addListener(event: PlayerEvents.Chatted, listener: (chunk: Buffer | string) => void): this;
+
+    addListener(event: PlayerEvents.Moved, listener: (chunk: Buffer | string) => void): this;
 
     addListener(event: PlayerEvents , listener: any): this { return super.addListener(event, listener); }
 
