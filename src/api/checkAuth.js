@@ -4,8 +4,8 @@ const phin = require("phin")
 const Game = require("../class/Game").default
 
 const AUTHENTICATION_API = (token, gameId) => (
-    `https://api.brick-hill.com/v1/auth/verifyToken?token=${encodeURIComponent(token)}&set=${gameId}
-`)
+    `https://api.brick-hill.com/v1/auth/verifyToken?token=${encodeURIComponent(token)}&set=${gameId}`
+)
 
 // For local servers
 let playerId = 0
