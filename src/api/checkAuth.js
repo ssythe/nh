@@ -14,12 +14,17 @@ async function checkAuth(socket, reader) {
         // Don't use any of this, it needs to be verified.
         const USER = {
             token: reader.readStringNT(),
-            version: reader.readStringNT()
+            version: reader.readStringNT(),
+            brickplayer: false
         }
 
         // Version check
         if (USER.version !== "0.3.0.2")
-            return [false, "Your client is out of date."]
+            return [ false, "Your client is out of date." ]
+
+        // User might be using Brickplayer
+        if (reader.remaining())
+            USER.brickplayer = (reader.readUInt8() && true) || false
 
         console.log(`<Client: ${socket.IP}> Attempting authentication.`)
 
@@ -29,7 +34,8 @@ async function checkAuth(socket, reader) {
                 username: "Player" + playerId,
                 userId: playerId,
                 admin: false,
-                membershipType: 1
+                membershipType: 1,
+                brickplayer: USER.brickplayer
             }]
         }
 
@@ -41,7 +47,8 @@ async function checkAuth(socket, reader) {
                     userId: Number(data.user.id),
                     admin: data.user.is_admin,
                     // screw you jefemy
-                    membershipType: (data.user.membership && data.user.membership.membership ) || 1
+                    membershipType: (data.user.membership && data.user.membership.membership ) || 1,
+                    brickplayer: USER.brickplayer
                 }]
             }
         } catch (err) {

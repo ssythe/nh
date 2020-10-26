@@ -77,6 +77,7 @@ async function packetHandler(socket, packet) {
                 username: { value: USER.username },
                 admin: { value: USER.admin },
                 membershipType: { value: USER.membershipType },
+                brickplayer: { value: USER.brickplayer }
             })
 
             console.log(`Successfully verified! (Username: ${authUser.username} | ID: ${authUser.userId} | Admin: ${authUser.admin})`)
