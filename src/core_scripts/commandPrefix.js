@@ -14,7 +14,7 @@ function setPrefix(prefix) {
             const commandName = args.shift()
             return Game.emit("command", commandName, p, args.join(" "))
         }
-        Game.clientMessageAll(p, msg)
+        p.messageAll(msg)
     })
 }
 
