@@ -122,10 +122,10 @@ async function packetHandler(socket, packet) {
 
             // The host wants to manage chat on their own
             if (Game.listeners("chat").length)
-                return Game.emit("chat", player, args)
-
-            scripts.message.clientMessageAll(player, args)   
-             
+                return Game.emit("chat", player, args, generateTitle(player, args))
+            
+            player.messageAll(args)
+ 
             break
         }
         /* <Projectile handler> */
