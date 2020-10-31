@@ -270,11 +270,6 @@ export class Game extends EventEmitter {
     async messageAll(message: string) {
         return scripts.message.messageAll(message)
     }
-
-    /** Sends a regular chat message, conforming to rate-limit / mute checks, etc. */
-    async clientMessageAll(player: Player, message: string) {
-        return scripts.message.clientMessageAll(player, message)
-    }
     
     async topPrintAll(message: string, seconds: number) {
         return scripts.topPrintAll(message, seconds)
