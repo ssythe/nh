@@ -4,7 +4,10 @@
 
 *  Remove Game.clientMessageAll (320c5fd9)
 
+##### New Features
+
+*  Add Player.messageAll (5d5920b6)
+
 ##### Other Changes
 
 * brickhill/open-source/node-hill (ebae840c)
-
