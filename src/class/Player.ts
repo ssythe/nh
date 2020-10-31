@@ -470,7 +470,7 @@ export default class Player extends EventEmitter {
 
     /** Sends a chat message to everyone, conforming to rate-limit / mute checks, etc. */
     async messageAll(message: string) {
-        return scripts.message.clientMessageAll(message)
+        return scripts.message.clientMessageAll(this, message)
     }
     
     async setOutfit(outfit: Outfit) {
