@@ -709,7 +709,7 @@ export default class Player extends EventEmitter {
             idBuffer += "F"
             this.rotation.z = pos[3]
         }
-        
+
         if (idBuffer.length) {
             this.emit("moved", this.position, this.rotation.z)
 
@@ -738,9 +738,9 @@ export default class Player extends EventEmitter {
     async setPosition(position: Vector3) {
         this.position = new Vector3().fromVector(position)
 
-        let packet = createPlayerIds(this, "ABCF")
+        const packetBuilder = createPlayerIds(this, "ABCF")
 
-        return packet.send(this.socket)
+        return packetBuilder.broadcast()
     }
 
     async setScale(scale: Vector3) {
