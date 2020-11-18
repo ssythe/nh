@@ -358,6 +358,8 @@ export class Game extends EventEmitter {
             .broadcast()
     }
 
+    newBricks = this.loadBricks
+
     /** "Parents" a brick class to the game. You should do this after setting all the brick properties. */
     async newBrick(brick: Brick) {
         this.world.bricks.push(brick)
@@ -369,19 +371,38 @@ export class Game extends EventEmitter {
         return packet.broadcast()
     }
 
-    /** Takes an array of bricks, and deletes them all from the clients. This will modify world.bricks. */
-    async deleteBricks(bricks: Brick[], modifyWorld: boolean = true) {
+    /** Takes an array of bricks, and deletes them all from every client. This will modify world.bricks. */
+    async deleteBricks(bricks: Brick[]) {
         let deletePacket = scripts.deleteBricks(bricks)
-    
-        if (modifyWorld) {
-            bricks.forEach((brick) => {
-                let index = this.world.bricks.indexOf(brick)
-                if (index !== -1)
-                    this.world.bricks.splice(index, 1)
-            })
-        }
 
+        for (let brick of this.world.bricks) {
+            brick._cleanup()
+            
+            let index = this.world.bricks.indexOf(brick)
+            if (index !== -1)
+                this.world.bricks.splice(index, 1)
+        }
+    
         return deletePacket.broadcast()
+    }
+
+    /** Takes an array of teams and loads them to all clients.
+     * @example
+     * ```js
+     * let teams = {
+     *  redTeam: new Team("#f54242"),
+     *  blueTeam: new Team("#0051ff")
+     * }
+     * 
+     * Game.newTeams(Object.values(teams))
+     * ```
+     */
+    newTeams(teams: Array<Team>) {
+        this.world.teams = this.world.teams.concat(teams)
+        for (let team of teams) {
+            scripts.teamPacket.create(team)
+                .broadcast()
+        }
     }
 
     async newTeam(team: Team) {
@@ -392,12 +413,9 @@ export class Game extends EventEmitter {
     }
 
     /** Takes an array of bricks and loads them to all clients. */
-    async loadBricks(bricks: Array<Brick>, modifyWorld: boolean = true) {
-        if (modifyWorld) {
-            bricks.forEach((brick) => {
-                this.world.bricks.push(brick)
-            })
-        }
+    async loadBricks(bricks: Array<Brick>) {
+        this.world.bricks = this.world.bricks.concat(bricks)
+
         return scripts.loadBricks(bricks)
             .broadcast()
     }
@@ -475,7 +493,11 @@ export class Game extends EventEmitter {
      * join after this is ran will download no bricks from the server.
      */
     async clearMap() {
+        for (let brick of this.world.bricks)
+            brick._cleanup()
+
         this.world.bricks = []
+
         return new PacketBuilder(PacketEnums.ClearMap)
             .write("bool", true) // There's a bug with packets that contain no data.
             .broadcast()

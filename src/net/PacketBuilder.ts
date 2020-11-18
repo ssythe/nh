@@ -84,6 +84,10 @@ export default class PacketBuilder {
                 this.buffer.writeUInt8(data)
                 break
             }
+            case "int32": {
+                this.buffer.writeInt32LE(data)
+                break
+            }
             case "uint32": {
                 this.buffer.writeUInt32LE(data)
                 break

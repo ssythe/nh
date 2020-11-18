@@ -97,7 +97,7 @@ async function packetHandler(socket, packet) {
                 xpos = READER.readFloatLE()
                 ypos = READER.readFloatLE()
                 zpos = READER.readFloatLE()
-                zrot = READER.readUInt32LE()
+                zrot = READER.readFloatLE()
             } catch (err) {
                 return false // Drop the packet
             }

@@ -27,15 +27,15 @@ function createBotIdBuffer(bot, idString = "") {
                 break
             }
             case "E": {
-                botPacket.write("uint32", bot.rotation.x)
+                botPacket.write("float", bot.rotation.x)
                 break
             }
             case "F": {
-                botPacket.write("uint32", bot.rotation.y)
+                botPacket.write("float", bot.rotation.y)
                 break
             }
             case "G": {
-                botPacket.write("uint32", bot.rotation.z)
+                botPacket.write("float", bot.rotation.z)
                 break
             }
             case "H": {

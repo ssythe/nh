@@ -219,20 +219,24 @@ export default class Brick extends EventEmitter {
             newBrick.clickDistance = this.clickDistance
             newBrick.visibility = this.visibility
             newBrick.collision = this.collision
+            newBrick.rotation = this.rotation
             newBrick.lightEnabled = this.lightEnabled
         return newBrick
     }
-    
-    async destroy() {
-        if (this.destroyed) return Promise.reject("Brick has already been destroyed.")
 
-        // Stop monitoring for hit detection
+    async _cleanup() {
         clearInterval(this._hitMonitor)
 
         this.removeAllListeners()
 
         this._steps.forEach((loop) => clearInterval(loop))
-        
+    }
+    
+    async destroy() {
+        if (this.destroyed) return Promise.reject("Brick has already been destroyed.")
+
+        this._cleanup()
+
         // This is not a local brick,
         if (!this.socket) {
             const bricks = Game.world.bricks
@@ -251,9 +255,6 @@ export default class Brick extends EventEmitter {
             if (index !== -1)
                 locals.splice(index, 1)
         }
-
-        // To account for a client bug where you cannot destroy bricks with no collision.
-        if (!this.collision) await this.setCollision(true)
 
         await createBrickPacket(this, "destroy")
 

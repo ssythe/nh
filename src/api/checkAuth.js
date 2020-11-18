@@ -19,7 +19,7 @@ async function checkAuth(socket, reader) {
         }
 
         // Version check
-        if (USER.version !== "0.3.0.2")
+        if (USER.version !== "0.3.0.3")
             return [ false, "Your client is out of date." ]
 
         // User might be using Brickplayer

@@ -485,8 +485,7 @@ export default class Player extends EventEmitter {
         if (health <= 0 && this.alive) {
             return this.kill()
         } else {
-            if (health > this.maxHealth)
-                this.maxHealth = health
+            if (health > this.maxHealth) this.maxHealth = health
             this.health = health
             return createPlayerIds(this, "e")
                 .send(this.socket)
@@ -734,9 +733,11 @@ export default class Player extends EventEmitter {
 
         return localBrick
     }
-   
+
     async setPosition(position: Vector3) {
         this.position = new Vector3().fromVector(position)
+
+        this.emit("moved", this.position, this.rotation.z)
 
         const packetBuilder = createPlayerIds(this, "ABCF")
 

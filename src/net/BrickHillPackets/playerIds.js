@@ -35,15 +35,15 @@ function createPlayerIdBuffer(player, idString = "") {
                 break 
             }
             case "D": {
-                playerPacket.write("uint32", player.rotation.x)
+                playerPacket.write("float", player.rotation.x)
                 break
             }
             case "E": {
-                playerPacket.write("uint32", player.rotation.y)
+                playerPacket.write("float", player.rotation.y)
                 break
             }
             case "F": {
-                playerPacket.write("uint32", player.rotation.z)
+                playerPacket.write("float", player.rotation.z)
                 break 
             }
             case "G": {
@@ -103,7 +103,7 @@ function createPlayerIdBuffer(player, idString = "") {
                 break
             }
             case "X": {
-                playerPacket.write("uint32", player.score)
+                playerPacket.write("int32", player.score)
                 break
             }
             case "Y": {
@@ -123,31 +123,31 @@ function createPlayerIdBuffer(player, idString = "") {
                 break
             }
             case "4": {
-                playerPacket.write("uint32", player.cameraDistance)
+                playerPacket.write("int32", player.cameraDistance)
                 break
             }
             case "5": {
-                playerPacket.write("uint32", player.cameraPosition.x)
+                playerPacket.write("float", player.cameraPosition.x)
                 break
             }
             case "6": {
-                playerPacket.write("uint32", player.cameraPosition.y)
+                playerPacket.write("float", player.cameraPosition.y)
                 break
             }
             case "7": {
-                playerPacket.write("uint32", player.cameraPosition.z)
+                playerPacket.write("float", player.cameraPosition.z)
                 break
             }
             case "8": {
-                playerPacket.write("uint32", player.cameraRotation.x)
+                playerPacket.write("float", player.cameraRotation.x)
                 break
             }
             case "9": {
-                playerPacket.write("uint32", player.cameraRotation.y)
+                playerPacket.write("float", player.cameraRotation.y)
                 break
             }
             case "a": {
-                playerPacket.write("uint32", player.cameraRotation.z)
+                playerPacket.write("float", player.cameraRotation.z)
                 break
             }
             case "b": {
