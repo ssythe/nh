@@ -69,23 +69,20 @@
 					<div class="lead">
 						<p>This is used for setting player &amp; bot body colors + assets.</p>
 					</div>
-					<p>Using the methods of this class will NOT replicate the player changes to
-					connected clients. But <em>will</em> change their values on the server.</p>
-					<p>To replicate the changes use the <a href="outfit.html#set">Outfit.set</a> method, or alternatively use: <br>the <a href="player.html#setoutfit">Player.setOutfit</a> and <a href="bot.html#setoutfit">Bot.setOutfit</a> method.</p>
+					<p>To replicate the changes, use the <a href="player.html#setoutfit">Player.setOutfit</a> and <a href="bot.html#setoutfit">Bot.setOutfit</a> method(s).</p>
 					<dl class="tsd-comment-tags">
 						<dt>example</dt>
-						<dd><pre><code class="language-js">Game.on(<span class="hljs-string">"playerJoin"</span>, (p) =&gt; {
-     p.on(<span class="hljs-string">"avatarLoaded"</span>, () =&gt; {
-         <span class="hljs-keyword">let</span> outfit = <span class="hljs-keyword">new</span> Outfit(p)
-              <span class="hljs-comment">// Sets all player colors to "#ffffff"</span>
-             .body(<span class="hljs-string">"#ffffff"</span>)
-             <span class="hljs-comment">// Sets the head color (body colors are still changed!)</span>
-             .head(<span class="hljs-string">"#000000"</span>)
-             <span class="hljs-comment">// Replicate the changes to the players.</span>
-             .set()
+						<dd><pre><code class="language-js"><span class="hljs-keyword">const</span> outfit = <span class="hljs-keyword">new</span> Outfit()
+ <span class="hljs-comment">// Sets body colors to white</span>
+ .body(<span class="hljs-string">'#ffffff'</span>)
+ <span class="hljs-comment">// Change head color (body colors are still changed!)</span>
+ .head(<span class="hljs-string">'#000000'</span>)
 
-         <span class="hljs-comment">// Alternatively, you can use: p.setOutfit(outfit)</span>
-     })
+Game.on(<span class="hljs-string">'playerJoin'</span>, (p) =&gt; {
+ p.on(<span class="hljs-string">'avatarLoaded'</span>, () =&gt; {
+     <span class="hljs-comment">// Apply the outfit to the player</span>
+     p.setOutfit(outfit)
+ })
 })</code></pre>
 						</dd>
 					</dl>
@@ -113,6 +110,8 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="outfit.html#_idstring" class="tsd-kind-icon">_id<wbr>String</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="outfit.html#assets" class="tsd-kind-icon">assets</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="outfit.html#colors" class="tsd-kind-icon">colors</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -125,8 +124,8 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#body" class="tsd-kind-icon">body</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#copy" class="tsd-kind-icon">copy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#face" class="tsd-kind-icon">face</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#fromplayer" class="tsd-kind-icon">from<wbr>Player</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#hat1" class="tsd-kind-icon">hat1</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#hat2" class="tsd-kind-icon">hat2</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#hat3" class="tsd-kind-icon">hat3</a></li>
@@ -135,7 +134,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#leftleg" class="tsd-kind-icon">left<wbr>Leg</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#rightarm" class="tsd-kind-icon">right<wbr>Arm</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#rightleg" class="tsd-kind-icon">right<wbr>Leg</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#set" class="tsd-kind-icon">set</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="outfit.html#torso" class="tsd-kind-icon">torso</a></li>
 							</ul>
 						</section>
@@ -148,21 +146,15 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Outfit<span class="tsd-signature-symbol">(</span>player<span class="tsd-signature-symbol">: </span><a href="player.html" class="tsd-signature-type">Player</a><span class="tsd-signature-symbol"> | </span><a href="bot.html" class="tsd-signature-type">Bot</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="outfit.html" class="tsd-signature-type">Outfit</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Outfit<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="outfit.html" class="tsd-signature-type">Outfit</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:34</li>
+									<li>Defined in src/class/Outfit.ts:28</li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>player: <a href="player.html" class="tsd-signature-type">Player</a><span class="tsd-signature-symbol"> | </span><a href="bot.html" class="tsd-signature-type">Bot</a></h5>
-								</li>
-							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="outfit.html" class="tsd-signature-type">Outfit</a></h4>
 						</li>
 					</ul>
@@ -176,7 +168,27 @@
 					<div class="tsd-signature tsd-kind-icon">_id<wbr>String<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Outfit.ts:34</li>
+							<li>Defined in src/class/Outfit.ts:26</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="assets" class="tsd-anchor"></a>
+					<h3>assets</h3>
+					<div class="tsd-signature tsd-kind-icon">assets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/assets.html" class="tsd-signature-type">Assets</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/class/Outfit.ts:27</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="colors" class="tsd-anchor"></a>
+					<h3>colors</h3>
+					<div class="tsd-signature tsd-kind-icon">colors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/bodycolors.html" class="tsd-signature-type">BodyColors</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/class/Outfit.ts:28</li>
 						</ul>
 					</aside>
 				</section>
@@ -193,7 +205,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:142</li>
+									<li>Defined in src/class/Outfit.ts:137</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -213,7 +225,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:70</li>
+									<li>Defined in src/class/Outfit.ts:65</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -232,6 +244,34 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="copy" class="tsd-anchor"></a>
+					<h3>copy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>player<span class="tsd-signature-symbol">: </span><a href="player.html" class="tsd-signature-type">Player</a><span class="tsd-signature-symbol"> | </span><a href="bot.html" class="tsd-signature-type">Bot</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/class/Outfit.ts:130</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copies a player or bot&#39;s entire outfit (assets + body colors).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>player: <a href="player.html" class="tsd-signature-type">Player</a><span class="tsd-signature-symbol"> | </span><a href="bot.html" class="tsd-signature-type">Bot</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="face" class="tsd-anchor"></a>
 					<h3>face</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -241,7 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:63</li>
+									<li>Defined in src/class/Outfit.ts:58</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -260,34 +300,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="fromplayer" class="tsd-anchor"></a>
-					<h3>from<wbr>Player</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">from<wbr>Player<span class="tsd-signature-symbol">(</span>player<span class="tsd-signature-symbol">: </span><a href="player.html" class="tsd-signature-type">Player</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in src/class/Outfit.ts:135</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Copies a player&#39;s entire outfit (assets + body colors) to this player.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>player: <a href="player.html" class="tsd-signature-type">Player</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="hat1" class="tsd-anchor"></a>
 					<h3>hat1</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -297,7 +309,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:42</li>
+									<li>Defined in src/class/Outfit.ts:37</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -325,7 +337,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:49</li>
+									<li>Defined in src/class/Outfit.ts:44</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -353,7 +365,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:56</li>
+									<li>Defined in src/class/Outfit.ts:51</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -381,7 +393,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:93</li>
+									<li>Defined in src/class/Outfit.ts:88</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -409,7 +421,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:114</li>
+									<li>Defined in src/class/Outfit.ts:109</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -437,7 +449,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:121</li>
+									<li>Defined in src/class/Outfit.ts:116</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -465,7 +477,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:107</li>
+									<li>Defined in src/class/Outfit.ts:102</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -493,7 +505,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:128</li>
+									<li>Defined in src/class/Outfit.ts:123</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -512,28 +524,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="set" class="tsd-anchor"></a>
-					<h3>set</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in src/class/Outfit.ts:147</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Calls player.setOutfit(this)</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="torso" class="tsd-anchor"></a>
 					<h3>torso</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -543,7 +533,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Outfit.ts:100</li>
+									<li>Defined in src/class/Outfit.ts:95</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -605,6 +595,12 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="outfit.html#_idstring" class="tsd-kind-icon">_id<wbr>String</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="outfit.html#assets" class="tsd-kind-icon">assets</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="outfit.html#colors" class="tsd-kind-icon">colors</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="outfit.html#idstring" class="tsd-kind-icon">id<wbr>String</a>
 							</li>
@@ -612,10 +608,10 @@
 								<a href="outfit.html#body" class="tsd-kind-icon">body</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="outfit.html#face" class="tsd-kind-icon">face</a>
+								<a href="outfit.html#copy" class="tsd-kind-icon">copy</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="outfit.html#fromplayer" class="tsd-kind-icon">from<wbr>Player</a>
+								<a href="outfit.html#face" class="tsd-kind-icon">face</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="outfit.html#hat1" class="tsd-kind-icon">hat1</a>
@@ -640,9 +636,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="outfit.html#rightleg" class="tsd-kind-icon">right<wbr>Leg</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="outfit.html#set" class="tsd-kind-icon">set</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="outfit.html#torso" class="tsd-kind-icon">torso</a>

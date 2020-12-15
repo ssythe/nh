@@ -205,6 +205,10 @@ export default class Bot extends EventEmitter {
 
     /** Set the outfit of the bot. */
     async setOutfit(outfit: Outfit) {
+        // Patch assets + colors
+        Object.assign(this.assets, outfit.assets)
+        Object.assign(this.colors, outfit.colors)
+
         return createBotIds(this, outfit.idString)
     }
 

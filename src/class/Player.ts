@@ -474,6 +474,10 @@ export default class Player extends EventEmitter {
     }
     
     async setOutfit(outfit: Outfit) {
+        // Patch assets + colors
+        Object.assign(this.assets, outfit.assets)
+        Object.assign(this.colors, outfit.colors)
+
         return createPlayerIds(this, outfit.idString)
             .broadcast()
     }
