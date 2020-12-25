@@ -103,7 +103,7 @@ export default class PacketBuilder {
         if (this.options.compression)
             packet = deflateSync(packet)
 
-        return uintv.writeUIntv(packet)
+        return uintv.writeUIntV(packet)
     }
 
     /** 

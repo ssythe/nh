@@ -14,7 +14,7 @@ function readUIntV(buffer) {
 	}
 }
 
-function writeUIntv(buffer){
+function writeUIntV(buffer){
 	const length = buffer.length
 	
 	// 1 Byte
@@ -46,4 +46,4 @@ function writeUIntv(buffer){
 	}
 }
 
-module.exports = { readUIntV, writeUIntv }
+module.exports = { readUIntV, writeUIntV }
