@@ -16,9 +16,9 @@ function botPacket(bot) {
         .write("float", bot.position.z)
 
         // Rotation
-        .write("uint32", bot.rotation.x)
-        .write("uint32", bot.rotation.y)
-        .write("uint32", bot.rotation.z)
+        .write("float", bot.rotation.x)
+        .write("float", bot.rotation.y)
+        .write("float", bot.rotation.z)
 
         // Scale
         .write("float", bot.scale.x)
