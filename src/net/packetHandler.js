@@ -155,7 +155,7 @@ async function packetHandler(socket, rawBuffer) {
 
         packets.push(packet.slice(0, messageSize))
 
-        if (packet.length !== messageSize)
+        if (packet.length > messageSize)
             return readMessages(packet.slice(messageSize))
     })(rawBuffer)
 
