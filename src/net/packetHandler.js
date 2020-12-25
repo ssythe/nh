@@ -19,40 +19,16 @@ let { whiteListedKey } = require("../util/keys/whitelisted")
 
 let checkAuth = require("../api/checkAuth")
 
-async function packetHandler(socket, packet) {
-    const IP = socket.IP
-
-    // Remove size prefix from the message.
-    const BYTE_SIZE = uintv.readUIntVByteLength(packet)
-    packet = packet.slice(BYTE_SIZE)
-
-    try {
-        packet = zlib.inflateSync(packet)
-    } catch (err) {
-        // Packet isn't always compressed.   
-    }
-
-    // Create a smart buffer.
-    const READER = SmartBuffer.fromBuffer(packet)
-
-    // Get type of packet.
-    let TYPE = undefined
-
-    try {
-        TYPE = READER.readUInt8()
-    } catch (err) {
-        return false
-    }
-
+async function handlePacketType(socket, reader, type) {
     let player = socket.player
 
-    if (TYPE === 1 && player)  return // You can't authenticate more than once.
-    if (TYPE !== 1 && !player) return // You don't have a player.
+    if (type === 1 && player)  return // You can't authenticate more than once.
+    if (type !== 1 && !player) return // You don't have a player.
 
-    switch (TYPE) {
+    switch (type) {
         /* <Authentication handler> */
         case 1: {
-            const [ USER, ERR ] = await checkAuth(socket, READER)
+            const [ USER, ERR ] = await checkAuth(socket, reader)
 
             // User could not authenticate properly.
             if (!USER || ERR) {
@@ -94,10 +70,10 @@ async function packetHandler(socket, packet) {
                 zpos,
                 zrot;
             try {
-                xpos = READER.readFloatLE()
-                ypos = READER.readFloatLE()
-                zpos = READER.readFloatLE()
-                zrot = READER.readFloatLE()
+                xpos = reader.readFloatLE()
+                ypos = reader.readFloatLE()
+                zpos = reader.readFloatLE()
+                zrot = reader.readFloatLE()
             } catch (err) {
                 return false // Drop the packet
             }
@@ -111,8 +87,8 @@ async function packetHandler(socket, packet) {
             let command, args;
 
             try {
-                command = READER.readStringNT()
-                args = READER.readStringNT()
+                command = reader.readStringNT()
+                args = reader.readStringNT()
             } catch (err) {
                 return false
             }
@@ -135,7 +111,7 @@ async function packetHandler(socket, packet) {
         /* <Brick click detection handler> */
         case 5: {
             try {
-                const brickId = READER.readUInt32LE()
+                const brickId = reader.readUInt32LE()
 
                 // Check for global bricks with that Id.
                 const brick = Game.world.bricks.find(brick => brick.netId === brickId)
@@ -156,8 +132,8 @@ async function packetHandler(socket, packet) {
         /* <Player key + mouse input handler> */
         case 6: {
             try {
-                let click = Boolean(READER.readUInt8())
-                let key = READER.readStringNT()
+                let click = Boolean(reader.readUInt8())
+                let key = reader.readStringNT()
 
                 if (click) player.emit("mouseclick")
 
@@ -169,6 +145,31 @@ async function packetHandler(socket, packet) {
             break
         }
     }
+}
+
+async function packetHandler(socket, rawBuffer) {
+    const packets = [];
+
+    (function readMessages(buffer) {
+        const [ messageSize, packet ] = uintv.readUIntV(buffer)
+
+        packets.push(packet.slice(0, messageSize))
+
+        if (packet.length !== messageSize)
+            return readMessages(packet.slice(messageSize))
+    })(rawBuffer)
+
+    packets.forEach((packet) => {
+        try {
+            packet = zlib.inflateSync(packet)
+        } catch (err) {} // Packet isn't always compressed.
+
+        const reader = SmartBuffer.fromBuffer(packet)
+
+        const type = reader.readUInt8()
+        
+        handlePacketType(socket, reader, type)
+    })
 }
 
 module.exports = { packetHandler }

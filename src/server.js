@@ -1,9 +1,6 @@
 // Import dependencies
 const net = require("net")
 
-const phin = require("phin")
-    .defaults({ parse: "json", timeout: 12000 })
-
 // Import game data
 const Game = require("./class/Game").default
 
@@ -21,27 +18,9 @@ function maskIP(ip) {
     return ip.join(".") + ".x.x"
 }
 
-async function getHostIP() {
-    const req = await phin({url: "https://api.ipify.org/?format=json"})
-    return req.body.ip
-}
-
-function isLocalIP(ip) {
-    if (ip.startsWith("192.168."))
-        return true
-    if (ip.startsWith("172.16."))
-        return true
-    if (ip.startsWith("10."))
-        return true
-    return false
-}
-
 async function socketConnection(client) {
     client.IPV4 = client.remoteAddress
 
-    if (isLocalIP(client.IPV4))
-        client.IPV4 = await getHostIP()
-        
     client.IP = maskIP(client.IPV4)
 
     console.log(`<New client: ${client.IP}>`)
@@ -85,11 +64,14 @@ if (Game.local) {
 
 SERVER.listen(Game.port, SERVER_LISTEN_ADDRESS, () => {
     console.log(`Listening on port: ${Game.port}.`)
-    if (!Game.local)
+    if (Game.local) return console.log("Running server locally.")
+
+    console.log(Game.serverSettings.postServer)
+
+    if (Game.serverSettings.postServer) {
         postServer().then(() => {
             console.log(`Posted to: https://www.brick-hill.com/play/${Game.gameId} successfully.`)
             setInterval(postServer, 60000)
         })
-    else
-        console.log("Running server locally.")
+    }
 })

@@ -256,6 +256,9 @@ export interface GameSettings {
     /**The id of the Brick Hill set. */
     gameId: number,
 
+    /**Whether or not the server will be posted to the games page. */
+    postServer: boolean,
+
     /**The port the server will be running on. (Default is 42480).*/
     port?: number,
 
@@ -298,6 +301,8 @@ export function startServer(settings: GameSettings) {
         settings.port = 42480
     }
 
+    settings.postServer = (typeof settings.postServer === 'undefined' && true) || settings.postServer
+
     if (!settings.gameId || isNaN(settings.gameId)) {
         console.log("No game ID specified.")
         return process.exit(0)
@@ -335,8 +340,7 @@ export function startServer(settings: GameSettings) {
         initiateMap(Game.map)
     }
     
-    // Probably not the best idea to give them the *actual* object pointer?
-    Game.serverSettings = Object.assign({}, settings)
+    Game.serverSettings = settings
 
     // Do version check
     _getLatestnpmVersion().then((package_version) => {

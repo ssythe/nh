@@ -1,15 +1,3 @@
-/*
-    Hey, you found this module. That's cool. See that API down there?
-
-    Yeah, that's not so cool, but if you modify this code to post a 
-    
-    high player count, your account is going to get terminated.
-
-    So, please keep this between us. Thanks, love you xoxo. 
-    
-    ~ Jake.
-*/
-
 const Game = require("../class/Game").default
 
 const phin = require("phin")
@@ -21,14 +9,11 @@ const phin = require("phin")
 
 async function postServer() {
     try {
-        if (Game.playerCount < 0)
-            return console.warn("Attempted to post negative player count, screenshot this message and send it to Dragonian ASAP.")
-
         let data = await phin({
             form: {
                 "set": Game.gameId,
                 "port": Game.port,
-                "players": Game.playerCount
+                "players": Game.players.length
             }
         })
         try {

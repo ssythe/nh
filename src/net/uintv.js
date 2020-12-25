@@ -1,16 +1,16 @@
-function readUIntVByteLength(buffer) {
+function readUIntV(buffer) {
 	// 1 Byte
 	if (buffer[0] & 1) {
-		return 1
+		return [ buffer[0] >> 1, buffer.slice(1) ]
 	// 2 Bytes
 	} else if(buffer[0] & 2) {
-		return 2
+		return [ (buffer.readUInt16LE(0) >> 2) + 0x80, buffer.slice(2) ]
 	// 3 Bytes
 	} else if(buffer[0] & 4) {
-		return 3
+		return [ (buffer[2] << 13) + (buffer[1] << 5) + (buffer[0] >> 3) + 0x4080, buffer.slice(3) ]
 	// 4 Bytes
 	} else {
-		return 4
+		return [ (buffer.readUInt32LE(0) / 8) + 0x204080, buffer.slice(4) ]
 	}
 }
 
@@ -46,4 +46,4 @@ function writeUIntv(buffer){
 	}
 }
 
-module.exports = { readUIntVByteLength, writeUIntv }
+module.exports = { readUIntV, writeUIntv }
