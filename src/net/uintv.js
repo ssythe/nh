@@ -1,16 +1,28 @@
 function readUIntV(buffer) {
 	// 1 Byte
 	if (buffer[0] & 1) {
-		return [ buffer[0] >> 1, buffer.slice(1) ]
+		return {
+			messageSize: buffer[0] >> 1,
+			end: 1
+		}
 	// 2 Bytes
 	} else if(buffer[0] & 2) {
-		return [ (buffer.readUInt16LE(0) >> 2) + 0x80, buffer.slice(2) ]
+		return {
+			messageSize: (buffer.readUInt16LE(0) >> 2) + 0x80,
+			end: 2
+		}
 	// 3 Bytes
 	} else if(buffer[0] & 4) {
-		return [ (buffer[2] << 13) + (buffer[1] << 5) + (buffer[0] >> 3) + 0x4080, buffer.slice(3) ]
+		return {
+			messageSize: (buffer[2] << 13) + (buffer[1] << 5) + (buffer[0] >> 3) + 0x4080,
+			end: 3
+		}
 	// 4 Bytes
 	} else {
-		return [ (buffer.readUInt32LE(0) / 8) + 0x204080, buffer.slice(4) ]
+		return {
+			messageSize: (buffer.readUInt32LE(0) / 8) + 0x204080,
+			end: 4
+		}
 	}
 }
 

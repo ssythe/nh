@@ -148,10 +148,15 @@ async function handlePacketType(socket, reader, type) {
 }
 
 async function packetHandler(socket, rawBuffer) {
-    const packets = [];
+    const packets = []
+
+    if (rawBuffer.length <= 1) return;
 
     (function readMessages(buffer) {
-        const [ messageSize, packet ] = uintv.readUIntV(buffer)
+        const { messageSize, end } = uintv.readUIntV(buffer)
+        if (end >= buffer.length) return
+
+        const packet = buffer.slice(end)
 
         packets.push(packet.slice(0, messageSize))
 
