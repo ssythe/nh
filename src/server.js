@@ -64,9 +64,8 @@ if (Game.local) {
 
 SERVER.listen(Game.port, SERVER_LISTEN_ADDRESS, () => {
     console.log(`Listening on port: ${Game.port}.`)
+    
     if (Game.local) return console.log("Running server locally.")
-
-    console.log(Game.serverSettings.postServer)
 
     if (Game.serverSettings.postServer) {
         postServer().then(() => {
