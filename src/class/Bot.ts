@@ -22,13 +22,15 @@ import setAvatar from "../scripts/player/setAvatar"
  * 
  * An example of a zombie that can chase and kill players:
 * ```js
-* let zombie = new Bot("Zombie")
+* const zombie = new Bot("Zombie")
 *
-* let outfit = new Outfit(zombie)
+* const outfit = new Outfit()
 *   .body("#0d9436")
 *   .torso("#694813")
 *   .rightLeg("#694813")
 *   .leftLeg("#694813")
+*
+* zombie.setOutfit(outfit)
 *
 * Game.newBot(zombie)
 *

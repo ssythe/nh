@@ -71,13 +71,15 @@
 					</div>
 					<p>You can do many things with them, and they even have very primitive AI capabilities.</p>
 					<p>An example of a zombie that can chase and kill players:</p>
-					<pre><code class="language-js"><span class="hljs-keyword">let</span> zombie = <span class="hljs-keyword">new</span> Bot(<span class="hljs-string">"Zombie"</span>)
+					<pre><code class="language-js"><span class="hljs-keyword">const</span> zombie = <span class="hljs-keyword">new</span> Bot(<span class="hljs-string">"Zombie"</span>)
 
-<span class="hljs-keyword">let</span> outfit = <span class="hljs-keyword">new</span> Outfit(zombie)
+<span class="hljs-keyword">const</span> outfit = <span class="hljs-keyword">new</span> Outfit()
   .body(<span class="hljs-string">"#0d9436"</span>)
   .torso(<span class="hljs-string">"#694813"</span>)
   .rightLeg(<span class="hljs-string">"#694813"</span>)
   .leftLeg(<span class="hljs-string">"#694813"</span>)
+
+zombie.setOutfit(outfit)
 
 Game.newBot(zombie)
 
@@ -188,7 +190,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:82</li>
+									<li>Defined in src/class/Bot.ts:84</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -210,7 +212,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">assets<span class="tsd-signature-symbol">:</span> <a href="../interfaces/assets.html" class="tsd-signature-type">Assets</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:76</li>
+							<li>Defined in src/class/Bot.ts:78</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -225,7 +227,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">colors<span class="tsd-signature-symbol">:</span> <a href="../interfaces/bodycolors.html" class="tsd-signature-type">BodyColors</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:73</li>
+							<li>Defined in src/class/Bot.ts:75</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -240,7 +242,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">destroyed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:71</li>
+							<li>Defined in src/class/Bot.ts:73</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -255,7 +257,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:54</li>
+							<li>Defined in src/class/Bot.ts:56</li>
 						</ul>
 					</aside>
 				</section>
@@ -265,7 +267,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">net<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:56</li>
+							<li>Defined in src/class/Bot.ts:58</li>
 						</ul>
 					</aside>
 				</section>
@@ -275,7 +277,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <a href="vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol"> =&nbsp;new Vector3(0, 0, 0)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:62</li>
+							<li>Defined in src/class/Bot.ts:64</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -290,7 +292,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">rotation<span class="tsd-signature-symbol">:</span> <a href="vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol"> =&nbsp;new Vector3(0, 0, 0)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:65</li>
+							<li>Defined in src/class/Bot.ts:67</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -305,7 +307,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">:</span> <a href="vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol"> =&nbsp;new Vector3(1, 1, 1)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:68</li>
+							<li>Defined in src/class/Bot.ts:70</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -320,7 +322,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">speech<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:59</li>
+							<li>Defined in src/class/Bot.ts:61</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -335,7 +337,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 					<div class="tsd-signature tsd-kind-icon">bot<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/Bot.ts:82</li>
+							<li>Defined in src/class/Bot.ts:84</li>
 						</ul>
 					</aside>
 				</section>
@@ -409,7 +411,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:140</li>
+									<li>Defined in src/class/Bot.ts:142</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -478,7 +480,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:253</li>
+									<li>Defined in src/class/Bot.ts:255</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -575,7 +577,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:229</li>
+									<li>Defined in src/class/Bot.ts:231</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -603,7 +605,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:216</li>
+									<li>Defined in src/class/Bot.ts:218</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -631,7 +633,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:248</li>
+									<li>Defined in src/class/Bot.ts:250</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -662,7 +664,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:234</li>
+									<li>Defined in src/class/Bot.ts:236</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1019,7 +1021,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:269</li>
+									<li>Defined in src/class/Bot.ts:271</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1047,7 +1049,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:174</li>
+									<li>Defined in src/class/Bot.ts:176</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1110,7 +1112,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:207</li>
+									<li>Defined in src/class/Bot.ts:209</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1138,7 +1140,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:183</li>
+									<li>Defined in src/class/Bot.ts:185</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1166,7 +1168,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:189</li>
+									<li>Defined in src/class/Bot.ts:191</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1194,7 +1196,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:195</li>
+									<li>Defined in src/class/Bot.ts:197</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1222,7 +1224,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:201</li>
+									<li>Defined in src/class/Bot.ts:203</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1250,7 +1252,7 @@ zombie.setInterval(<span class="hljs-function"><span class="hljs-params">()</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/Bot.ts:275</li>
+									<li>Defined in src/class/Bot.ts:277</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
