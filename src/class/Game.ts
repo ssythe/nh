@@ -533,6 +533,7 @@ export class Game extends EventEmitter {
 
         this.playerCount++
         this.players.push(p)
+        
         this.emit("playerJoin", p)
 
         await p._joined().catch(console.error)
@@ -543,11 +544,11 @@ export class Game extends EventEmitter {
     /**@hidden */
     async _playerLeft(p) {
         if (p.authenticated) {
-            this.playerCount--
-            this.emit("playerLeave", p)
-
             let index = this.players.indexOf(p)
             this.players.splice(index, 1)
+
+            this.playerCount--
+            this.emit("playerLeave", p)
 
             await p._left()
         }
