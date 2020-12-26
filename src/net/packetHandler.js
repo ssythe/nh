@@ -19,7 +19,7 @@ let { whiteListedKey } = require("../util/keys/whitelisted")
 
 let checkAuth = require("../api/checkAuth")
 
-async function handlePacketType(socket, reader, type) {
+async function handlePacketType(type, socket, reader) {
     let player = socket.player
 
     if (type === 1 && player)  return // You can't authenticate more than once.
@@ -165,15 +165,23 @@ async function packetHandler(socket, rawBuffer) {
     })(rawBuffer)
 
     packets.forEach((packet) => {
+        // Uncompress the packet if it is compressed.
         try {
             packet = zlib.inflateSync(packet)
-        } catch (err) {} // Packet isn't always compressed.
+        } catch (err) {}
 
         const reader = SmartBuffer.fromBuffer(packet)
 
-        const type = reader.readUInt8()
-        
-        handlePacketType(socket, reader, type)
+        // Check for the packet type
+        let type
+        try {
+            type = reader.readUInt8()
+        } catch (err) {}
+
+        // Packet type was invalid
+        if (!type) return
+
+        handlePacketType(type, socket, reader)
     })
 }
 
