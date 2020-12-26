@@ -7,6 +7,8 @@ const AUTHENTICATION_API = (token, gameId) => (
     `https://api.brick-hill.com/v1/auth/verifyToken?token=${encodeURIComponent(token)}&set=${gameId}`
 )
 
+const UID_REGEX = /[\w]{8}(-[\w]{4}){3}-[\w]{12}/
+
 // For local servers
 let playerId = 0
 
@@ -38,6 +40,9 @@ async function checkAuth(socket, reader) {
                 brickplayer: USER.brickplayer
             }]
         }
+
+        // Invalid token format.
+        if (!UID_REGEX.test(USER.token)) return
 
         try {
             const data = (await phin({url: AUTHENTICATION_API(USER.token, Game.gameId)})).body

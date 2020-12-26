@@ -5,7 +5,7 @@ async function kick(socket, message = "No reason given.") {
         .write("string", "kick")
         .write("string", "[You were kicked]\n\nReason: " + message)
         .send(socket)
-
+        
     socket.destroy()
 }
 

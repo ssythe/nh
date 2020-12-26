@@ -20,13 +20,12 @@ function maskIP(ip) {
 
 async function socketConnection(client) {
     client.IPV4 = client.remoteAddress
-
     client.IP = maskIP(client.IPV4)
+    client._attemptedAuthentication = false
 
     console.log(`<New client: ${client.IP}>`)
 
     client.setNoDelay(true)
-
     client.setKeepAlive(true, 10000)
 
     client.on("data", (PACKET) => {
@@ -40,27 +39,18 @@ async function socketConnection(client) {
             await Game._playerLeft(client.player)
                 .catch(console.error)
         }
-        if (!client.destroyed)
-            client.destroy()
+        return !client.destroyed && client.destroy()
     })
 
     client.on("error", () => {
-        if (!client.destroyed)
-            client.destroy()
+        return !client.destroyed && client.destroy()
     })
 
     // If the player fails to authenticate after 20 seconds.
-    setTimeout(() => {
-        if (!client.player) client.destroy()
-    }, 20000)
+    setTimeout(() => { return !client.player && client.destroy() }, 20000)
 }
 
-let SERVER_LISTEN_ADDRESS = "0.0.0.0"
-
-if (Game.local) {
-    SERVER_LISTEN_ADDRESS = "127.0.0.1"
-    Game.port = 42480
-}
+const SERVER_LISTEN_ADDRESS = (!Game.local && "0.0.0.0") || "127.0.0.1"
 
 SERVER.listen(Game.port, SERVER_LISTEN_ADDRESS, () => {
     console.log(`Listening on port: ${Game.port}.`)

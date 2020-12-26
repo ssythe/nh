@@ -22,17 +22,20 @@ let checkAuth = require("../api/checkAuth")
 async function handlePacketType(type, socket, reader) {
     let player = socket.player
 
-    if (type === 1 && player)  return // You can't authenticate more than once.
-    if (type !== 1 && !player) return // You don't have a player.
+    if (type !== 1 && !player) return
 
     switch (type) {
         /* <Authentication handler> */
         case 1: {
+            if (socket._attemptedAuthentication) return socket.destroy()
+
+            socket._attemptedAuthentication = true
+
             const [ USER, ERR ] = await checkAuth(socket, reader)
 
             // User could not authenticate properly.
             if (!USER || ERR) {
-                console.log(`<Client: ${IP}> Failed verification.`)
+                console.log(`<Client: ${socket.IP}> Failed verification.`)
                 return scripts.kick(socket, ERR || "Server error.")
             }
     
