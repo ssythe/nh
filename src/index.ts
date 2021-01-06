@@ -238,12 +238,8 @@ function initiateMap(map) {
     Game.mapName = mapName
 
     try {
-        const { environment, bricks, tools, teams, spawns } = loadBrk(map) // Load map (environment, bricks, spawns) into mapBuffer.
-            Game.world.environment = environment
-            Game.world.bricks = bricks
-            Game.world.spawns = spawns
-            Game.world.tools = tools
-            Game.world.teams = teams
+        const mapData = loadBrk(map)
+        Object.assign(Game.world, mapData)
     } catch (err) {
         console.error("Failure parsing brk: ", err && err.stack)
         return process.exit(1)
@@ -308,8 +304,10 @@ export function startServer(settings: GameSettings) {
         return process.exit(0)
     }
 
-    if (settings.scripts)
+    if (settings.scripts) {
         settings.scripts = resolve(process.cwd(), settings.scripts)
+        Game.userScripts = settings.scripts
+    }
 
     Game.port = settings.port
 
@@ -317,15 +315,16 @@ export function startServer(settings: GameSettings) {
 
     Game.disabledCoreScripts = settings.disabledCoreScripts || []
 
-    Game.userScripts = settings.scripts
-
     // Load the modules into Game.modules so the user can call them with getModule()
     settings.modules && settings.modules.forEach((module) => {
-        Game.modules[module] = require(module)
+        if (typeof module === 'string') {
+            Game.modules[module] = require(module)
+        } else if (typeof module === 'object') {
+            Object.assign(Game.modules, module)
+        }
     })
 
-    // Add phin for cheatsAdmin.js
-    Game.modules["phin"] = require("phin")
+    Game.modules['phin'] = require('phin')
 
     Game.recursiveLoading = settings.recursiveLoading || false
 

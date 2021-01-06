@@ -14,6 +14,7 @@ import Outfit from "./Outfit"
 import Tool from "./Tool"
 
 import { KeyTypes } from "../util/keys/whitelisted"
+import { assert } from "console"
 
 export enum CameraType {
     /**The camera is fixed in place. You can set the position of it. */
@@ -497,8 +498,10 @@ export default class Player extends EventEmitter {
     }
 
     async setScore(score: number) {
-        this.score = score 
+        if (isNaN(score)) throw 'Score must be a number.'
 
+        this.score = Number(score)
+        
         return createPlayerIds(this, "X")
             .broadcast()
     }

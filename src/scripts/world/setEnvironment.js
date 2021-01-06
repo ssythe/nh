@@ -31,7 +31,7 @@ async function setEnvironment(environment = {}, socket) {
 
     let promises = []
 
-    env_keys.forEach((prop) => {
+    for (let prop of env_keys) {
         const packet = new PacketBuilder("PlayerModification")
 
         let change = environment[prop]
@@ -68,7 +68,7 @@ async function setEnvironment(environment = {}, socket) {
         } else {
             promises.push(packet.broadcast())
         }
-    })
+    }
 
     return Promise.all(promises)
 }
