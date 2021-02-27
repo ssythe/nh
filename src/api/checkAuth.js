@@ -17,7 +17,7 @@ async function checkAuth(socket, reader) {
         const USER = {
             token: reader.readStringNT(),
             version: reader.readStringNT(),
-            brickplayer: false
+            clientId: 0
         }
 
         // Version check
@@ -26,7 +26,7 @@ async function checkAuth(socket, reader) {
 
         // User might be using Brickplayer
         if (reader.remaining())
-            USER.brickplayer = (reader.readUInt8() && true) || false
+            USER.clientId = reader.readUInt8() || 0
 
         console.log(`<Client: ${socket.IP}> Attempting authentication.`)
 
@@ -37,7 +37,8 @@ async function checkAuth(socket, reader) {
                 userId: playerId,
                 admin: false,
                 membershipType: 1,
-                brickplayer: USER.brickplayer
+                clientId: USER.clientId,
+                clientName: ['classic', 'brickplayer', 'player2'][USER.clientId]
             }]
         }
 
@@ -53,7 +54,8 @@ async function checkAuth(socket, reader) {
                     admin: data.user.is_admin,
                     // screw you jefemy
                     membershipType: (data.user.membership && data.user.membership.membership ) || 1,
-                    brickplayer: USER.brickplayer
+                    clientId: USER.clientId,
+                    clientName: ['classic', 'brickplayer', 'player2'][USER.clientId]
                 }]
             }
         } catch (err) {

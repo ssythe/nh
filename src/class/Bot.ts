@@ -121,6 +121,9 @@ export default class Bot extends EventEmitter {
             hat1: 0,
             hat2: 0,
             hat3: 0,
+            shirt: 0,
+            pants: 0,
+            tshirt: 0
         }
 
         this.on("newListener", (event) => {

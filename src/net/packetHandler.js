@@ -56,10 +56,11 @@ async function handlePacketType(type, socket, reader) {
                 username: { value: USER.username },
                 admin: { value: USER.admin },
                 membershipType: { value: USER.membershipType },
-                brickplayer: { value: USER.brickplayer }
+                clientId: { value: USER.clientId },
+                clientName: { value: USER.clientName }
             })
 
-            console.log(`Successfully verified! (Username: ${authUser.username} | ID: ${authUser.userId} | Admin: ${authUser.admin})`)
+            console.log(`Successfully verified! (Username: ${authUser.username} | ID: ${authUser.userId} | Admin: ${authUser.admin} | Client: ${authUser.clientName})`)
 
             // Finalize the player joining process.
             Game._newPlayer(authUser)

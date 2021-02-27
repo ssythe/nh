@@ -174,6 +174,18 @@ function createPlayerIdBuffer(player, idString = "") {
             case "h": { // Set items + arm to -1
                 break
             }
+            case "i": {
+                playerPacket.write("uint32", player.assets.shirt)
+                break
+            }
+            case "j": {
+                playerPacket.write("uint32", player.assets.pants)
+                break
+            }
+            case "k": {
+                playerPacket.write("uint32", player.assets.tshirt)
+                break
+            }
         }
     }
     

@@ -14,7 +14,24 @@ import Outfit from "./Outfit"
 import Tool from "./Tool"
 
 import { KeyTypes } from "../util/keys/whitelisted"
-import { assert } from "console"
+
+export enum ClientId {
+    /**The original client made by Luke */
+    Classic = 0,
+    /**Brickplayer by Ty */
+    BrickPlayer = 1,
+    /**Player2 by Ezcha */
+    Player2 = 2,
+}
+
+export enum ClientName {
+    /**The original client made by Luke */
+    Classic = "classic",
+    /**Brickplayer by Ty */
+    BrickPlayer = "brickplayer",
+    /**Player2 by Ezcha */
+    Player2 = "player2",
+}
 
 export enum CameraType {
     /**The camera is fixed in place. You can set the position of it. */
@@ -42,6 +59,9 @@ export interface Assets {
     hat1: number,
     hat2: number,
     hat3: number,
+    shirt: number,
+    pants: number,
+    tshirt: number
 }
 
 enum PlayerEvents {
@@ -174,6 +194,12 @@ export default class Player extends EventEmitter {
 
     /** The membershipType of the player. */
     readonly membershipType: number
+
+    /** The ID of the player's client */
+    readonly clientId: ClientId
+
+    /** The name of the player's client */
+    readonly clientName: ClientName
 
     /** True if the player has left the game. */
     destroyed: boolean = false
@@ -328,6 +354,9 @@ export default class Player extends EventEmitter {
             hat1: 0,
             hat2: 0,
             hat3: 0,
+            shirt: 0,
+            pants: 0,
+            tshirt: 0
         }
 
         this.maxHealth = 100
@@ -347,6 +376,10 @@ export default class Player extends EventEmitter {
         this.score = 0
 
         this.toolEquipped = null
+
+        this.clientId = ClientId.Classic
+
+        this.clientName = ClientName.Classic
     }
 
     /** 
@@ -767,7 +800,7 @@ export default class Player extends EventEmitter {
      */
     async setAvatar(userId: number) {
         await scripts.setAvatar(this, userId)
-        let packet = createPlayerIds(this, "KLMNOPQUVW")
+        let packet = createPlayerIds(this, "KLMNOPQUVWijk")
         return packet.broadcast()
     }
 
