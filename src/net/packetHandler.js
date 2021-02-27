@@ -60,7 +60,7 @@ async function handlePacketType(type, socket, reader) {
                 clientName: { value: USER.clientName }
             })
 
-            console.log(`Successfully verified! (Username: ${authUser.username} | ID: ${authUser.userId} | Admin: ${authUser.admin} | Client: ${authUser.clientName})`)
+            console.log(`Successfully verified! (Username: ${authUser.username} | ID: ${authUser.userId} | Admin: ${authUser.admin})`)
 
             // Finalize the player joining process.
             Game._newPlayer(authUser)

@@ -15,22 +15,13 @@ import Tool from "./Tool"
 
 import { KeyTypes } from "../util/keys/whitelisted"
 
-export enum ClientId {
+export enum Client {
     /**The original client made by Luke */
     Classic = 0,
     /**Brickplayer by Ty */
     BrickPlayer = 1,
     /**Player2 by Ezcha */
     Player2 = 2,
-}
-
-export enum ClientName {
-    /**The original client made by Luke */
-    Classic = "classic",
-    /**Brickplayer by Ty */
-    BrickPlayer = "brickplayer",
-    /**Player2 by Ezcha */
-    Player2 = "player2",
 }
 
 export enum CameraType {
@@ -195,11 +186,8 @@ export default class Player extends EventEmitter {
     /** The membershipType of the player. */
     readonly membershipType: number
 
-    /** The ID of the player's client */
-    readonly clientId: ClientId
-
-    /** The name of the player's client */
-    readonly clientName: ClientName
+    /** The player's client type */
+    readonly client: Client
 
     /** True if the player has left the game. */
     destroyed: boolean = false
@@ -800,7 +788,7 @@ export default class Player extends EventEmitter {
      */
     async setAvatar(userId: number) {
         await scripts.setAvatar(this, userId)
-        let packet = createPlayerIds(this, "KLMNOPQUVWijk")
+        let packet = createPlayerIds(this, "KLMNOPQUVWRST")
         return packet.broadcast()
     }
 

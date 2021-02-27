@@ -37,8 +37,7 @@ async function checkAuth(socket, reader) {
                 userId: playerId,
                 admin: false,
                 membershipType: 1,
-                clientId: USER.clientId,
-                clientName: ['classic', 'brickplayer', 'player2'][USER.clientId]
+                client: USER.clientId
             }]
         }
 
@@ -54,8 +53,7 @@ async function checkAuth(socket, reader) {
                     admin: data.user.is_admin,
                     // screw you jefemy
                     membershipType: (data.user.membership && data.user.membership.membership ) || 1,
-                    clientId: USER.clientId,
-                    clientName: ['classic', 'brickplayer', 'player2'][USER.clientId]
+                    client: USER.clientId
                 }]
             }
         } catch (err) {

@@ -273,7 +273,7 @@ export default class Bot extends EventEmitter {
     /** Sets the bots avatar to a provided userId. */
     async setAvatar(userId: number) {
         await setAvatar(this, userId)
-        return createBotIds(this, "KLMNOPQUVW")
+        return createBotIds(this, "KLMNOPQUVWRST")
     }
 
     /** Starts hit detection for the bot. */
