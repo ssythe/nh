@@ -56,8 +56,7 @@ async function handlePacketType(type, socket, reader) {
                 username: { value: USER.username },
                 admin: { value: USER.admin },
                 membershipType: { value: USER.membershipType },
-                clientId: { value: USER.clientId },
-                clientName: { value: USER.clientName }
+                client: { value: USER.client }
             })
 
             console.log(`Successfully verified! (Username: ${authUser.username} | ID: ${authUser.userId} | Admin: ${authUser.admin})`)
