@@ -365,9 +365,7 @@ export default class Player extends EventEmitter {
 
         this.toolEquipped = null
 
-        this.clientId = ClientId.Classic
-
-        this.clientName = ClientName.Classic
+        this.client = Client.Classic
     }
 
     /** 
