@@ -7,7 +7,7 @@ const formatHex = require("../../util/color/formatHex").default
 function botPacket(bot) {
     const botBuffer = new PacketBuilder("Bot")
         .write("uint32", bot.netId)
-        .write("string", "ABCDEFGHIJKLMNOPQUVWX")
+        .write("string", "ABCDEFGHIJKLMNOPQRSTUVWX")
         .write("string", bot.name)
 
         // Position
@@ -35,6 +35,9 @@ function botPacket(bot) {
 
         // Clothing
         .write("uint32", bot.assets.face)
+        .write("uint32", bot.assets.shirt)
+        .write("uint32", bot.assets.pants)
+        .write("uint32", bot.assets.tshirt)
 
         // Hats
         .write("uint32", bot.assets.hat1)

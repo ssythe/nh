@@ -14,7 +14,15 @@ import Outfit from "./Outfit"
 import Tool from "./Tool"
 
 import { KeyTypes } from "../util/keys/whitelisted"
-import { assert } from "console"
+
+export enum Client {
+    /**The original client made by Luke */
+    Classic = 0,
+    /**Brickplayer by Ty */
+    BrickPlayer = 1,
+    /**Player2 by Ezcha */
+    Player2 = 2,
+}
 
 export enum CameraType {
     /**The camera is fixed in place. You can set the position of it. */
@@ -42,6 +50,9 @@ export interface Assets {
     hat1: number,
     hat2: number,
     hat3: number,
+    shirt: number,
+    pants: number,
+    tshirt: number
 }
 
 enum PlayerEvents {
@@ -174,6 +185,9 @@ export default class Player extends EventEmitter {
 
     /** The membershipType of the player. */
     readonly membershipType: number
+
+    /** The player's client type */
+    readonly client: Client
 
     /** True if the player has left the game. */
     destroyed: boolean = false
@@ -328,6 +342,9 @@ export default class Player extends EventEmitter {
             hat1: 0,
             hat2: 0,
             hat3: 0,
+            shirt: 0,
+            pants: 0,
+            tshirt: 0
         }
 
         this.maxHealth = 100
@@ -347,6 +364,8 @@ export default class Player extends EventEmitter {
         this.score = 0
 
         this.toolEquipped = null
+
+        this.client = Client.Classic
     }
 
     /** 
@@ -767,7 +786,7 @@ export default class Player extends EventEmitter {
      */
     async setAvatar(userId: number) {
         await scripts.setAvatar(this, userId)
-        let packet = createPlayerIds(this, "KLMNOPQUVW")
+        let packet = createPlayerIds(this, "KLMNOPQRSTUVW")
         return packet.broadcast()
     }
 
@@ -901,12 +920,12 @@ export default class Player extends EventEmitter {
 
     private _createFigures() {
         // Update player's figure for others
-        createPlayerIds(this, "ABCDEFGHIKLMNOPQUVWXYfg")
+        createPlayerIds(this, "ABCDEFGHIKLMNOPQRSTUVWXYfg")
             .broadcastExcept([this])
         // Update other figures for this player
         for (let player of Game.players) {
             if (player !== this) {
-                createPlayerIds(player, "ABCDEFGHIKLMNOPQUVWXYfg")
+                createPlayerIds(player, "ABCDEFGHIKLMNOPQRSTUVWXYfg")
                     .send(this.socket)
             }
         }

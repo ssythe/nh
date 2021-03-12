@@ -14,6 +14,7 @@ function sendAuthInfo(player) {
         .write("string", player.username)
         .write("bool", player.admin)
         .write("uint8", player.membershipType)
+        .write("uint32", Game.gameId)
     
     return auth.send(player.socket)
 }

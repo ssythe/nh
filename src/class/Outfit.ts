@@ -61,6 +61,27 @@ export default class Outfit {
         return this
     }
 
+    /** Sets the player's shirt to the asset id specified. */
+    shirt(shirtId: number) {
+        this.assets.shirt = shirtId
+        this._idString.add("R")
+        return this
+    }
+
+    /** Sets the player's pants to the asset id specified. */
+    pants(pantsId: number) {
+        this.assets.pants = pantsId
+        this._idString.add("S")
+        return this
+    }
+
+    /** Sets the player's tshirt to the asset id specified. */
+    tshirt(tshirtId: number) {
+        this.assets.tshirt = tshirtId
+        this._idString.add("T")
+        return this
+    }
+
     /** Sets all of the player's body colors to a hex string. */
     body(color: string) {
         this.colors.head = color

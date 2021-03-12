@@ -121,6 +121,9 @@ export default class Bot extends EventEmitter {
             hat1: 0,
             hat2: 0,
             hat3: 0,
+            shirt: 0,
+            pants: 0,
+            tshirt: 0
         }
 
         this.on("newListener", (event) => {
@@ -270,7 +273,7 @@ export default class Bot extends EventEmitter {
     /** Sets the bots avatar to a provided userId. */
     async setAvatar(userId: number) {
         await setAvatar(this, userId)
-        return createBotIds(this, "KLMNOPQUVW")
+        return createBotIds(this, "KLMNOPQUVWRST")
     }
 
     /** Starts hit detection for the bot. */
