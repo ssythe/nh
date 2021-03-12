@@ -78,6 +78,18 @@ function createBotIdBuffer(bot, idString = "") {
                 botPacket.write("uint32", bot.assets.face)
                 break
             }
+            case "R": {
+                botPacket.write("uint32", bot.assets.shirt)
+                break
+            }
+            case "S": {
+                botPacket.write("uint32", bot.assets.pants)
+                break
+            }
+            case "T": {
+                botPacket.write("uint32", bot.assets.tshirt)
+                break
+            }
             case "U": {
                 botPacket.write("uint32", bot.assets.hat1)
                 break
@@ -92,18 +104,6 @@ function createBotIdBuffer(bot, idString = "") {
             }
             case "X": {
                 botPacket.write("string", formatHex(bot.speech))
-                break
-            }
-            case "R": {
-                botPacket.write("uint32", bot.assets.shirt)
-                break
-            }
-            case "S": {
-                botPacket.write("uint32", bot.assets.pants)
-                break
-            }
-            case "T": {
-                botPacket.write("uint32", bot.assets.tshirt)
                 break
             }
         }

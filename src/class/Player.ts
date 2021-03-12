@@ -786,7 +786,7 @@ export default class Player extends EventEmitter {
      */
     async setAvatar(userId: number) {
         await scripts.setAvatar(this, userId)
-        let packet = createPlayerIds(this, "KLMNOPQUVWRST")
+        let packet = createPlayerIds(this, "KLMNOPQRSTUVW")
         return packet.broadcast()
     }
 
@@ -920,12 +920,12 @@ export default class Player extends EventEmitter {
 
     private _createFigures() {
         // Update player's figure for others
-        createPlayerIds(this, "ABCDEFGHIKLMNOPQUVWXYfg")
+        createPlayerIds(this, "ABCDEFGHIKLMNOPQRSTUVWXYfg")
             .broadcastExcept([this])
         // Update other figures for this player
         for (let player of Game.players) {
             if (player !== this) {
-                createPlayerIds(player, "ABCDEFGHIKLMNOPQUVWXYfg")
+                createPlayerIds(player, "ABCDEFGHIKLMNOPQRSTUVWXYfg")
                     .send(this.socket)
             }
         }

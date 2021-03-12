@@ -34,7 +34,7 @@ async function checkAuth(socket, reader) {
             playerId++
             return [{
                 username: "Player" + playerId,
-                userId: playerId,
+                userId: 2760,
                 admin: false,
                 membershipType: 1,
                 client: USER.clientId
