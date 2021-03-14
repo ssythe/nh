@@ -151,7 +151,7 @@ export default class Outfit {
     copy(player: Player | Bot) {
         this.assets = Object.assign({}, player.assets)
         this.colors = Object.assign({}, player.colors)
-        this._idString = new Set("UVWQKLNMOP")
+        this._idString = new Set("UVWQRSTKLNMOP")
         return this
     }
 

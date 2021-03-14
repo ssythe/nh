@@ -993,7 +993,7 @@ export default class Player extends EventEmitter {
         this._createFigures()
 
         if (this.loadAvatar) {
-            await this.setAvatar(this.userId)
+            this.setAvatar(this.userId)
                 .then(() => { 
                     this.emit("avatarLoaded")
                 })
