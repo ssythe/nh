@@ -15,7 +15,7 @@ export interface PacketBuilderOptions {
 export enum PacketEnums {
     Authentication = 1,
 
-    SendBrick = 2,
+    SendBrick = 17,
 
     SendPlayers = 3,
 
