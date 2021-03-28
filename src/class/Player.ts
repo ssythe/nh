@@ -751,9 +751,7 @@ export default class Player extends EventEmitter {
         
         this.localBricks.push(localBrick)
 
-        const packet = new PacketBuilder(PacketEnums.SendBrick)
-        
-        scripts.addBrickProperties(packet, localBrick)
+        const packet = scripts.loadBricks([localBrick])
 
         await packet.send(this.socket)
 

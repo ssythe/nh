@@ -1,8 +1,6 @@
 const { hexToDec } = require("../../util/color/colorModule").default
 
-function addBrickProperties(packet, brick, multiple) {
-    if (!multiple) packet.write("uint32", 1)
-
+function addBrickProperties(packet, brick) {
     packet.write("float", brick.position.x)
     packet.write("float", brick.position.y)
     packet.write("float", brick.position.z)

@@ -364,7 +364,7 @@ export class Game extends EventEmitter {
     async newBrick(brick: Brick) {
         this.world.bricks.push(brick)
 
-        const packet = new PacketBuilder(PacketEnums.SendBrick)
+        const packet = scripts.loadBricks([brick])
 
         scripts.addBrickProperties(packet, brick)
 
