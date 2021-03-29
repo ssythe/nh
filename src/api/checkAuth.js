@@ -42,7 +42,7 @@ async function checkAuth(socket, reader) {
         }
 
         // Invalid token format.
-        if (!UID_REGEX.test(USER.token)) return
+        if (!UID_REGEX.test(USER.token)) return [ false, "Token format is incorrect." ]
 
         try {
             const data = (await phin({url: AUTHENTICATION_API(USER.token, Game.gameId)})).body
