@@ -147,7 +147,7 @@ export class Game extends EventEmitter {
     /** @readonly The package.json "version" of the node-hill library. **/
     version: string
 
-    /** @readonly The gameId of the server. */
+    /** @readonly The set id of the server. */
     gameId: number
 
     /** @readonly The port of the server. */
@@ -336,18 +336,9 @@ export class Game extends EventEmitter {
         }
     }
 
-    /** Returns the currently hosted sets data, if the game is being hosted by the provided userId - will throw an error 
-     * if the userId provided is not the host.
-     */
-    async getThisSetDataFromHostId(userId: number) {
-        const setData = await scripts.getSetDataFromUser(userId)
-
-        for (let set of setData.data) {
-            if (set.id === this.gameId)
-                return set
-        }
-
-        throw new Error("userId provided is not the current host of this server.")
+    /** Returns the data for provided setId. **/
+    async getSetData(setId: number) {
+        return scripts.getSetData(setId)
     }
 
     /** "Parents" a bot class to the game. **/

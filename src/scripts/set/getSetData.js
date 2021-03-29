@@ -1,12 +1,11 @@
 const phin = require("phin")
     .defaults({ parse: "json", timeout: 12000 })
 
-const API = `https://www.brick-hill.com/api/profile/sets/`
+const API = `https://api.brick-hill.com/v1/sets/`
 
-async function getSetDataFromUser(userId) {
-    const data = (await phin({url: API + userId})).body
-    
+async function getSetData(setId) {
+    const data = (await phin({url: API + setId})).body
     return data
 }
 
-module.exports = getSetDataFromUser
+module.exports = getSetData
