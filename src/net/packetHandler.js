@@ -15,8 +15,6 @@ let generateTitle = require("../util/chat/generateTitle").default
 
 let scripts = require("../scripts")
 
-let { runScript } = require("../scripts/loader")
-
 let { whiteListedKey } = require("../util/keys/whitelisted")
 
 let checkAuth = require("../api/checkAuth")
@@ -38,7 +36,7 @@ async function handlePacketType(type, socket, reader) {
             // User could not authenticate properly.
             if (!USER || ERR) {
                 console.log(`<Client: ${socket.IP}> Failed verification.`)
-                return runScript("kick")(socket, ERR || "Server error.")
+                return scripts.kick(socket, ERR || "Server error.")
             }
     
             // Check if the users socket is still active after authentication.
@@ -47,7 +45,7 @@ async function handlePacketType(type, socket, reader) {
             // Check if player is already in game + kick them if so.
             for (let player of Game.players) {
                 if (player.userId === USER.userId)
-                    return runScript("kick")(socket, "You can only join this game once per account.")
+                    return scripts.kick(socket, "You can only join this game once per account.")
             }
 
             const authUser = new Player(socket)
