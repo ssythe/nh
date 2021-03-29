@@ -195,7 +195,8 @@ export default class Brick extends EventEmitter {
 
     async setClickable(clickable: boolean, clickDistance = 50) {
         this.clickable = clickable
-        this.clickDistance = clickDistance
+        if (clickDistance)
+            this.clickDistance = clickDistance
         return createBrickPacket(this, "clickable")
     }
 
@@ -212,7 +213,7 @@ export default class Brick extends EventEmitter {
     }
 
     clone() {
-        let newBrick = new Brick(this.position, this.scale, this.color)
+        const newBrick = new Brick(this.position, this.scale, this.color)
             newBrick.name = this.name
             newBrick.lightColor = this.lightColor
             newBrick.clickable = this.clickable
@@ -221,6 +222,12 @@ export default class Brick extends EventEmitter {
             newBrick.collision = this.collision
             newBrick.rotation = this.rotation
             newBrick.lightEnabled = this.lightEnabled
+            newBrick.lightColor = this.lightColor
+            newBrick.lightRange = this.lightRange
+            newBrick.model = this.model
+            newBrick.clickable = this.clickable
+            newBrick.clickDistance = this.clickDistance
+
         return newBrick
     }
 

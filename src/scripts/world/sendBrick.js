@@ -1,6 +1,7 @@
 const { hexToDec } = require("../../util/color/colorModule").default
 
 function addBrickProperties(packet, brick) {
+    packet.write("uint32", brick.netId)
     packet.write("float", brick.position.x)
     packet.write("float", brick.position.y)
     packet.write("float", brick.position.z)
@@ -9,7 +10,6 @@ function addBrickProperties(packet, brick) {
     packet.write("float", brick.scale.z)
     packet.write("uint32", hexToDec(brick.color))
     packet.write("float", brick.visibility)
-    packet.write("uint32", brick.netId)
     // Additional attributes
     let attributes = ""
     if (brick.rotation)
