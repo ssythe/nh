@@ -49,6 +49,7 @@ function addBrickProperties(packet, brick) {
                 packet.write("uint32", brick.lightRange)
                 break;
             case "G":
+                packet.write("bool", brick.clickable)
                 packet.write("uint32", brick.clickDistance)
                 break;
         }
