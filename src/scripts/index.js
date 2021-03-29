@@ -30,5 +30,5 @@ module.exports = {
     // Tool
     "toolPacket": require("./tool/tool"),
     // Set
-    "getSetDataFromUser": require("./set/getSetData")
+    "getSetData": require("./set/getSetData")
 }

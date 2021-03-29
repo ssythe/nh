@@ -1,43 +1,60 @@
-const { hexToRGB } = require("../../util/color/colorModule").default
+const { hexToDec } = require("../../util/color/colorModule").default
 
 function addBrickProperties(packet, brick) {
-    // Create brick header
-    let properties = ""
-    properties = `${brick.position.x} ${brick.position.y} ${brick.position.z} `
-    properties += `${brick.scale.x} ${brick.scale.y} ${brick.scale.z} `
-    const rgb = hexToRGB(brick.color)
-    properties += `${Math.round(100 * rgb[0] / 255) / 100} `
-    properties += `${Math.round(100 * rgb[1] / 255) / 100} `
-    properties += `${Math.round(100 * rgb[2] / 255) / 100} `
-    properties += `${brick.visibility}`
-
-    packet.write("string", properties + "\r\n")
-
-    packet.write("string", `\t+NAME ${brick.netId}\r\n`)
+    packet.write("uint32", brick.netId)
+    packet.write("float", brick.position.x)
+    packet.write("float", brick.position.y)
+    packet.write("float", brick.position.z)
+    packet.write("float", brick.scale.x)
+    packet.write("float", brick.scale.y)
+    packet.write("float", brick.scale.z)
+    packet.write("uint32", hexToDec(brick.color))
+    packet.write("float", brick.visibility)
+    // Additional attributes
+    let attributes = ""
+    if (brick.rotation)
+        attributes += "A"
 
     if (brick.shape)
-        packet.write("string", `\t+SHAPE ${brick.shape}\r\n`)
-
-    if (brick.rotation)
-        packet.write("string", `\t+ROT ${brick.rotation}\r\n`)
+        attributes += "B"
 
     if (brick.model)
-        packet.write("string", `\t+MODEL ${brick.model}\r\n`)
+        attributes += "C"
 
-    if (brick.lightEnabled) {
-        let rgb = hexToRGB(brick.lightColor)
-        rgb[0] = Math.round(100 * rgb[0] / 255) / 100
-        rgb[1] = Math.round(100 * rgb[1] / 255) / 100
-        rgb[2] = Math.round(100 * rgb[2] / 255) / 100
-        const newRGB = `${rgb[0]} ${rgb[1]} ${rgb[2]}`
-        packet.write("string", `\t+LIGHT ${newRGB} ${brick.lightRange}\r\n`)
-    }
-
-    if (brick.clickable == true)
-        packet.write("string", `\t+CLICKABLE ${brick.clickDistance}\r\n`)
+    if (brick.lightEnabled)
+        attributes += "D"
 
     if (!brick.collision)
-        packet.write("string", '\t+NOCOLLISION\r\n')
+        attributes += "F"
+
+    if (brick.clickable)
+        attributes += "G"
+
+    packet.write("string", attributes)
+
+    for (let i = 0; i < attributes.length; i++) {
+        const ID = attributes.charAt(i)
+        switch (ID) {
+            case "A":
+                packet.write("int32", brick.rotation)
+                break;
+            case "B":
+                packet.write("string", brick.shape)
+                break;
+            case "C":
+                packet.write("uint32", brick.model)
+                break;
+            case "D":
+                packet.write("uint32", hexToDec(brick.lightColor))
+                packet.write("uint32", brick.lightRange)
+                break;
+            case "G":
+                packet.write("bool", brick.clickable)
+                packet.write("uint32", brick.clickDistance)
+                break;
+        }
+
+    }
 }
 
 module.exports = addBrickProperties
