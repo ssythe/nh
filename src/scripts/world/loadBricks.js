@@ -9,7 +9,7 @@ function loadBricks(bricks = []) {
     packet.write("uint32", bricks.length)
 
     for (let brick of bricks)
-        addBrickProperties(packet, brick, true)
+        addBrickProperties(packet, brick)
 
     return packet
 }
