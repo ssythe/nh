@@ -77,11 +77,16 @@ async function handlePacketType(type, socket, reader) {
                 ypos = reader.readFloatLE()
                 zpos = reader.readFloatLE()
                 zrot = reader.readFloatLE()
+                try { // Support for older clients
+                    yrot = reader.readFloatLE()
+                } catch(err) {
+                    yrot = 0
+                }
             } catch (err) {
                 return false // Drop the packet
             }
             player._updatePositionForOthers([
-                xpos, ypos, zpos, zrot
+                xpos, ypos, zpos, zrot, yrot
             ])
             break
         }
