@@ -78,7 +78,7 @@ async function handlePacketType(type, socket, reader) {
                 ypos = reader.readFloatLE()
                 zpos = reader.readFloatLE()
                 zrot = reader.readFloatLE()
-                xrot = 0
+                xrot = reader.readFloatLE()
             } catch (err) {
                 return false // Drop the packet
             }
