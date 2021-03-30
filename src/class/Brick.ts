@@ -140,7 +140,7 @@ export default class Brick extends EventEmitter {
         return new Vector3(
             this.position.x + this.scale.x/2, 
             this.position.y + this.scale.y/2, 
-            this.scale.z
+            this.position.z + this.scale.z/2
         )
     }
 

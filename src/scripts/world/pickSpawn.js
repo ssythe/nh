@@ -18,11 +18,7 @@ function pickSpawn() {
 
     if (SPAWN_LENGTH > 0) {
         const SPAWN_BRICK = Game.world.spawns[Math.floor(Math.random() * SPAWN_LENGTH)]
-        return new Vector3(
-            SPAWN_BRICK.position.x + SPAWN_BRICK.scale.x/2,
-            SPAWN_BRICK.position.y + SPAWN_BRICK.scale.y/2,
-            SPAWN_BRICK.position.z + SPAWN_BRICK.scale.z/2
-        )
+        return SPAWN_BRICK.center
     }
 
     const BASE_SIZE = Game.world.environment.baseSize

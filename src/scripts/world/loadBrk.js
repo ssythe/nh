@@ -88,7 +88,7 @@ function loadBrk(map) {
                 continue
             }
             case "ROT": {
-                bricks[currentBrick].rotation = VALUE
+                bricks[currentBrick].rotation = Number(VALUE)
                 continue
             }
             case "SHAPE": {
@@ -98,7 +98,7 @@ function loadBrk(map) {
                 continue
             }
             case "MODEL": {
-                bricks[currentBrick].model = VALUE
+                bricks[currentBrick].model = Number(VALUE)
                 continue
             }
             case "NOCOLLISION": {
