@@ -736,7 +736,7 @@ export default class Player extends EventEmitter {
         }
 
         if(pos[4] && this.rotation.x != pos[4]) {
-            this.rotation.x = pos[4]
+            this.cameraRotation.x = pos[4]
         }
 
         if (idBuffer.length) {
