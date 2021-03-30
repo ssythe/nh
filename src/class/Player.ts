@@ -735,6 +735,10 @@ export default class Player extends EventEmitter {
             this.rotation.z = pos[3]
         }
 
+        if(pos[4] && this.rotation.x != pos[4]) {
+            this.rotation.x = pos[4]
+        }
+
         if (idBuffer.length) {
             this.emit("moved", this.position, this.rotation.z)
 
