@@ -71,17 +71,19 @@ async function handlePacketType(type, socket, reader) {
             let xpos,
                 ypos,
                 zpos,
-                zrot;
+                zrot,
+                xrot;
             try {
                 xpos = reader.readFloatLE()
                 ypos = reader.readFloatLE()
                 zpos = reader.readFloatLE()
                 zrot = reader.readFloatLE()
+                xrot = reader.readFloatLE()
             } catch (err) {
                 return false // Drop the packet
             }
             player._updatePositionForOthers([
-                xpos, ypos, zpos, zrot
+                xpos, ypos, zpos, zrot, xrot
             ])
             break
         }
