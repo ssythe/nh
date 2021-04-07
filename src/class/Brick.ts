@@ -227,7 +227,7 @@ export default class Brick extends EventEmitter {
             newBrick.model = this.model
             newBrick.clickable = this.clickable
             newBrick.clickDistance = this.clickDistance
-
+            newBrick.shape = this.shape
         return newBrick
     }
 
